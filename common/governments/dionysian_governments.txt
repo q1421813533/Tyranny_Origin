@@ -1,0 +1,31 @@
+
+gov_dionysian_empire = {
+	ruler_title = RT_DIONYSIAN_OVERLORD
+	ruler_title_female = RT_DIONYSIAN_OVERLORD
+	heir_title = RT_DIONYSIN_PM
+	heir_title_female = RT_DIONYSIN_PM
+
+	possible = {
+		has_authority = auth_imperial
+		has_origin = dionysian_origin
+		NOT = { has_ethic = ethic_fanatic_authoritarian }
+	}
+
+	weight = {
+		base = 110000
+	}
+}
+
+gov_dionysian_dictatorship = {
+	ruler_title = RT_DIONYSIAN_OVERLORD
+	ruler_title_female = RT_DIONYSIAN_OVERLORD
+
+	possible = {
+		has_authority = auth_dictatorial
+		has_origin = dionysian_origin
+	}
+
+	weight = {
+		base = 110000
+	}
+}

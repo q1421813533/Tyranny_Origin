@@ -1,0 +1,153 @@
+opinion_edict_attck_an_uninhabited_world = {
+	opinion = {
+		base = -20
+	}
+
+	accumulative = yes
+
+	min = -200
+
+	decay = {
+		base = 1
+	}
+}
+
+opinion_edict_attck_a_world = {
+	opinion = {
+		base = -50
+	}
+
+	accumulative = yes
+
+	min = -500
+
+	decay = {
+		base = 1
+	}
+}
+
+opinion_edict_attck_my_uninhabited_world = {
+	opinion = {
+		base = -200
+	}
+
+	accumulative = yes
+
+	min = -2000
+
+	decay = {
+		base = 1
+	}	
+}
+
+opinion_edict_attck_my_world = {
+
+	opinion = {
+		base = -500
+	}
+
+	accumulative = yes
+
+	min = -5000
+
+	decay = {
+		base = 1
+	}
+
+}
+
+opinion_edict_destroy_owned_star_system = {
+
+	opinion = {
+		base = -80
+	}
+
+	accumulative = yes
+
+	min = -800
+
+	decay = {
+		base = 1
+	}
+
+}
+
+opinion_edict_destroy_netural_star_system = {
+
+	opinion = {
+		base = -30
+	}
+
+	accumulative = yes
+
+	min = -300
+
+	decay = {
+		base = 1
+	}
+
+}
+
+
+
+
+opinion_edict_destroy_my_star_system = {
+
+	opinion = {
+		base = -1000
+	}
+
+	accumulative = yes
+
+	min = -5000
+
+	decay = {
+		base = 1
+	}
+
+}
+
+
+
+opinion_edict_attck_a_primitive_world = {
+	opinion = {
+		base = -20
+	}
+
+	accumulative = yes
+
+	min = -200
+
+	decay = {
+		base = 1
+	}
+}
+
+opinion_edict_attck_a_primitive_world_phile = {
+	opinion = {
+		base = -30
+	}
+
+	accumulative = yes
+
+	min = -300
+
+	decay = {
+		base = 1
+	}
+}
+
+
+triggered_opinion_dionysian_constitutional_monarchy = {
+	trigger = {
+		is_country_type = default
+		has_authority = auth_democratic
+		FROM = {
+			can_use_dionyian_PM = yes
+		}
+	}
+
+	opinion = {
+		base = 10
+	}
+}

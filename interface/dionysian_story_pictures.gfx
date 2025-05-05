@@ -1,0 +1,47 @@
+
+
+spriteTypes = {
+	spriteType = {
+		name = "GFX_dionysian_empower_archon"
+		textureFile = "gfx/interface/icons/modifiers/mod_acceptlesson.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_empower_psykers"
+		textureFile = "gfx/interface/icons/modifiers/mod_rejectlesson.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_fallen_info_control"
+		textureFile = "gfx/interface/icons/modifiers/mod_negative_pop_happiness.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_fallen_info_ignore"
+		textureFile = "gfx/interface/icons/modifiers/mod_planet_stability_mult_negative.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_fallen_info_support"
+		textureFile = "gfx/interface/icons/modifiers/cost_of_freedom_penalty.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_levi_hot"
+		textureFile = "gfx/interface/icons/modifiers/mod_unity_gain_mult.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_meet_fallen_empire_pic"
+		texturefile = "gfx/event_pictures/fallen_empire.dds"
+		masking_texture = "gfx/interface/situation_log/event_mask.dds"
+		alwaystransparent = yes
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_logic_pic"
+		texturefile = "gfx/event_pictures/surreal_visions.dds"
+		masking_texture = "gfx/interface/situation_log/event_mask.dds"
+		alwaystransparent = yes
+	}
+	spriteType = {
+		name = "GFX_dionysian_flesh_rev_pic"
+		texturefile = "gfx/event_pictures/cybernetic_creed.dds"
+		masking_texture = "gfx/interface/situation_log/event_mask.dds"
+		alwaystransparent = yes
+	}
+}
+

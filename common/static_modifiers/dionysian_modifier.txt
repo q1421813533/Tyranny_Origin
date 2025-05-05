@@ -1,0 +1,208 @@
+dionysian_party_time = {
+	icon = GFX_dionysian_party_time
+	pop_cat_worker_political_power = 2
+	pop_cat_specialist_political_power = 2
+	pop_cat_ruler_political_power = 1
+}
+
+dionysian_advance_election_cooldown = {
+	icon = GFX_dionysian_advance_election_cooldown
+}
+
+dionysian_election_chaos = {
+	icon = GFX_dionysian_party_punish
+	country_unity_produces_mult = -0.5
+	planet_stability_add = -10
+}
+
+dionysian_election_punish = {
+	icon = GFX_dionysian_party_punish
+	pop_government_ethic_attraction = -0.5
+	country_unity_produces_mult = -0.5
+	planet_stability_add = -20
+}
+
+dionysian_politics_collapse = {
+	icon = "gfx/interface/icons/modifiers/mod_pop_decline_speed.dds"
+	pop_government_ethic_attraction = -1.0
+	country_unity_produces_mult = -1.0
+	planet_stability_add = -50
+	planet_crime_add = 50
+	planet_jobs_produces_mult = -0.20
+	pop_citizen_happiness = -0.20
+}
+
+dionysian_shape_world_on_planet = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_rejuvenation.dds"
+	icon_frame = 1
+
+	terraform_speed_mult = 2.0
+}
+
+dionysian_edict_damaging_planet = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_burning_settlement.dds"
+	icon_frame = 3
+	
+	habitability_ceil_add = -0.6
+	pop_environment_tolerance = -0.5
+	planet_buildings_cost_mult = 1
+	planet_districts_cost_mult = 1
+	terraform_speed_mult = -2
+	planet_immigration_pull_mult = -10
+	planet_emigration_push_add = 100
+}
+
+dionysian_storm_edict_on_star = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_wormhole.dds"
+	icon_frame = 2
+}
+
+dionysian_psi_edict_on_star = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_shroud_eaten_population.dds"
+	icon_frame = 1
+}
+
+
+dionysian_edict_cooldown = {
+	icon = GFX_eidct_cooldown
+}
+
+dionysian_edict_remain_on_captial = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unstable_tectonics.dds"
+	icon_frame = 3
+	
+	habitability_ceil_add = -0.3
+	planet_jobs_energy_produces_mult = 0.1
+}
+
+
+dionysian_community_dip = {
+	icon = GFX_dionysian_community_dip
+	
+	diplo_weight_mult = 0.10
+	country_trust_growth = -0.10
+}
+
+
+dionysian_empower_archons = {
+	icon = GFX_dionysian_empower_archon
+	
+	job_telepath_per_pop = 0.031
+}
+
+dionysian_empower_psykers = {
+	icon = GFX_dionysian_empower_psykers
+
+	empire_size_pops_mult = -0.1
+	custom_tooltip = dionysian_empower_psykers_tooltip
+}
+
+dionysian_moving_homeworld = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_land_appropriated.dds"
+	icon_frame = 1
+
+	pop_resettlement_cost_mult = -0.5
+	planet_emigration_push_add = 100
+}
+
+dionysian_remember_homeworld = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_artist_monument_erected.dds"
+	icon_frame = 1
+
+	planet_culture_workers_unity_produces_mult = 0.4
+	planet_jobs_unity_produces_mult = 0.2
+}
+
+dionysian_new_capital = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_arcology_project.dds"
+	icon_frame = 1
+
+	planet_resettlement_unemployed_destination_mult = 0.25
+	planet_immigration_pull_mult = 1
+}
+
+dionysian_absorbed_souls_1 = {
+	ship_shield_add = 50000
+	ship_hull_add = 20000
+	ship_shield_regen_add_static = 50
+	ship_weapon_damage = 1
+	ship_fire_rate_mult = 0.8
+}
+
+dionysian_absorbed_souls_2 = {
+	ship_shield_add = 100000
+	ship_hull_add = 400000
+	ship_shield_regen_add_static = 100
+	ship_weapon_damage = 1.5
+	ship_fire_rate_mult = 1.2
+}
+
+dionysian_absorbed_souls_3 = {
+	ship_shield_add = 150000
+	ship_hull_add = 60000
+	ship_shield_regen_add_static = 150
+	ship_weapon_damage = 2
+	ship_fire_rate_mult = 1.6
+}
+
+dionysian_absorbed_souls_4 = {
+	ship_shield_add = 200000
+	ship_hull_add = 80000
+	ship_shield_regen_add_static = 200
+	ship_weapon_damage = 2.5
+	ship_fire_rate_mult = 2
+}
+
+dionysian_absorbed_souls_5 = {
+	ship_shield_add = 250000
+	ship_hull_add = 100000
+	ship_shield_regen_add_static = 250
+	ship_weapon_damage = 3
+	ship_fire_rate_mult = 2.4
+}
+
+dionysian_fallen_info_control = {
+	icon = GFX_dionysian_fallen_info_control
+	pop_happiness = -0.15
+}
+
+dionysian_fallen_info_ignore = {
+	icon = GFX_dionysian_fallen_info_ignore
+	planet_stability_add = -8
+}
+
+dionysian_fallen_info_support = {
+	icon = GFX_dionysian_fallen_info_support
+	pop_government_ethic_attraction = -0.5
+}
+
+dionysian_levi_hot = {
+	icon = GFX_dionysian_levi_hot
+	planet_jobs_unity_produces_mult = 0.2
+}
+
+dionysian_overlord_shape_world_modifier = {
+	icon = GFX_mod_dionysian_overlord_edict
+	terraforming_cost_mult = -0.8
+}
+
+dionysian_overlord_guide_fleet_modifier = {
+	icon = GFX_mod_dionysian_overlord_edict
+	ship_ftl_jumpdrive_range_mult = 1.0
+	ship_jumpdrive_cooldown_mult = -0.5
+	ship_windup_mult = -0.5
+	ship_winddown_mult = -0.5
+	country_ruler_menace_produces_add = -10
+}
+
+dionysian_overlord_enhance_psi_pop_modifier = {
+	icon = GFX_mod_dionysian_overlord_edict
+	planet_psionic_jobs_produces_mult = 0.1
+	planet_jobs_produces_mult = 0.1
+	planet_jobs_upkeep_mult = -0.1
+}
+
+dionysian_enhance_telepath_modifier = {
+	icon = GFX_dionysian_enhance_telepath_modifier
+	planet_telepaths_unity_produces_add = 2
+}

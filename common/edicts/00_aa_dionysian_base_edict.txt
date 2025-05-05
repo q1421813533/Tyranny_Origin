@@ -1,0 +1,99 @@
+ 
+
+dionysian_advance_election = {
+	length = 1
+	icon = GFX_edict_dionysian_imperial
+	potential = { 
+		has_origin = dionysian_origin
+		has_authority = auth_imperial
+		has_modifier = dionysian_party_time
+	}
+
+	allow = {
+		NOT = { has_modifier = dionysian_advance_election_cooldown }
+	}
+
+	resources = {
+		category = edicts
+		cost = {
+			influence = 100
+		}
+	}
+
+	effect = {
+		country_event = { id = dionysian_election.4 }
+	}
+
+	ai_weight = { 
+		weight = 0 
+	}
+
+}
+
+dionysian_cover_overlord_face = {
+
+	length = 1
+	icon = GFX_dionysian_hide_portrait
+	potential = { 
+		has_origin = dionysian_origin
+		NOT = { has_country_flag = dionysian_no_more_hiding }
+	}
+
+	allow = {
+		has_origin = dionysian_origin
+	}
+
+	resources = {}
+
+	effect = {
+		country_event = { id = dionysian_base.13 }
+	}
+
+	ai_weight = { 
+		weight = 1 
+	}
+
+}
+
+
+dionysian_enhance_overlord = {
+	length = 1
+	icon = GFX_edict_dionyisan_enhance_overlord
+	potential = { 
+		has_origin = dionysian_origin
+		NOT = { has_country_flag = dionysian_forbid_new_legendary_trait }
+	}
+
+	resources = {
+		category = edicts
+		cost = {
+			influence = 500
+		}
+	}
+
+	effect = {
+		country_event = { id = dionysian_base.2 }
+		custom_tooltip=edict_dionysian_enhance_overlord_tooltip
+	}
+
+	ai_weight = { weight = 10 }
+
+}
+
+
+dionysian_consume_relic = {
+	length = 1
+	icon = GFX_edict_dionysian_consume_relic
+	potential = { 
+		has_origin = dionysian_origin
+	}
+
+	resources = {}
+
+	effect = {
+		country_event = { id = dionysian_base.12 }
+	}
+
+	ai_weight = { weight = 0  }
+
+}

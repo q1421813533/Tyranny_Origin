@@ -1,0 +1,169 @@
+leader_trait_dionysian_overlord = {
+
+	immortal_leaders = yes
+
+	inline_script = {
+		script = trait/dionysian_empire_icon
+		CLASS = leader
+		ICON = "GFX_dionysian_overlord_trait"
+		RARITY = paragon
+		COUNCIL = yes
+		TIER = none
+		PRIORITY = 1200
+	}
+
+	triggered_councilor_modifier = {
+		potential = {
+			is_variable_set = dionysian_overlord_power_level
+		}
+		country_ruler_menace_produces_add = 1
+		mult = this.dionysian_overlord_power_level
+	}
+
+	triggered_councilor_modifier = {
+		potential = {
+			is_variable_set = dionysian_overlord_reputation_level
+		}
+		country_unity_produces_mult = 0.01
+        planet_stability_add = 0.5
+        mult = this.dionysian_overlord_reputation_level
+	}
+
+	triggered_councilor_modifier = {
+		potential = {
+			has_leader_flag = dionysian_overlord_reach_shroud
+		}
+		planet_psionic_jobs_produces_mult = 0.1
+	}
+
+	triggered_councilor_modifier = {
+		potential = {
+			has_leader_flag = dionysian_overlord_own_r_worm_scales
+		}
+		country_physics_tech_research_speed = 0.1
+	}
+
+	triggered_councilor_modifier = {
+		potential = {
+			has_leader_flag = dionysian_overlord_own_r_rubricator
+		}
+		weapon_archaeotech_weapon_damage_mult = 0.2
+	}
+
+	triggered_councilor_modifier = {
+		potential = {
+			has_leader_flag = dionysian_overlord_own_r_zro_crystal
+		}
+		shroud_delve_cooldown = -0.5
+	}
+
+	triggered_self_modifier = {
+		potential = {
+			has_leader_flag = dionysian_overlord_own_r_galaxy
+		}
+		species_leader_exp_gain = 0.5
+	}
+
+	triggered_councilor_modifier = {
+		potential = {
+			has_leader_flag = dionysian_overlord_own_r_plasmic_core
+		}
+		pop_growth_speed = 0.2
+	}
+
+	triggered_councilor_modifier = {
+		potential = {
+			has_leader_flag = dionysian_overlord_own_r_continuum
+		}
+		empire_size_penalty_mult = -0.1
+	}
+
+	triggered_councilor_modifier = {
+		potential = {
+			has_leader_flag = dionysian_overlord_own_r_time_crystal
+		}
+		species_leader_exp_gain = 0.25
+	}
+
+	triggered_councilor_modifier = {
+		potential = {
+			has_leader_flag = dionysian_overlord_own_r_odryskan_crystal
+		}
+		country_energy_produces_mult = 0.5
+	}
+
+	triggered_councilor_modifier = {
+		potential = {
+			has_leader_flag = dionysian_overlord_own_r_ancient_sword
+		}
+		ship_speed_mult = 0.25
+	}
+
+	triggered_councilor_modifier = {
+		potential = {
+			has_leader_flag = dionysian_overlord_own_r_scfe_music_of_the_universe
+		}
+		pop_happiness = 0.1
+	}
+
+	triggered_councilor_modifier = {
+		potential = {
+			has_leader_flag = dionysian_overlord_own_r_eternal_throne
+		}
+		country_astral_threads_produces_mult = 1
+	}
+
+	triggered_councilor_modifier = {
+		potential = {
+			has_leader_flag = dionysian_overlord_rule_galaxy
+		}
+		resolutions_cost_mult = -0.2
+	}
+
+
+	leader_class = { commander scientist official }
+
+	initial = no
+	randomized = no
+}
+
+leader_trait_dionysian_prime_minister = {
+	force_councilor_trait = yes
+	inline_script = {
+		script = trait/icon
+		CLASS = leader
+		ICON = "GFX_dionysian_prime_minister_icon"
+		RARITY = common
+		COUNCIL = yes
+		TIER = none
+	}
+	custom_tooltip_with_modifiers = "trait_imperial_heir_effects"
+	triggered_councilor_modifier = {
+		potential = {
+			has_paragon_dlc = yes
+		}
+		council_agenda_progress_speed = 0.2
+		leader_upkeep_empire_size_mult = -0.1
+	}
+	leader_class = { commander scientist official }
+	initial = no
+	randomized = no
+}
+
+leader_trait_dionysian_unreal = {
+	inline_script = {
+		script = trait/icon_negative
+		ICON = "GFX_leader_trait_chosen"
+		COUNCIL = yes
+		TIER = 1
+	}
+	self_modifier = {
+		species_leader_exp_gain = -0.5
+	}
+	councilor_modifier = {
+		empire_size_penalty_mult = 0.1
+	}
+	leader_class = { official scientist commander }
+	initial = no
+	randomized = no
+}

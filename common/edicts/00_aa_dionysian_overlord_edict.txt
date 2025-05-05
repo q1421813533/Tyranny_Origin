@@ -1,0 +1,70 @@
+
+dionysian_select_edict_menu = {
+
+	icon = GFX_edict_dionysian_overlord
+
+	potential = { 
+ 		has_origin = dionysian_origin
+	}
+
+	allow = {
+		custom_tooltip = {
+			fail_text = dionsyian_close_edict_selector_trigger
+			NAND = {
+				has_country_flag = dionysian_selecting_edicts
+				has_country_flag = dionysian_select_edicts_over
+			}
+		}
+		custom_tooltip = {
+			fail_text = dionsyian_other_edict_active_trigger
+			NOT = {
+				has_country_flag = dionysian_edict_preparing
+			}
+		}
+	}
+
+
+	effect = {
+		hidden_effect = { 
+			country_event = { id = dionysian_edict.2000 }
+		}
+		custom_tooltip = dionysian_select_edict_menu_tooltip
+	}
+
+	ai_weight = { 
+		weight = 0
+	}
+
+}
+
+
+
+dionysian_control_shroud_menu = {
+	length = 1
+	icon = GFX_edict_dionysian_control_shroud_menu
+
+	potential = { 
+ 		has_origin = dionysian_origin
+ 		has_country_flag = dionsyian_allowed_control_shroud
+	}
+
+	allow = {
+		
+	}
+
+	effect = {
+		hidden_effect = { 
+			country_event = { id = dionysian_story.1210 }
+		}
+		custom_tooltip = dionysian_control_shroud_menu_tooltip
+	}
+
+	ai_weight = { 
+		weight = 0
+	}
+
+}
+
+
+
+

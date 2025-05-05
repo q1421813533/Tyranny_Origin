@@ -1,0 +1,1412 @@
+dionysian_remove_selected_edict = {
+	remove_country_flag = dionysian_selected_edict_fire
+	remove_country_flag = dionysian_selected_edict_frost
+	remove_country_flag = dionysian_selected_edict_lightning
+	remove_country_flag = dionysian_selected_edict_stone
+	remove_country_flag = dionysian_selected_edict_storm
+	remove_country_flag = dionysian_selected_edict_shape_planet
+	remove_country_flag = dionysian_selected_edict_guide_fleet
+	remove_country_flag = dionysian_selected_edict_ascend
+	remove_country_flag = dionysian_selected_edict_curse
+	remove_country_flag = dionysian_selected_edict_nightfall
+}
+
+
+dionysian_remove_edict_flags = {
+	remove_country_flag = dionysian_fire_edict_ready
+	remove_country_flag = dionysian_frost_edict_ready
+	remove_country_flag = dionysian_lightning_edict_ready
+	remove_country_flag = dionysian_crack_edict_ready
+	remove_country_flag = dionysian_storm_edict_ready
+	remove_country_flag = dionysian_malediction_edict_ready
+	remove_country_flag = dionysian_nightfall_edict_ready
+}
+
+dionysian_common_edict_damage_planet = {
+
+	if = {
+	
+		limit = {
+			OR = {
+				is_colonizable = yes
+				is_colony = yes 
+			}
+		}
+
+		if = {
+			limit = { has_modifier = holy_planet }
+			planet_event = { id = dionysian_edict.5 }
+		}
+
+		dionysian_edict_attack_dip_punish = yes
+	
+		add_modifier ={
+			modifier = dionysian_edict_damaging_planet
+			days = 1800
+		}
+
+	
+		if = {
+
+			limit = {
+				is_colony = yes
+			}
+
+			set_variable_to_random_value = { which = dionysian_edict_devastation min = 50 max = 80 rounded = yes }
+			add_planet_devastation = dionysian_edict_devastation
+			clear_variable = dionysian_edict_devastation
+
+			set_variable = { which = dionysian_total_killed_armies  value = event_target:dionysian_edict_target_planet.trigger:num_armies }
+			set_variable = { which = dionysian_total_killed_pops  value = event_target:dionysian_edict_target_planet.trigger:num_pops }
+			export_trigger_value_to_variable = {
+				trigger = num_buildings
+				parameters = { type = any }
+				variable = dionysian_total_killed_buildings
+			}
+			export_trigger_value_to_variable = {
+				trigger = num_districts
+				parameters = { type = any }
+				variable = dionysian_total_killed_districts
+			}
+
+
+
+			multiply_variable = {	which = dionysian_total_killed_armies  value = 0.8 }
+			multiply_variable = {	which = dionysian_total_killed_pops  value = 0.6 }
+			multiply_variable = {	which = dionysian_total_killed_buildings  value = 0.4 }
+			multiply_variable = {	which = dionysian_total_killed_districts  value = 0.4 }
+
+
+			floor_variable = dionysian_total_killed_armies
+			floor_variable = dionysian_total_killed_pops
+			floor_variable = dionysian_total_killed_buildings
+			floor_variable = dionysian_total_killed_districts
+
+			if = {
+				limit = { check_variable_arithmetic = { which = dionysian_total_killed_armies  value < 10 } }
+				set_variable = { which = dionysian_total_killed_armies  value = 10 }
+			}
+			if = {
+				limit = { check_variable_arithmetic = { which = dionysian_total_killed_pops  value < 8 } }
+				set_variable = { which = dionysian_total_killed_pops  value = 8 }
+			}
+			if = {
+				limit = { check_variable_arithmetic = { which = dionysian_total_killed_buildings  value < 2 } }
+				set_variable = { which = dionysian_total_killed_buildings  value = 2 }
+			}
+			if = {
+				limit = { check_variable_arithmetic = { which = dionysian_total_killed_districts  value < 3 } }
+				set_variable = { which = dionysian_total_killed_districts  value = 3 }
+			}
+
+
+
+			while = {
+				count = dionysian_total_killed_armies
+				random_planet_army = {
+					remove_army = yes
+				}
+			}
+
+			while = {
+				count = dionysian_total_killed_pops
+				random_owned_pop = {
+					kill_pop = yes
+				}
+			}
+
+			while = {
+				count = dionysian_total_killed_buildings
+				remove_last_built_building = yes
+			}
+
+			while = {
+				count = dionysian_total_killed_districts
+				remove_last_built_district = yes
+			}
+
+			clear_variable = dionysian_total_killed_armies
+			clear_variable = dionysian_total_killed_pops
+			clear_variable = dionysian_total_killed_buildings
+			clear_variable = dionysian_total_killed_districts
+
+		}
+
+		if = {
+			limit = {
+				exists = owner
+			}
+			owner = {
+				if = {
+					limit = { 
+						is_at_war_with = event_target:dionysian_edict_caster_country
+					}
+					add_static_war_exhaustion = {
+						attacker = event_target:dionysian_edict_caster_country
+						location = root
+						value_for_planet_destruction = 0.04
+					}
+				}
+			}
+		}
+
+		if = {
+			limit = { 
+				event_target:dionysian_edict_caster_country = { has_country_flag = dionysian_fire_edict_ready } 
+			}
+			dionysian_fire_edict_attack = yes
+		}
+		else_if = {
+			limit = { 
+				event_target:dionysian_edict_caster_country = { has_country_flag = dionysian_frost_edict_ready } 
+			}
+			dionysian_frost_edict_attack = yes
+		}
+		else_if = {
+			limit = { 
+				event_target:dionysian_edict_caster_country = { has_country_flag = dionysian_lightning_edict_ready } 
+			}
+			dionysian_lightning_edict_attack = yes
+		}
+		else_if = {
+			limit = { 
+				event_target:dionysian_edict_caster_country = { has_country_flag = dionysian_crack_edict_ready } 
+			}
+			dionysian_crack_edict_attack = yes
+		}
+
+	}
+	else = {
+		event_target:dionysian_edict_caster_country = {
+			country_event = { id = dionysian_edict.7 }
+		}
+	}
+
+
+}
+
+
+dionysian_fire_edict_attack = {
+
+
+	if = {
+		limit = { 
+			OR = {
+				is_ringworld = yes
+				is_planet_class = pc_ringworld_tech
+				is_planet_class = pc_ringworld_seam
+			} 
+		}
+		create_ambient_object = {
+			type = ringworld_divine_object
+			location = this
+			duration = 5
+
+			use_3d_location = yes
+			base_angle_towards = star
+			entity_face_object = star
+
+			entity_offset = { min = 0 max = 0 }
+
+			entity_scale_to_size = yes
+			scale = 0.15
+		}
+
+	}
+	else = {
+		create_ambient_object = {
+			type = habitat_divine_object
+			location = this
+			duration = 5
+
+			use_3d_location = yes
+			base_angle_towards = star
+			entity_face_object = star
+
+			entity_offset = { min = 0 max = 0 }
+
+			entity_scale_to_size = yes
+			scale = 0.15
+		}
+	}
+
+	if = { 
+		limit = { 
+			is_dionysian_edict_changable_planet = yes
+		}
+		
+		dionysian_common_edict_vars = yes
+
+		set_variable_to_random_value = { which = dionysian_edict_blocker_num min = 1 max = 5 rounded = yes }
+		while = {
+			count = dionysian_edict_blocker_num
+			add_blocker = { type = d_active_volcano  blocked_deposit = default }
+			change_variable = { which = dionysian_edict_target_planet_endurance value = -1 } 
+		}
+
+		if = {
+			limit = {
+				OR = {
+					has_climate = dry
+				}
+			}
+			change_variable = { which = dionysian_edict_target_planet_endurance value = -5 } 
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_climate = cold
+					is_ideal = yes					
+				}
+			}
+			change_variable = { which = dionysian_edict_target_planet_endurance value = 5 } 
+		}
+
+
+		if = {
+			limit = { check_variable_arithmetic = { which = dionysian_edict_target_planet_endurance  value < dionysian_edict_destroy_planet_limit } }
+			set_planet_flag = dionsyian_pc_molten
+			dionysian_common_edict_destroy_planet = yes
+		}
+		else_if = {
+			limit = { 
+				check_variable_arithmetic = { which = dionysian_edict_target_planet_endurance  value < dionysian_edict_barren_planet_limit } 
+				NOT = { is_planet_class = pc_desert }
+			}
+			change_pc = pc_desert
+		}
+
+		dionysian_clear_common_edict_vars = yes
+		clear_variable = dionysian_edict_blocker_num
+	}
+
+}
+
+dionysian_frost_edict_attack = {
+
+
+	if = {
+		limit = { 
+			OR = {
+				is_ringworld = yes
+				is_planet_class = pc_ringworld_tech
+				is_planet_class = pc_ringworld_seam
+			} 
+		}
+		create_ambient_object = {
+			type = ringworld_nanobot_object
+			location = this
+			duration = 5
+
+			use_3d_location = yes
+			base_angle_towards = star
+			entity_face_object = star
+
+			entity_offset = { min = 0 max = 0 }
+
+			entity_scale_to_size = yes
+			scale = 0.15
+		}
+
+	}
+	else = {
+
+		create_ambient_object = {
+			type = habitat_nanobot_object
+			location = this
+			duration = 5
+
+			use_3d_location = yes
+			base_angle_towards = star
+			entity_face_object = star
+
+			entity_offset = { min = 0 max = 0 }
+
+			entity_scale_to_size = yes
+			scale = 0.15
+		}
+		
+	}
+
+	if = { 
+		limit = { 
+			is_dionysian_edict_changable_planet = yes
+		}
+
+		dionysian_common_edict_vars = yes
+
+		set_variable_to_random_value = { which = dionysian_edict_blocker_num min = 2 max = 6 rounded = yes }
+		while = {
+			count = dionysian_edict_blocker_num
+			add_blocker = { type = d_massive_glacier  blocked_deposit = default }
+			change_variable = { which = dionysian_edict_target_planet_endurance value = -1 } 
+		}
+
+		if = {
+			limit = {
+				OR = {
+					has_climate = dry
+					is_ideal = yes					
+				}
+			}
+			change_variable = { which = dionysian_edict_target_planet_endurance value = 5 } 
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_climate = cold
+				}
+			}
+			change_variable = { which = dionysian_edict_target_planet_endurance value = -5 } 
+		}
+
+		if = {
+			limit = { check_variable_arithmetic = { which = dionysian_edict_target_planet_endurance  value < dionysian_edict_destroy_planet_limit } }
+			set_planet_flag = dionsyian_pc_frozen
+			dionysian_common_edict_destroy_planet = yes
+		}
+		else_if = {
+			limit = { 
+				check_variable_arithmetic = { which = dionysian_edict_target_planet_endurance  value < dionysian_edict_barren_planet_limit } 
+				NOT = { is_planet_class = pc_arctic }
+			}
+			change_pc = pc_arctic
+		}
+
+		dionysian_clear_common_edict_vars = yes
+		clear_variable = dionysian_edict_blocker_num
+	}
+
+}
+
+dionysian_lightning_edict_attack = {
+
+
+	if = {
+		limit = { 
+			OR = {
+				is_ringworld = yes
+				is_planet_class = pc_ringworld_tech
+				is_planet_class = pc_ringworld_seam
+			} 
+		}
+		create_ambient_object = {
+			type = ringworld_neutron_object
+			location = this
+			duration = 5
+
+			use_3d_location = yes
+			base_angle_towards = star
+			entity_face_object = star
+
+			entity_offset = { min = 0 max = 0 }
+
+			entity_scale_to_size = yes
+			scale = 0.15
+		}
+	}
+	else = {
+		create_ambient_object = {
+			type = habitat_neutron_object
+			location = this
+			duration = 5
+
+			use_3d_location = yes
+			base_angle_towards = star
+			entity_face_object = star
+
+			entity_offset = { min = 0 max = 0 }
+
+			entity_scale_to_size = yes
+			scale = 0.15
+		}
+	}
+
+	dionysian_lightning_edict_kill_machines = yes
+
+	if = { 
+		limit = { 
+			is_dionysian_edict_changable_planet = yes
+		}
+
+		dionysian_common_edict_vars = yes
+
+		if = {
+			limit = { 
+				check_variable_arithmetic = { which = dionysian_edict_target_planet_endurance  value < dionysian_edict_barren_planet_limit } 
+				NOT = { is_planet_class = pc_nuked }
+			}
+			change_pc = pc_nuked
+		}
+
+		dionysian_clear_common_edict_vars = yes
+	}
+
+}
+
+dionysian_lightning_edict_kill_machines = {
+	
+	if = {
+
+		limit = { is_colony = yes }
+
+		set_variable = { which = dionysian_killed_machines value = 0 }
+
+		every_owned_pop = {	
+			limit = { 
+				is_robot_pop = yes
+			}
+			root = { change_variable = { which = dionysian_killed_machines value = 1 } }
+		} 
+
+
+		multiply_variable = { which = dionysian_killed_machines value = 0.8 }
+		floor_variable = dionysian_killed_machines
+		
+		if = {
+			limit = { check_variable_arithmetic = { which = dionysian_killed_machines  value < 10 } }
+			set_variable = { which = dionysian_killed_machines value = 10 }
+		}
+
+		while = {
+			count = dionysian_killed_machines
+			random_owned_pop = {
+				limit = { 	is_robot_pop = yes	}
+				kill_pop = yes
+			}
+		}
+
+		clear_variable = dionysian_killed_machines
+
+	}
+
+}
+
+
+dionysian_crack_edict_attack = {
+
+	if = {
+		limit = { 	
+			NOR = {
+				is_ringworld = yes
+				is_planet_class = pc_ringworld_tech
+				is_planet_class = pc_ringworld_seam
+				is_planet_class = pc_habitat
+			}
+		}
+		create_ambient_object = {
+			type = habitat_cracker_object
+			location = this
+			duration = 5
+
+			use_3d_location = yes
+			base_angle_towards = star
+			entity_face_object = star
+
+			entity_offset = { min = 0 max = 0 }
+
+			entity_scale_to_size = yes
+			scale = 0.05
+		}
+	}
+
+	dionysian_common_edict_vars = yes
+
+	if = { 
+		limit = { is_dionysian_edict_changable_planet = yes }
+		set_variable_to_random_value = { which = dionysian_edict_blocker_num min = 2 max = 5 rounded = yes }
+		while = {
+			count = dionysian_edict_blocker_num
+			add_blocker = { type = d_deep_sinkhole  blocked_deposit = default }
+			change_variable = { which = dionysian_edict_target_planet_endurance value = -1 } 
+		}
+		clear_variable = dionysian_edict_blocker_num
+	}
+	else_if = { 
+		limit = { 
+			OR = {
+				is_ringworld = yes
+				is_planet_class = pc_ringworld_tech
+				is_planet_class = pc_ringworld_seam
+				is_planet_class = pc_habitat
+			}
+		}	
+		set_variable = { which = dionysian_edict_target_planet_endurance value = 0 } 
+	}
+
+	if = {
+		limit = { check_variable_arithmetic = { which = dionysian_edict_target_planet_endurance  value < dionysian_edict_barren_planet_limit } }
+		set_planet_flag = dionsyian_pc_shattered
+		dionysian_common_edict_destroy_planet = yes
+	}
+
+	dionysian_clear_common_edict_vars = yes
+	
+}
+
+
+
+dionysian_common_edict_vars = {
+	set_variable = { which = dionysian_edict_target_planet_endurance value = event_target:dionysian_edict_target_planet.trigger:planet_size } 
+	set_variable_to_random_value = { which = dionysian_edict_barren_planet_limit min = 10 max = 25 rounded = yes }
+	set_variable = { which = dionysian_edict_destroy_planet_limit value = dionysian_edict_barren_planet_limit } 
+	change_variable = { which = dionysian_edict_destroy_planet_limit value = -10 } 
+}
+
+dionysian_clear_common_edict_vars = {
+	clear_variable = dionysian_edict_target_planet_endurance
+	clear_variable = dionysian_edict_barren_planet_limit
+	clear_variable = dionysian_edict_destroy_planet_limit
+}
+
+dionysian_common_edict_destroy_planet = {
+
+	dionysian_edict_attack_dip_punish = yes
+
+	if = {
+		limit =  { is_planet_class = pc_infested } 
+		planet_event = { id = crisis.216 }
+	}
+
+	if = {
+		limit = { is_colony = yes }
+		every_owned_pop = {
+			kill_pop = yes
+		}
+		if = {
+			limit = {
+				exists = orbital_defence
+			}
+			destroy_fleet = orbital_defence
+		}
+		remove_all_buildings = yes
+		destroy_colony = yes
+	}
+	
+	if = {
+		limit = { has_planet_flag = dionsyian_pc_frozen  }
+		change_pc = pc_frozen
+		remove_planet_flag = dionsyian_pc_frozen
+	}
+	else_if = {
+		limit = { has_planet_flag = dionsyian_pc_molten  }
+		change_pc = pc_molten
+		remove_planet_flag = dionsyian_pc_molten
+	}
+	else_if = {
+		limit = { has_planet_flag = dionsyian_pc_shattered }
+		dionysian_crack_edict_destroy_planet = yes
+		remove_planet_flag = dionsyian_pc_shattered
+	}
+	else_if = {
+		limit = { has_planet_flag = dionsyian_pc_shrouded }
+		dionysian_malediction_edict_destroy_planet = yes
+		remove_planet_flag = dionsyian_pc_shrouded
+	}
+
+
+	if = {
+		limit = {
+			exists = orbital_station
+		}
+		orbital_station = { dismantle = yes }
+	}
+
+	clear_planet_modifiers = yes
+	clear_deposits = yes
+	prevent_anomaly = yes
+
+}
+
+
+dionysian_crack_edict_destroy_planet = {
+
+	if = {
+		limit = {
+			is_star = no
+			is_asteroid = no
+			NOR = {
+				is_planet_class = pc_shattered
+				is_planet_class = pc_shattered_2
+				is_planet_class = pc_shielded
+				is_planet_class = pc_ringworld_habitable_damaged
+				is_planet_class = pc_ringworld_tech_damaged
+				is_planet_class = pc_ringworld_seam_damaged
+			}
+		}
+		if = {
+			limit = { is_planet_class = pc_habitat } # uncolonized
+			spawn_habitat_cracker_effect = yes
+		}
+		if = {
+			limit = { is_colony = yes }
+			if = {
+				limit = { is_planet_class = pc_habitat }
+				spawn_habitat_cracker_effect = yes
+			}
+			else_if = {
+				limit = {
+					is_planet_class = pc_cosmogenesis_world
+				}
+				spawn_lathe_cracker_effect = yes
+			}
+			else_if = {
+				limit = { is_ringworld = yes }
+				spawn_ringworld_cracker_effect = yes
+				change_pc = pc_ringworld_habitable_damaged
+			}
+			else = {
+				change_pc = pc_shattered 
+			}
+		}
+		else_if = {
+			limit = { is_ringworld = yes }
+			spawn_ringworld_cracker_effect = yes
+			change_pc = pc_ringworld_habitable_damaged
+		}
+		else_if = {
+			limit = {
+				is_planet_class = pc_cosmogenesis_world
+			}
+			spawn_lathe_cracker_effect = yes
+		}
+		else_if = {
+			limit = { is_planet_class = pc_ringworld_tech }
+			spawn_ringworld_cracker_effect = yes
+			change_pc = pc_ringworld_tech_damaged
+		}
+		else_if = {
+			limit = { is_planet_class = pc_ringworld_seam }
+			spawn_ringworld_cracker_effect = yes
+			change_pc = pc_ringworld_seam_damaged
+		}
+		else = {
+			change_pc = pc_shattered 
+		}
+	}
+
+}
+
+dionysian_storm_edict_attack = {
+
+	if = {
+
+		limit = { 
+			is_star = yes 
+			solar_system = { NOT = { has_modifier = zroni_storm } }
+		}
+
+		add_modifier = {
+			modifier = dionysian_storm_edict_on_star
+			days = -1
+		}
+
+		create_ambient_object = {
+			type = "space_storm_1"
+			location = this
+		}
+
+		last_created_ambient_object = {	
+			set_ambient_object_flag = zroni_storm
+			set_location = {
+				target = prev
+				distance = 0
+				angle = random
+			}
+		}
+
+		set_saved_date = {
+			key = dionysian_storm_edict_end_date
+			days_from_present = 3600
+			expires = 3601
+		}
+		
+		solar_system = {
+
+			add_modifier = {
+				modifier = zroni_storm
+				days = -1
+			}
+
+		}
+
+		planet_event = { id = dionysian_edict.6 days = 3600 }
+
+	}
+
+	else = {
+		event_target:dionysian_edict_caster_country = {
+			country_event = { id = dionysian_edict.7 }
+		}
+	}
+
+}
+
+dionysian_malediction_edict_attack = {
+
+	if = {
+		limit = { 
+			OR = {
+				is_colony = yes 
+				is_colonizable = yes
+				is_planet_class = pc_infested
+			}
+		}
+
+		dionysian_edict_attack_dip_punish = yes
+
+		create_ambient_object = {
+			type = shroud_rift_object
+			location = this
+			duration = 30
+
+			use_3d_location = yes
+			base_angle_towards = star
+			entity_face_object = star
+
+			entity_offset = { min = 0 max = 0 }
+
+			entity_scale_to_size = yes
+			scale = 0.05
+		}
+
+		if = {
+			limit = { is_colony = yes }
+			set_variable = { which = dionysian_malediction_power value = event_target:dionysian_edict_target_planet.trigger:num_pops }
+		}
+		else_if = {
+			limit = { is_planet_class = pc_infested }
+			set_variable = { which = dionysian_malediction_power value = 50 }
+		}
+		else = {
+			set_variable = { which = dionysian_malediction_power value = 0 }
+		}
+
+		if = {
+			limit = {
+				exists = owner
+			}
+			owner = {
+				if = {
+					limit = {
+						is_at_war_with = event_target:dionysian_edict_caster_country
+					}
+					add_static_war_exhaustion = {
+						attacker = event_target:dionysian_edict_caster_country
+						location = root
+						value_for_planet_destruction = 0.06
+					}
+				}
+			}
+		}
+
+		if = {
+			limit = { check_variable_arithmetic = { which = dionysian_malediction_power value > 1 } }
+			create_fleet = {
+				name = "NAME_The_End"
+				settings = {
+					can_upgrade = no
+					can_change_composition = no
+					can_change_leader = no
+					uses_naval_capacity = no
+					spawn_debris = no
+				}
+				effect = {
+					set_name = {
+						key = "Dionysian_NAME_Malediction_Planet"
+						variable_string = "[Root.GetName]"
+					}
+					set_owner = event_target:dionysian_edict_caster_country
+					create_ship = {
+						name = "NAME_Reckoning"
+						design = "NAME_Warped_Consciousness"
+						prefix = no
+						upgradable = no
+					}
+					set_location = event_target:dionysian_edict_target_planet
+					set_fleet_stance = aggressive
+					if = {
+						limit = {
+							root = {
+								check_variable_arithmetic = {
+									which = dionysian_malediction_power
+									value < 30
+								}
+							}
+						}
+						add_modifier = {
+							modifier = "dionysian_absorbed_souls_1"
+							days = -1
+						}
+					}
+					else_if = {
+						limit = {
+							root = {
+								check_variable_arithmetic = {
+									which = dionysian_malediction_power
+									value < 60
+								}
+							}
+						}
+						add_modifier = {
+							modifier = "dionysian_absorbed_souls_2"
+							days = -1
+						}
+					}
+					else_if = {
+						limit = {
+							root = {
+								check_variable_arithmetic = {
+									which = dionysian_malediction_power
+									value < 80
+								}
+							}
+						}
+						add_modifier = {
+							modifier = "dionysian_absorbed_souls_3"
+							days = -1
+						}
+					}
+					else_if = {
+						limit = {
+							root = {
+								check_variable_arithmetic = {
+									which = dionysian_malediction_power
+									value < 100
+								}
+							}
+						}
+						add_modifier = {
+							modifier = "dionysian_absorbed_souls_4"
+							days = -1
+						}
+					}
+					else = {
+						add_modifier = {
+							modifier = "dionysian_absorbed_souls_5"
+							days = -1
+						}
+					}
+				}
+			}
+		}
+		clear_variable = dionysian_malediction_power
+		
+		if = {
+			limit = {
+				OR = {
+					is_dionysian_edict_changable_planet = yes
+					is_planet_class = pc_infested
+				}
+			} 
+			set_planet_flag = dionsyian_pc_shrouded
+			dionysian_common_edict_destroy_planet = yes
+		}
+	}
+
+	else = {
+		event_target:dionysian_edict_caster_country = {
+			country_event = { id = dionysian_edict.7 }
+		}
+	}
+
+}
+
+dionysian_malediction_edict_destroy_planet = {
+
+	if = {
+		limit = {
+			NOR = {
+				is_ringworld = yes
+				is_planet_class = pc_ringworld_tech
+				is_planet_class = pc_ringworld_seam
+				is_planet_class = pc_habitat
+				is_planet_class = pc_ai
+			}
+		}
+		change_pc = pc_shrouded
+	}
+	else_if = {
+		limit = {
+			is_planet_class = pc_habitat
+		}
+		remove_planet = yes
+	}
+	else_if = {
+		limit = {
+			OR = {
+				is_ringworld = yes
+				is_planet_class = pc_ringworld_tech
+				is_planet_class = pc_ringworld_seam
+			}
+		}
+		change_pc = pc_ringworld_habitable_damaged
+	}
+	else_if = {
+		limit = {
+			is_planet_class = pc_cosmogenesis_world
+		}
+		spawn_lathe_cracker_effect = yes
+	}
+
+}
+
+
+dionysian_edict_attack_dip_punish = {
+
+
+	if = {
+		limit = {
+			exists = event_target:dionysian_edict_target_country
+			event_target:dionysian_edict_target_country = {
+				OR = {
+					is_country_type = default
+					is_country_type = fallen_empire
+					is_country_type = awakened_fallen_empire
+				}
+			}
+		}
+		# Generate threat
+		if = {
+			limit = {
+				is_colony = yes
+			}
+			add_threat = { who = event_target:dionysian_edict_caster_country amount = 2 }
+		}
+		else = {
+			add_threat = { who = event_target:dionysian_edict_caster_country amount = 1 }
+		}
+		# modifier for allies + those upset by genocide
+		every_country = {
+			limit = {
+				NOR = {
+					is_same_value = event_target:dionysian_edict_caster_country
+					is_same_value = event_target:dionysian_edict_target_country
+					AND = {
+						has_federation = yes
+						is_in_federation_with = event_target:dionysian_edict_caster_country
+					}
+					is_loyal_to = event_target:dionysian_edict_caster_country
+				}
+				OR = {
+					has_communications = event_target:dionysian_edict_caster_country
+					has_communications = event_target:dionysian_edict_target_country
+				}
+				OR = {
+					AND = {
+						has_federation = yes
+						is_in_federation_with = event_target:dionysian_edict_target_country
+					}
+					has_ai_personality = awakened_fallen_empire_xenophile
+					AND = {
+						is_country_type = default
+						OR = {
+							is_egalitarian = yes
+							is_xenophile = yes
+						}
+					}
+				}
+			}
+			if = {
+				limit = { root = { is_colony = no } }
+				add_opinion_modifier = {
+					modifier = opinion_edict_attck_an_uninhabited_world
+					who = event_target:dionysian_edict_caster_country
+				}
+			}
+			else = {
+				add_opinion_modifier = {
+					modifier = opinion_edict_attck_a_world
+					who = event_target:dionysian_edict_caster_country
+				}
+			}
+		}
+		# modifiers for victim
+		event_target:dionysian_edict_target_country = {
+			if = {
+				limit = { NOT = { is_same_value = event_target:dionysian_edict_caster_country } }
+				if = {
+					limit = { root = { is_colony = no } }
+					add_opinion_modifier = {
+						modifier = opinion_edict_attck_my_uninhabited_world
+						who = event_target:dionysian_edict_caster_country
+					}
+				}
+				else = {
+					add_opinion_modifier = {
+						modifier = opinion_edict_attck_my_world
+						who = event_target:dionysian_edict_caster_country
+					}
+				}
+				if = {
+					limit = { NOT = { has_ethic = ethic_gestalt_consciousness } }
+					add_modifier = {
+						modifier = colossus_victim
+						days = 10800 # 30 years
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			exists = event_target:dionysian_edict_target_country
+			event_target:dionysian_edict_target_country = { is_country_type = primitive }
+		}
+		# Generate threat
+		add_threat = { who = event_target:dionysian_edict_caster_country amount = 1 }
+		# modifier for allies + those upset by genocide
+		every_country = {
+			limit = {
+				NOR = { is_same_value = event_target:dionysian_edict_caster_country }
+				OR = {
+					has_communications = event_target:dionysian_edict_caster_country
+					has_communications = event_target:dionysian_edict_target_country
+				}
+				AND = {
+					is_country_type = default
+					NOR = {
+						is_xenophobe = yes
+						is_homicidal = yes
+						is_xenophile = yes
+					}
+				}
+			}
+			add_opinion_modifier = {
+				modifier = opinion_edict_attck_a_primitive_world
+				who = event_target:dionysian_edict_caster_country
+			}
+		}
+		every_country = {
+			limit = {
+				NOT = { is_same_value = event_target:dionysian_edict_caster_country }
+				OR = {
+					has_communications = event_target:dionysian_edict_caster_country
+					has_communications = event_target:dionysian_edict_target_country
+				}
+				OR = {
+					has_ai_personality = awakened_fallen_empire_xenophile
+					AND = {
+						is_country_type = default
+						is_xenophile = yes
+					}
+				}
+			}
+			add_opinion_modifier = {
+				modifier = opinion_edict_attck_a_primitive_world_phile
+				who = event_target:dionysian_edict_caster_country
+			}
+		}
+	}
+	else_if = {
+		limit = { NOT = { exists = event_target:dionysian_edict_target_country } }
+		add_threat = { who = event_target:dionysian_edict_caster_country amount = 1 }
+	}
+
+}
+
+
+dionysian_nightfall_edict_destroy_star_system = {
+
+	if = { 
+		limit = {
+			NOT = { is_planet_class = pc_black_hole }
+			is_star = yes
+		}
+
+		dionysian_destroy_star_system_dip_punish = yes
+
+		if = {
+			limit = {
+				exists = event_target:dionysian_edict_target_country
+			}
+			event_target:dionysian_edict_target_country = {
+				if = {
+					limit = {
+						is_at_war_with = event_target:dionysian_edict_caster_country
+					}
+					add_static_war_exhaustion = {
+						attacker = event_target:dionysian_edict_caster_country
+						location = root
+						value_for_planet_destruction = 0.08
+					}
+				}
+			}
+		}
+
+		solar_system = {
+
+			random_system_planet = {
+				limit = { has_modifier = holy_planet }
+				planet_event = { id = dionysian_edict.5 }
+			}
+
+			fire_on_action = {
+				on_action = on_destroy_star_system
+				scopes = { from = event_target:dionysian_edict_caster_country }
+			}
+			set_star_flag = star_cracked
+			set_star_class = sc_black_hole
+			every_system_ambient_object = {
+				limit = {
+					# Preserve Unbidden crisis effects
+					NOR = {
+						has_ambient_object_flag = extradimensional_system_effect
+						has_ambient_object_flag = extradimensional_system_effect_2
+					}
+				}
+				destroy_ambient_object = this
+			}
+			every_system_planet = {
+				limit = { is_star = yes }
+				create_ambient_object = {
+					type = "star_explosion"
+					play_animation_once = yes
+					location = this
+				}
+				last_created_ambient_object = {
+					set_location = {
+						target = prev
+						distance = 0
+						angle = random
+					}
+				}
+				change_pc = pc_black_hole
+			}
+			# Handle Contingency Machine Worlds
+			every_system_planet = {
+				limit = {
+					is_planet_class = pc_ai
+					NOT = { has_planet_flag = machine_lair }
+				}
+				destroy_machine_world = yes
+			}
+			random_system_planet = {
+				limit = {
+					is_planet_class = pc_ai
+					has_planet_flag = machine_lair
+				}
+				event_target:dionysian_edict_caster_country = { save_event_target_as = final_machine_world_destroyer }
+				stop_crisis_sound = yes
+				planet_event = { id = crisis.2046 }
+			}
+			every_system_planet = {
+				limit = {
+					is_star = no
+					is_asteroid = no
+					NOR = {
+						is_planet_class = pc_shattered
+						is_planet_class = pc_shattered_2
+						is_planet_class = pc_shielded
+						is_planet_class = pc_ringworld_habitable_damaged
+						is_planet_class = pc_ringworld_tech_damaged
+						is_planet_class = pc_ringworld_seam_damaged
+					}
+				}
+				if = {
+					limit = { is_planet_class = pc_habitat } # uncolonized
+					spawn_habitat_cracker_effect = yes
+				}
+				if = {
+					limit = { is_colony = yes }
+					if = {
+						limit = {
+							exists = orbital_defence
+						}
+						destroy_fleet = orbital_defence
+					}
+					remove_all_buildings = yes
+					destroy_colony = yes
+					if = {
+						limit = { is_planet_class = pc_habitat }
+						spawn_habitat_cracker_effect = yes
+					}
+					else_if = {
+						limit = { is_ringworld = yes }
+						spawn_ringworld_cracker_effect = yes
+						change_pc = pc_ringworld_habitable_damaged
+					}
+					else = {
+						change_pc = pc_shattered
+					}
+				}
+				else_if = {
+					limit = { is_ringworld = yes }
+					spawn_ringworld_cracker_effect = yes
+					change_pc = pc_ringworld_habitable_damaged
+				}
+				else_if = {
+					limit = { is_planet_class = pc_ringworld_tech }
+					spawn_ringworld_cracker_effect = yes
+					change_pc = pc_ringworld_tech_damaged
+				}
+				else_if = {
+					limit = { is_planet_class = pc_ringworld_seam }
+					spawn_ringworld_cracker_effect = yes
+					change_pc = pc_ringworld_seam_damaged
+				}
+				else_if = {
+					limit = {
+						is_planet_class = pc_cosmogenesis_world
+					}
+					spawn_lathe_cracker_effect = yes
+				}
+				else = {
+					change_pc = pc_shattered
+				}
+			}
+			every_system_planet = {
+				limit = {
+					exists = orbital_station
+				}
+				orbital_station = { dismantle = yes }
+			}
+			every_system_planet = {
+				clear_deposits = yes
+				clear_planet_modifiers = yes
+				prevent_anomaly = yes
+			}
+			every_system_planet = {
+				limit = { is_asteroid = yes }
+				clear_deposits = yes
+			}
+			every_fleet_in_system = {
+				limit = {
+					NAND = {
+						exists = owner
+						owner = {
+							OR = {
+								is_country_type = portal_holder
+								is_country_type = extradimensional
+								is_country_type = extradimensional_2
+								is_country_type = extradimensional_3
+							}
+						}
+					}
+				}
+				destroy_fleet = this
+			}
+			every_system_megastructure = {
+				set_ruined_megastructure = yes
+			}
+			star = {
+				create_ambient_object = {
+					type = "destroyed_system"
+					location = this
+				}
+				last_created_ambient_object = {
+					set_ambient_object_flag = destroyed_system_effect
+					set_location = {
+						target = prev
+						distance = 0
+						angle = random
+					}
+				}
+			}
+
+		}
+
+	}
+
+	else = {
+		event_target:dionysian_edict_caster_country = {
+			country_event = { id = dionysian_edict.7 }
+		}
+	}
+
+}
+
+dionysian_destroy_star_system_dip_punish = {
+
+	if = {
+		limit = {
+			exists = event_target:dionysian_edict_target_country
+			event_target:dionysian_edict_target_country = {
+				OR = {
+					is_country_type = default
+					is_country_type = fallen_empire
+					is_country_type = awakened_fallen_empire
+				}
+			}
+		}
+		# Generate threat
+		add_threat = { who = event_target:dionysian_edict_caster_country amount = 5 }
+		# modifier for allies + those upset by genocide
+		every_country = {
+			limit = {
+				NOR = {
+					is_same_value = event_target:dionysian_edict_caster_country
+					is_same_value = event_target:dionysian_edict_target_country
+					AND = {
+						has_federation = yes
+						is_in_federation_with = event_target:dionysian_edict_caster_country
+					}
+					is_loyal_to = event_target:dionysian_edict_caster_country
+				}
+				OR = {
+					has_communications = event_target:dionysian_edict_caster_country
+					has_communications = event_target:dionysian_edict_target_country
+				}
+			}
+			add_opinion_modifier = {
+				who = event_target:dionysian_edict_caster_country
+				modifier = opinion_edict_destroy_owned_star_system
+			}
+		}
+		# modifiers for victim
+		event_target:dionysian_edict_target_country = {
+			if = {
+				limit = { NOT = { is_same_value = event_target:dionysian_edict_caster_country } }
+				add_opinion_modifier = {
+					modifier = opinion_edict_destroy_my_star_system
+					who = event_target:dionysian_edict_caster_country
+				}
+				if = {
+					limit = { NOT = { has_ethic = ethic_gestalt_consciousness } }
+					add_modifier = {
+						modifier = colossus_victim
+						days = 18000 
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { NOT = { exists = event_target:dionysian_edict_target_country } }
+		add_threat = { who = event_target:dionysian_edict_caster_country amount = 2 }
+		every_country = {
+			limit = {
+				NOR = {
+					is_same_value = event_target:dionysian_edict_caster_country
+					AND = {
+						has_federation = yes
+						is_in_federation_with = event_target:dionysian_edict_caster_country
+					}
+					is_loyal_to = event_target:dionysian_edict_caster_country
+				}
+				has_communications = event_target:dionysian_edict_caster_country
+			}
+			add_opinion_modifier = {
+				who = event_target:dionysian_edict_caster_country
+				modifier = opinion_edict_destroy_netural_star_system
+			}
+		}
+	}
+	else = {
+		add_threat = { who = event_target:dionysian_edict_caster_country amount = 1 }
+	}
+
+}
+
+dionysian_remove_all_shroud_curse = {
+	remove_modifier = shroud_neg_happiness
+	remove_modifier = shroud_neg_ethic
+	remove_modifier = shroud_neg_armor
+	remove_modifier = shroud_neg_growth
+	remove_modifier = shroud_neg_research
+	remove_modifier = shroud_neg_influence
+	remove_modifier = shroud_neg_unity
+	remove_modifier = shroud_neg_speed
+	remove_modifier = shroud_neg_morale
+	remove_modifier = shroud_neg_sensor
+}

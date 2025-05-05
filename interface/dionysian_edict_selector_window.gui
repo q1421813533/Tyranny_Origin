@@ -1,0 +1,405 @@
+
+guiTypes = {
+	containerWindowType = {
+
+		name = "dionysian_edict_selector_window"
+		position = { x = -400 y = -400 }
+	
+		size = { width = 800 height = 600 }
+		moveable = yes
+		orientation = CENTER
+
+		background = {
+			name = "background"
+			quadTextureSprite = "GFX_tile_large_bg_mercenary"
+		}
+
+		iconType = { name = "empire_header_line" quadTextureSprite = "GFX_line_long"  position = { x = 600000 y = 22 } alwaysTransparent = yes }
+        
+        iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg_mercenary"
+			position = { x = 0 y = -12 }
+			alwaysTransparent = yes
+		}
+			
+		instantTextBoxType={
+			name = "dionysian_edict_selector_title"
+			font = "malgun_goth_24"
+			position = { x = 35 y = 5 }
+			maxWidth = 800
+			maxHeight = 22
+			text = "MOD_DIONYSIAN_EDICT_SELECTOR_TITLE"
+			format = left
+			alwaysTransparent = yes
+		}
+		
+        iconType = {
+			name = "dionysian_edict_selector_header_line"
+			quadTextureSprite = "GFX_line_long_mercenary"
+			position = { x = 6 y = 21 }
+			alwaysTransparent = yes
+            scale = 1.000
+		}
+
+		instantTextBoxType = {
+			name = "dionysian_edict_selector_desc"
+			position = { x = 200 y = 40 }
+			font = "cg_16b"
+			borderSize = {x = 0 y = 0}
+			text = ""
+			maxWidth = 418
+			maxHeight = 0
+			fixedSize = yes
+			orientation = CENTERED_UP
+			format = center
+		}
+		
+		containerWindowType = {
+			name = "dionysian_edict_selector_window"
+			size = {
+				width = 790
+				height = 526
+			}
+			position = {
+				x = -395
+				y = -240
+			}
+			orientation = CENTER
+			background = {
+				name = "dionysian_edict_selector_main_background"
+				spriteType = "GFX_dionsyian_edict_selector_decorate"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_fire"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_fire"
+				position = { x= -334 y = -180 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_fire"
+				effect = "dionysian_select_edict_effect_fire"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_frost"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_frost"
+				position = { x= -184 y = -180 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_frost"
+				effect = "dionysian_select_edict_effect_frost"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_lightning"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_lightning"
+				position = { x= -34 y = -180 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_lightning"
+				effect = "dionysian_select_edict_effect_lightning"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_stone"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_stone"
+				position = { x= 126 y = -180 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_stone"
+				effect = "dionysian_select_edict_effect_stone"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_strom"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_storm"
+				position = { x= 276 y = -180 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_storm"
+				effect = "dionysian_select_edict_effect_storm"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_shape_planet"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_shape_planet"
+				position = { x= -334 y = -30 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_shape_planet"
+				effect = "dionysian_select_edict_effect_shape_planet"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_guide_fleet"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_guide_fleet"
+				position = { x= -184 y = -30 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_guide_fleet"
+				effect = "dionysian_select_edict_effect_guide_fleet"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_ascend"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_asecend"
+				position = { x= -34 y = -30 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_ascend"
+				effect = "dionysian_select_edict_effect_ascend"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_curse"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_curse"
+				position = { x= 126 y = -30 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_curse"
+				effect = "dionysian_select_edict_effect_curse"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_nightfall"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_nightfall"
+				position = { x= 276 y = -30 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_nightfall"
+				effect = "dionysian_select_edict_effect_nightfall"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_blue_fire"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_active"
+				position = { x= -334 y = -180 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_cancel"
+				effect = "dionysian_deselect_edict_effect_fire"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_blue_frost"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_active"
+				position = { x= -184 y = -180 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_cancel"
+				effect = "dionysian_deselect_edict_effect_frost"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_blue_lightning"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_active"
+				position = { x= -34 y = -180 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_cancel"
+				effect = "dionysian_deselect_edict_effect_lightning"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_blue_stone"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_active"
+				position = { x= 126 y = -180 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_cancel"
+				effect = "dionysian_deselect_edict_effect_stone"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_blue_strom"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_active"
+				position = { x= 276 y = -180 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_cancel"
+				effect = "dionysian_deselect_edict_effect_storm"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_blue_shape_planet"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_active"
+				position = { x= -334 y = -30 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_cancel"
+				effect = "dionysian_deselect_edict_effect_shape_planet"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_blue_guide_fleet"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_active"
+				position = { x= -184 y = -30 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_cancel"
+				effect = "dionysian_deselect_edict_effect_guide_fleet"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_blue_ascend"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_active"
+				position = { x= -34 y = -30 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_cancel"
+				effect = "dionysian_deselect_edict_effect_ascend"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_blue_curse"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_active"
+				position = { x= 126 y = -30 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_cancel"
+				effect = "dionysian_deselect_edict_effect_curse"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_blue_nightfall"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_active"
+				position = { x= 276 y = -30 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_cancel"
+				effect = "dionysian_deselect_edict_effect_nightfall"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_enduring_shape_planet"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_endure"
+				position = { x= -334 y = -30 }
+				Orientation = center
+				clicksound = ""
+				effect = "dionysian_enduring_edict_effect_shape_planet"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_enduring_guide_fleet"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_endure"
+				position = { x= -184 y = -30 }
+				Orientation = center
+				clicksound = ""
+				effect = "dionysian_enduring_edict_effect_guide_fleet"
+			}
+
+			effectButtonType = {
+				name = "dionysian_edict_cube_enduring_ascend"
+				quadTextureSprite = "GFX_dionysian_edict_selector_cube_endure"
+				position = { x= -34 y = -30 }
+				Orientation = center
+				clicksound = "dionysian_edict_click_cancel"
+				effect = "dionysian_enduring_edict_effect_ascend"
+			}
+
+
+		}
+
+		containerWindowType = {
+			name = "dionysian_menace_topbar"
+			size = { width = 200 height = 40 }
+			position = { x = 700 y = 65 }
+
+			background = {
+				name = "dionysian_meance_background"
+				spriteType = "GFX_invisible"
+			}
+
+			effectButtonType = {
+				name = "dionysian_menace_amount"
+				quadTextureSprite = "GFX_dionysian_blank"
+				position = { x= -355 y = -279 }
+				buttonFont = cg_16b
+				buttonText = "dionysian_eidct_selector_now_menace"
+				orientation = UPPER_LEFT
+				format = CENTER
+				oversound = no_sound
+				clicksound = no_sound
+				effect = "dionysian_edict_selector_menace_amount"
+			}
+		}
+
+
+		effectButtonType = {
+			name = "close"
+			quadTextureSprite = "GFX_dionysian_edict_selector_button"
+			position = { x= -104 y = 160 }
+			Orientation = center
+			shortcut = "E"
+			clicksound = "dionysian_edict_click_issue"
+			buttonFont = malgun_goth_24
+			buttonText = "dionysian_issue_edict_button_text"
+			format = CENTER
+			effect = "dionysian_edict_selector_close_window_effect"
+		}
+
+		
+		###_	ALL OF THIS IS HIDDEN OR DISPLACED!	######################################################
+        	buttonType = { name = "tts_button" position = { x = -1180 y = -1112 } spriteType = "GFX_button_tts_start" } # hidden
+       		buttonType = { name = "focus_button" position = { x = -1180 y = -1112 } spriteType = "GFX_fleetview_focus" } # hidden
+		instantTextBoxType = { name = "heading" font = "malgun_goth_24" position = { x = -1120 y = -115 } } # hidden
+		#buttonType = { name = "alien_message_background" size = { x = 0 y = 0 } position = { x = -1110 y = -11430 } spriteType = "GFX_tiles_dark_area_cut_8" } # hidden
+		instantTextBoxType={ name = "alien_message" position = { x = -1120 y = -115 } font = "malgun_goth_24" scrollbartype = "standardtext_slider" } # hidden 
+		buttonType = { name = "empire_flag" position = { x = -1125 y = -11235 } spriteType = "GFX_empire_flag_128" } # hidden
+		buttonType = { name = "confirm_button" quadTextureSprite = "GFX_standard_button_142_34_button" } # hidden
+		containerWindowType = {
+			name = "portrait_background"
+			position = { x = -1117 y = -1145 }
+			size = { width = 0 height = 0 }		# hide portrait window
+			#iconType = { name = "event_picture" spriteType = "GFX_diplomacy_portrait_frame" } # hidden
+			iconType = { name = "portrait" spriteType = "GFX_portrait_character" } # hidden
+		}
+		containerWindowType = {
+			name = "portrait"
+			position = { x = -1117 y = -1145 }
+			size = { width = 0 height = 0 } # hide portrait window
+			iconType = { name = "portrait" spriteType = "GFX_portrait_gamesetup_mask"  } # hidden
+			iconType = { name = "black_frame" spriteType = "GFX_diplomacy_portrait_shadow_frame" } # hidden
+			iconType = { name = "stripes_1" spriteType = "GFX_diplomacy_stripes_2" } # hidden
+			iconType = { name = "city_frame" spriteType = "GFX_diplomacy_portrait_frame" } # hidden
+		}
+		iconType = { name = "empire_info_bg" spriteType = "GFX_diplomacy_dark_fade_bg" } # hidden
+		instantTextBoxType={ name = "empire_name" font = "malgun_goth_24" } # hidden 
+		instantTextBoxType={ name = "empire_government_type" font = "cg_16b" } # hidden
+		instantTextBoxType={ name = "empire_personality_type" font = "cg_16b" } # hidden
+		OverlappingElementsBoxType = { name = "empire_ethics_icons" position = { x = -1145 y = -11138 } } # hidden
+		containerWindowType = {
+			name = "leader_details"
+			position = { x = -1125 y = -1175 }
+			containerWindowType = { name = "empire_traits_box" } # hidden
+			instantTextBoxType = { name = "empire_traits_label" font = "cg_16b" } # hidden
+			overlappingElementsBoxType = { name = "leader_traits" } # hidden
+			instantTextBoxType = { name = "leader_name" font = "cg_16b" } # hidden
+			instantTextBoxType = { name = "leader_species" font = "cg_16b" } # hidden
+		}
+		containerWindowType = {
+			name = "opinion_window"
+			position = { x = -1127 y = -11110 }
+			size = { width = 94 height = 30 }
+			iconType = { name = "their_opinion_icon" spriteType = "GFX_diplomacy_opinion" } # hidden
+			instantTextBoxType = { name = "their_opinion" font = "cg_16b" }
+		}
+        	### EVENT DIPLO ###
+		
+		containerWindowType = {
+			name = "EVENT_DIPLO"
+			position = { x = -2000 y = -5000 }
+			#size = { width=563 height=220 }
+			moveable = no
+			
+			instantTextBoxType={		# Used for GNA_LEADER_NAME because I am stupid and can not find out another way
+				name = "action_title"
+				font = "malgun_goth_24"
+				position = { x = 6600 y = -4300 }
+				maxWidth = 450
+				maxHeight = 60
+				alwaysTransparent = yes
+			}
+			
+			instantTextBoxType={
+				name = "action_desc"
+				font = "cg_16b"
+				position = { x = -4900 y = 0 }
+				maxWidth = 500
+				maxHeight = 180
+				Orientation = "UPPER_LEFT"
+				format = center
+				alwaysTransparent = yes
+				text_color_code = "H"
+			}
+			
+			listboxType = {
+				name = "option_list"
+				position = { x = -1200.5 y = 0} 
+				size = { x = 1 y = 1}
+				orientation = "UPPER_LEFT"
+			}
+		}
+	}
+}

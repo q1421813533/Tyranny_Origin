@@ -1,0 +1,21 @@
+character = {
+	size = { x = 575 y = 380 }
+
+	entity = {
+		orientation = center_down
+		position = { x = 0 y = -20 }
+		scale = 24
+	}
+	icon = {
+		orientation = center_down
+		position = { x = 0 y = 0 }
+		scale = 1
+	}
+}
+
+portraits = {
+
+	dionysian_overlord_portrait = {texturefile = "gfx/models/portraits/dionysian/dionysian_overlord_portrait.png"}
+	dionysian_overlord_portrait_blank = {texturefile = "gfx/models/portraits/dionysian/dionysian_overlord_portrait_blank.png"}
+
+}

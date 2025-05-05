@@ -1,0 +1,34 @@
+
+
+spriteTypes = {
+	
+	spriteType = {
+		name = "GFX_dionysian_prime_minister_icon"
+		texturefile = "gfx/interface/icons/traits/leader_trait_icons/utopian_idealist.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_prime_minister_councilor_icon"
+		texturefile = "gfx/interface/council_view/dionysian_prime_minister_councilor.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_election_picture"
+		texturefile = "gfx/event_pictures/dionysian_senate.dds"
+		masking_texture = "gfx/interface/situation_log/event_mask.dds"
+		alwaystransparent = yes
+	}
+	spriteType = {
+		name = "GFX_dionysian_party_time"
+		texturefile = "gfx/interface/icons/modifiers/mod_diplo_weight_council_mult.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_advance_election_cooldown"
+		texturefile = "gfx/interface/icons/modifiers/mod_country_edict_length_mult.dds"
+	}
+	
+	spriteType = {
+		name = "GFX_dionysian_party_punish"
+		texturefile = "gfx/interface/icons/modifiers/mod_unity_loss_mult.dds"
+	}
+	
+}
+

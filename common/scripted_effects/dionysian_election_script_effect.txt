@@ -1,0 +1,221 @@
+@Dionysian_New_PM_Adm_Weight = 60
+@Dionysian_New_PM_Mil_Weight = 20
+@Dionysian_New_PM_Sci_Weight = 20
+
+
+
+
+dionysian_give_new_PM = {
+
+	
+	random_owned_leader = {
+		limit = {
+			is_heir = yes
+		}
+		save_event_target_as = dionysian_PM_old
+	}
+
+	if = {
+		limit = { exists = event_target:dionysian_PM_old }
+
+		if = { 
+			limit = {
+				event_target:dionysian_PM_old = { has_trait = leader_trait_dionysian_prime_minister  }
+			}
+			set_variable = { which = dionysian_PM_level value = event_target:dionysian_PM_old.trigger:has_skill  }
+		}
+
+		if = { 
+			limit = {
+				exists = event_target:dionysian_PM_old.planet
+			}
+			event_target:dionysian_PM_old.planet = {
+				save_event_target_as = dionysian_PM_old_planet
+			}
+		}
+
+		event_target:dionysian_PM_old = {
+			if = {
+				limit = { has_leader_flag = dionysian_is_archon }
+				remove_trait = leader_trait_dionysian_prime_minister
+				exile_leader_as = former_dionysian_archon_PM  
+				leader_event = { id = dionysian_base.16 days = 7200 random = 10800 }
+			}
+			else = {
+				kill_leader = { show_notification = no }
+			}
+		} 
+	}
+
+
+	random_list = {
+		50 = { }
+		15 = { subtract_variable = { which = dionysian_PM_level value = 1 } }
+		25 = { change_variable = { which = dionysian_PM_level value = 1 } }
+		5 = { subtract_variable = { which = dionysian_PM_level value = 2 } }
+		5 = { change_variable = { which = dionysian_PM_level value = 2 } }
+	}
+
+	if = {
+		limit = { check_variable_arithmetic = { which = dionysian_PM_level  value < 1 } }
+		set_variable = { which = dionysian_PM_level value = 1  }
+	}
+	else_if = {
+		limit = { check_variable_arithmetic = { which = dionysian_PM_level  value > 8 } }
+		set_variable = { which = dionysian_PM_level value = 8  }
+	}
+
+	random_owned_pop = {
+		limit = { has_citizenship_rights = yes }	
+		save_event_target_as = dionysian_PM_pop
+	}
+
+	random_list = {
+		@Dionysian_New_PM_Adm_Weight = {
+			create_leader = {
+				name = random
+				species = event_target:dionysian_PM_pop.species
+				class = official
+				skill = 1
+				randomize_traits = no
+			}
+		}
+		@Dionysian_New_PM_Mil_Weight = {
+			create_leader = {
+				name = random
+				species = event_target:dionysian_PM_pop.species
+				class = commander
+				skill = 1
+				randomize_traits = no
+			}
+		}
+		@Dionysian_New_PM_Sci_Weight = {
+			create_leader = {
+				name = random
+				species = event_target:dionysian_PM_pop.species
+				class = scientist
+				skill = 1
+				randomize_traits = no
+			}
+		}
+	}
+
+	last_created_leader = { 
+		save_event_target_as = dionysian_PM_leader 
+	}
+
+	set_heir = event_target:dionysian_PM_leader
+
+	event_target:dionysian_PM_leader = { 
+		
+		add_trait_no_notify = leader_trait_dionysian_prime_minister
+		dionysian_int_leader = yes
+
+		random_list = {
+			80 = { }
+			20 = { 
+				dionysian_give_archon_trait_for_new_leader = yes 
+				modifier = {
+					factor = 0
+					species = { NOT = { has_trait = trait_dionysian_gene } }
+				}
+			}
+		}
+
+		set_council_position = councilor_dionysian_prime_minister
+
+		if = {
+			limit = {
+				exists = event_target:dionysian_PM_old_planet
+			}
+			event_target:dionysian_PM_old_planet = { assign_leader = heir }
+		}
+		else_if = { 
+			limit = { NOT = { exists = owner.capital_scope.leader } }
+			owner.capital_scope = { assign_leader = heir }
+		}
+		else_if = {
+			limit = { NOT = { exists = background_planet.leader } }
+			background_planet = { assign_leader = heir }
+		} 
+
+	}
+
+	set_variable = { which = dionysian_PM_new_skills value = dionysian_PM_level }
+	change_variable = { which = dionysian_PM_new_skills value = -1 }
+	floor_variable = dionysian_PM_new_skills
+
+	while = {
+		count = dionysian_PM_new_skills
+		event_target:dionysian_PM_leader = { add_skill = 1 }
+	}
+
+	event_target:dionysian_PM_leader = { 
+		if = { limit = { has_leader_flag = dionysian_is_exarch } }
+		remove_trait = leader_trait_dionysian_exarch
+		remove_leader_flag = dionysian_is_exarch
+	}
+
+	clear_variable = dionysian_PM_new_skills
+
+	set_variable = { which = dionysian_PM_level value = event_target:dionysian_PM_leader.trigger:has_skill  }
+	set_variable = { which = dionysian_PM_term value = 1 }
+
+	set_government_cooldown = no
+	reset_policy_cooldowns = yes
+
+}
+
+dionysian_give_election_chaos = {
+	
+	if = {
+		limit = {  resource_stockpile_compare = { resource = influence value >= 100 }  }
+		add_resource = { 
+			influence = -100
+		}
+	}
+	else = {
+		add_modifier = {
+			modifier = dionysian_election_chaos
+			days = 720
+		}
+	}
+
+}
+
+dionysian_give_election_punish = {
+	
+	if = {
+		limit = {  resource_stockpile_compare = { resource = influence value >= 200 }  }
+		add_resource = { 
+			influence = -200
+		}
+	}
+	else = {
+		add_modifier = {
+			modifier = dionysian_election_punish
+			days = 1080
+		}
+	}
+
+}
+
+dionysian_check_now_PM_alive = {
+		
+	random_owned_leader = {
+		limit = {
+			is_heir = yes
+			has_trait = leader_trait_dionysian_prime_minister
+		}
+		save_event_target_as = dionysian_PM_old_live
+	}
+
+	if = {
+		limit = { NOT = { exists = event_target:dionysian_PM_old_live } }
+		dionysian_give_new_PM = yes
+	}
+	else = {
+		change_variable = { which = dionysian_PM_term value = 1 }
+	}
+
+}

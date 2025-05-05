@@ -1,0 +1,53 @@
+is_dionysian_edict_changable_planet = {
+	OR = {
+		habitable_planet_not_urban = yes
+		is_planet_class = pc_city
+		is_planet_class = pc_relic
+		is_planet_class = pc_nuked
+		is_planet_class = pc_hive
+		is_planet_class = pc_machine
+		has_climate = dry
+		has_climate = cold
+		has_climate = wet
+	}
+}
+
+dionysian_has_shroud_curse = {
+	OR = {
+		has_modifier = shroud_neg_happiness
+		has_modifier = shroud_neg_ethic
+		has_modifier = shroud_neg_armor
+		has_modifier = shroud_neg_growth
+		has_modifier = shroud_neg_research
+		has_modifier = shroud_neg_influence
+		has_modifier = shroud_neg_unity
+		has_modifier = shroud_neg_speed
+		has_modifier = shroud_neg_morale
+		has_modifier = shroud_neg_sensors
+	}
+}
+
+dionysian_has_shroud_bless = {
+	OR = {
+		has_modifier = shroud_happiness
+		has_modifier = shroud_ship_upkeep
+		has_modifier = shroud_research_speed
+		has_modifier = shroud_shield_boost
+		has_modifier = shroud_weapon_boost
+		has_modifier = shroud_firing_rate
+		has_modifier = shroud_ethic_boost
+		has_modifier = shroud_unity_boost
+		has_modifier = shroud_evasion
+		has_modifier = shroud_repair
+		has_modifier = shroud_speed
+		has_modifier = shroud_morale
+		has_modifier = shroud_sensors
+	}
+}
+
+
+can_use_dionyian_PM = {
+	has_origin = dionysian_origin
+	has_authority = auth_imperial	
+	NOT = { has_ethic = ethic_fanatic_authoritarian }
+}

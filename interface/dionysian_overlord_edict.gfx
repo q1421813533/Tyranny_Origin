@@ -1,0 +1,209 @@
+
+
+spriteTypes = {
+	spriteType = {
+		name = "GFX_edict_dionysian_overlord"
+		texturefile = "gfx/interface/icons/edict_dionysian_overlord.dds"
+	}
+	spriteType = {
+		name = "GFX_mod_dionysian_overlord_edict"
+		texturefile = "gfx/interface/icons/modifiers/mod_dionysian_overlord_edict.dds"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_dionsyian_edict_selector_decorate"
+		textureFile = "gfx/interface/gui/dionsyian_edict_selector_decorate.dds"
+		borderSize = { x=0 y=0 }
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_selector_cube"
+		texturefile = "gfx/interface/gui/dionysian_edict_selector_cube.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_blank"
+		texturefile = "gfx/interface/gui/dionysian_blank.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_selector_button"
+		texturefile = "gfx/interface/gui/dionysian_edict_issue_button.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_selector_cube_active"
+		texturefile = "gfx/interface/gui/dionysian_edict_selector_cube_active.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_selector_cube_endure"
+		texturefile = "gfx/interface/gui/dionysian_edict_selector_cube_endure.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_selector_cube_fire"
+		texturefile = "gfx/interface/gui/dionysian_edict_selector_cube_fire.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_selector_cube_frost"
+		texturefile = "gfx/interface/gui/dionysian_edict_selector_cube_frost.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_selector_cube_lightning"
+		texturefile = "gfx/interface/gui/dionysian_edict_selector_cube_lightning.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_selector_cube_stone"
+		texturefile = "gfx/interface/gui/dionysian_edict_selector_cube_stone.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_selector_cube_storm"
+		texturefile = "gfx/interface/gui/dionysian_edict_selector_cube_storm.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_selector_cube_shape_planet"
+		texturefile = "gfx/interface/gui/dionysian_edict_selector_cube_shape_planet.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_selector_cube_guide_fleet"
+		texturefile = "gfx/interface/gui/dionysian_edict_selector_cube_guide_fleet.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_selector_cube_asecend"
+		texturefile = "gfx/interface/gui/dionysian_edict_selector_cube_asecend.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_selector_cube_curse"
+		texturefile = "gfx/interface/gui/dionysian_edict_selector_cube_curse.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_selector_cube_nightfall"
+		texturefile = "gfx/interface/gui/dionysian_edict_selector_cube_nightfall.dds"
+	}
+
+	spriteType = {
+		name = "GFX_dionysian_edict_window_bg"
+		texturefile = "gfx/interface/gui/overlord_edict_precast_window.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_window_bn"
+		texturefile = "gfx/interface/gui/overlord_edict_precast_button.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_uncorrect_edict_target_picture"
+		texturefile = "gfx/event_pictures/gray_gooed_planet.dds"
+		masking_texture = "gfx/interface/situation_log/event_mask.dds"
+		alwaystransparent = yes
+	}
+	spriteType = {
+		name = "GFX_eidct_cooldown"
+		texturefile = "gfx/interface/icons/modifiers/mod_black_hole.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_fire"
+		texturefile = "gfx/event_pictures/dionysian_edict_fire.dds"
+		masking_texture = "gfx/interface/situation_log/event_mask.dds"
+		alwaystransparent = yes
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_frost"
+		texturefile = "gfx/event_pictures/dionysian_edict_frost.dds"
+		masking_texture = "gfx/interface/situation_log/event_mask.dds"
+		alwaystransparent = yes
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_lightning"
+		texturefile = "gfx/event_pictures/dionysian_edict_lightning.dds"
+		masking_texture = "gfx/interface/situation_log/event_mask.dds"
+		alwaystransparent = yes
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_crack"
+		texturefile = "gfx/event_pictures/dionysian_edict_crack.dds"
+		masking_texture = "gfx/interface/situation_log/event_mask.dds"
+		alwaystransparent = yes
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_storm"
+		texturefile = "gfx/event_pictures/astral_rift_ancient_battlegrounds.dds"
+		masking_texture = "gfx/interface/situation_log/event_mask.dds"
+		alwaystransparent = yes
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_ascend"
+		texturefile = "gfx/event_pictures/astral_rift_vortex.dds"
+		masking_texture = "gfx/interface/situation_log/event_mask.dds"
+		alwaystransparent = yes
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_guide"
+		texturefile = "gfx/event_pictures/dionysian_edict_guide.dds"
+		masking_texture = "gfx/interface/situation_log/event_mask.dds"
+		alwaystransparent = yes
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_shape"
+		texturefile = "gfx/event_pictures/riftworld_archsite_crater.dds"
+		masking_texture = "gfx/interface/situation_log/event_mask.dds"
+		alwaystransparent = yes
+	}
+	spriteType = {
+		name = "GFX_dionysian_edict_malediction"
+		texturefile = "gfx/event_pictures/dionysian_edict_malediction.dds"
+		masking_texture = "gfx/interface/situation_log/event_mask.dds"
+		alwaystransparent = yes
+	}
+	spriteType = {
+		name = "GFX_eidct_cooldown"
+		texturefile = "gfx/interface/icons/modifiers/mod_black_hole.dds"
+	}
+	spriteType = {
+		name = "GFX_text_dionysian_menace_icon"
+		texturefile = "gfx/interface/icons/text_icons/pictures/dionysian_menace_icon.dds"
+	}
+	spriteType = {
+		name = "GFX_text_edict_of_fire_ancient_picture"
+		texturefile = "gfx/interface/icons/text_icons/pictures/edict_of_fire_ancient_picture.dds"
+	}
+	spriteType = {
+		name = "GFX_text_edict_of_frost_ancient_picture"
+		texturefile = "gfx/interface/icons/text_icons/pictures/edict_of_frost_ancient_picture.dds"
+	}
+	spriteType = {
+		name = "GFX_text_edict_of_lightning_ancient_picture"
+		texturefile = "gfx/interface/icons/text_icons/pictures/edict_of_lightning_ancient_picture.dds"
+	}
+	spriteType = {
+		name = "GFX_text_edict_of_stone_ancient_picture"
+		texturefile = "gfx/interface/icons/text_icons/pictures/edict_of_stone_ancient_picture.dds"
+	}
+	spriteType = {
+		name = "GFX_text_edict_of_malediction_ancient_picture"
+		texturefile = "gfx/interface/icons/text_icons/pictures/edict_of_malediction_ancient_picture.dds"
+	}
+	spriteType = {
+		name = "GFX_text_edict_of_nightfall_ancient_picture"
+		texturefile = "gfx/interface/icons/text_icons/pictures/edict_of_nightfall_ancient_picture.dds"
+	}
+	spriteType = {
+		name = "GFX_text_edict_of_storm_ancient_picture"
+		texturefile = "gfx/interface/icons/text_icons/pictures/edict_of_storm_ancient_picture.dds"
+	}
+	spriteType = {
+		name = "GFX_text_edict_of_shape_ancient_picture"
+		texturefile = "gfx/interface/icons/text_icons/pictures/edict_of_shape_ancient_picture.dds"
+	}
+	spriteType = {
+		name = "GFX_text_edict_of_psi_ancient_picture"
+		texturefile = "gfx/interface/icons/text_icons/pictures/edict_of_psi_ancient_picture.dds"
+	}
+	spriteType = {
+		name = "GFX_text_edict_of_guide_ancient_picture"
+		texturefile = "gfx/interface/icons/text_icons/pictures/edict_of_guide_ancient_picture.dds"
+	}
+	spriteType = {
+		name = "GFX_edict_dionysian_control_shroud_menu"
+		texturefile = "gfx/interface/icons/edict_dionysian_control_shroud_menu.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_enhance_telepath_modifier"
+		texturefile = "gfx/interface/icons/modifiers/mod_resource_unity_add.dds"
+	}
+}
+

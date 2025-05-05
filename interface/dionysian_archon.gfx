@@ -1,0 +1,151 @@
+
+
+spriteTypes = {
+	spriteType = {
+		name = "GFX_dionysian_archon_destiny"
+		texturefile = "gfx/interface/icons/dionysian_archon_destiny.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_time"
+		texturefile = "gfx/interface/icons/dionysian_archon_time.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_sercets"
+		texturefile = "gfx/interface/icons/dionysian_archon_sercets.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_stone"
+		texturefile = "gfx/interface/icons/dionysian_archon_stone.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_fire"
+		texturefile = "gfx/interface/icons/dionysian_archon_fire.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_wind"
+		texturefile = "gfx/interface/icons/dionysian_archon_wind.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_entropy"
+		texturefile = "gfx/interface/icons/dionysian_archon_entropy.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_dream"
+		texturefile = "gfx/interface/icons/dionysian_archon_dream.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_war"
+		texturefile = "gfx/interface/icons/dionysian_archon_war.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_justice"
+		texturefile = "gfx/interface/icons/dionysian_archon_justice.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_rebirth"
+		texturefile = "gfx/interface/icons/dionysian_archon_rebirth.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_song"
+		texturefile = "gfx/interface/icons/dionysian_archon_song.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_virus"
+		texturefile = "gfx/interface/icons/dionysian_archon_virus.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_shadows"
+		texturefile = "gfx/interface/icons/dionysian_archon_shadows.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_domination"
+		texturefile = "gfx/interface/icons/dionysian_archon_domination.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_wisdom"
+		texturefile = "gfx/interface/icons/dionysian_archon_wisdom.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_frost"
+		texturefile = "gfx/interface/icons/dionysian_archon_frost.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_death"
+		texturefile = "gfx/interface/icons/dionysian_archon_death.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_light"
+		texturefile = "gfx/interface/icons/dionysian_archon_light.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_thunder"
+		texturefile = "gfx/interface/icons/dionysian_archon_thunder.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_forge"
+		texturefile = "gfx/interface/icons/dionysian_archon_forge.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_temptation"
+		texturefile = "gfx/interface/icons/dionysian_archon_temptation.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_order"
+		texturefile = "gfx/interface/icons/dionysian_archon_order.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_hatred"
+		texturefile = "gfx/interface/icons/dionysian_archon_hatred.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_watchers"
+		texturefile = "gfx/interface/icons/dionysian_archon_watchers.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_nature"
+		texturefile = "gfx/interface/icons/dionysian_archon_nature.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_foison"
+		texturefile = "gfx/interface/icons/dionysian_archon_foison.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_fortune"
+		texturefile = "gfx/interface/icons/dionysian_archon_fortune.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_creation"
+		texturefile = "gfx/interface/icons/dionysian_archon_creation.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_archon_rifts"
+		texturefile = "gfx/interface/icons/dionysian_archon_rifts.dds"
+	}
+
+	spriteType = {
+		name = "GFX_dionysian_imperial_archons"
+		textureFile = "gfx/interface/icons/ascension_perks/dionysian_imperial_archons.dds"
+		alwaystransparent = yes
+	}
+	spriteType = {
+		name = "GFX_message_dionysian_recruitment_archon"
+		textureFile = "gfx/interface/icons/message/message_dionysian_recruitment_archon.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_tunnon_room"
+		textureFile = "gfx/portraits/city_sets/dionysian_tunnon_room.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_bastard_city_room"
+		textureFile = "gfx/portraits/city_sets/dionysian_bastard_city_room.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_tunnon_bg"
+		textureFile = "gfx/interface/leaders/recruitment_bgs/dionysian_tunnon_bg.dds"
+	}
+	spriteType = {
+		name = "GFX_text_dionysian_leader_trait_small_icon"
+		texturefile = "gfx/interface/icons/text_icons/pictures/dionysian_leader_trait_small_icon.dds"
+	}
+}
+

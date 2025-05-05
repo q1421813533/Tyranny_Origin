@@ -1,0 +1,60 @@
+
+dionysian_imperial_archons = {
+
+	potential = {
+		NOT = { has_ascension_perk = dionysian_imperial_archons }
+		has_origin = dionysian_origin
+	}
+
+	possible = {
+		custom_tooltip = {
+			fail_text = "requires_ascension_perks_1"
+			num_ascension_perks > 0
+		}
+	}
+
+	on_enabled ={
+		hidden_effect = {
+			change_variable = { which = dionysian_archon_upkeep_mult value = -2 } 
+			if = {
+				limit = { check_variable_arithmetic = { which = dionysian_archon_upkeep_mult  value < 0 } }
+				set_variable = { which = dionysian_archon_upkeep_mult value = 0  }
+			}
+		}
+		custom_tooltip = "dionysian_imperial_archons_tooltip"
+	}
+
+	modifier = {
+		species_leader_exp_gain = 0.3
+		custom_tooltip = dionysian_imperial_archons_tooltip
+	}
+
+	ai_weight = {
+		factor = 20
+	}
+}
+
+
+dionysian_arcane_rise = {
+
+	potential = {
+		NOT = { has_ascension_perk = dionysian_arcane_rise }
+		has_origin = dionysian_origin
+	}
+
+	possible = {	
+		has_valid_civic = civic_dionysian_mage_guild
+	}
+
+	on_enabled ={
+		custom_tooltip = "dionysian_arcane_rise_tooltip"
+	}
+
+	modifier = {
+		
+	}
+
+	ai_weight = {
+		factor = 0
+	}
+}

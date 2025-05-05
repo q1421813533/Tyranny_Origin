@@ -1,0 +1,99 @@
+
+
+spriteTypes = {
+	spriteType = {
+		name = "GFX_dionysian_origin_pic"
+		texturefile = "gfx/event_pictures/origins/dionysian_origin_pic.dds"
+		alwaystransparent = yes
+	}
+	spriteType = {
+		name = "GFX_dionysian_origin_icon"
+		texturefile = "gfx/interface/icons/origins/dionysian_origin_icon.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_overlord_trait"
+		texturefile = "gfx/interface/icons/dionysian_overlord_trait.dds"
+	}
+	spriteType = {
+		name = "GFX_edict_dionysian_imperial"
+		texturefile = "gfx/interface/icons/edict_dionysian_imperial.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_hide_portrait"
+		texturefile = "gfx/interface/icons/edict_dionysian_hide_portrait.dds"
+	}
+	spriteType = {
+		name = "GFX_edict_dionyisan_enhance_overlord"
+		texturefile = "gfx/interface/icons/edict_dionyisan_enhance_overlord.dds"
+	}
+	spriteType = {
+		name = "GFX_edict_dionysian_consume_relic"
+		texturefile = "gfx/interface/icons/edict_dionysian_consume_relic.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_collapse_spire"
+		texturefile = "gfx/event_pictures/dionysian_collapse_spire.dds"
+		masking_texture = "gfx/interface/situation_log/event_mask.dds"
+		alwaystransparent = yes
+	}
+	spriteType = {
+		name = "GFX_dionysian_overlord_city"
+		texturefile = "gfx/event_pictures/dionysian_overlord_city.dds"
+		masking_texture = "gfx/interface/situation_log/event_mask.dds"
+		alwaystransparent = yes
+	}
+	spriteType = {
+		name = "GFX_dionysian_great_spire"
+		texturefile = "gfx/event_pictures/dionysian_great_spire.dds"
+		masking_texture = "gfx/interface/situation_log/event_mask.dds"
+		alwaystransparent = yes
+	}
+	spriteType = {
+		name = "GFX_dionysian_community_dip"
+		texturefile = "gfx/interface/icons/modifiers/mod_galactic_community_legitimacy_add.dds"
+	}
+
+	spriteType = {
+		name = "GFX_dionysian_bastard_city_event_pic"
+		texturefile = "gfx/event_pictures/dionysian_bastard_city_event.dds"
+		masking_texture = "gfx/interface/situation_log/event_mask.dds"
+		alwaystransparent = yes
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_arcanist"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_arcanist.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_warlock"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_warlock.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_thaumaturge"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_thaumaturge.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_enchanter"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_enchanter.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_shaman"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_shaman.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_alchemist"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_shaman.dds"
+	}
+
+	spriteType = {
+		name = "GFX_dionysian_arcane_rise"
+		textureFile = "gfx/interface/icons/ascension_perks/dionysian_arcane_rise.dds"
+		alwaystransparent = yes
+	}
+}
+

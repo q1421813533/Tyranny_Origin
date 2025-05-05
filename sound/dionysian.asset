@@ -1,0 +1,95 @@
+sound =
+{
+	name = "dionysian_edict_click_curse"
+	file = "dionysian/dionysian_edict_click_curse.wav"
+	volume = 0.85
+	always_load = yes
+}
+
+sound =
+{
+	name = "dionysian_edict_click_frost"
+	file = "dionysian/dionysian_edict_click_frost.wav"
+	volume = 0.85
+	always_load = yes
+}
+
+sound =
+{
+	name = "dionysian_edict_click_issue"
+	file = "dionysian/dionysian_edict_click_issue.wav"
+	volume = 0.85
+	always_load = yes
+}
+
+sound =
+{
+	name = "dionysian_edict_click_cancel"
+	file = "dionysian/dionysian_edict_click_cancel.wav"
+	volume = 0.85
+	always_load = yes
+}
+
+sound =
+{
+	name = "dionysian_edict_click_fire"
+	file = "dionysian/dionysian_edict_click_fire.wav"
+	volume = 0.85
+	always_load = yes
+}
+
+sound =
+{
+	name = "dionysian_edict_click_stone"
+	file = "dionysian/dionysian_edict_click_stone.wav"
+	volume = 0.85
+	always_load = yes
+}
+
+sound =
+{
+	name = "dionysian_edict_click_lightning"
+	file = "dionysian/dionysian_edict_click_lightning.wav"
+	volume = 0.85
+	always_load = yes
+}
+
+sound =
+{
+	name = "dionysian_edict_click_storm"
+	file = "event/event_space_cloud.wav"
+	volume = 0.85
+	always_load = yes
+}
+
+sound =
+{
+	name = "dionysian_edict_click_shape_planet"
+	file = "event/event_solar_fusion.wav"
+	volume = 0.85
+	always_load = yes
+}
+
+sound =
+{
+	name = "dionysian_edict_click_guide_fleet"
+	file = "apocalypse/god_ray_windup_layer_01.wav"
+	volume = 0.85
+	always_load = yes
+}
+
+sound =
+{
+	name = "dionysian_edict_click_ascend"
+	file = "ambient/shroud_eaten_planet_03.wav"
+	volume = 0.85
+	always_load = yes
+}
+
+sound =
+{
+	name = "dionysian_edict_click_nightfall"
+	file = "utopia/shroud_creature_death_01.wav"
+	volume = 0.85
+	always_load = yes
+}

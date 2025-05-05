@@ -1,0 +1,1568 @@
+namespace = dionysian_base
+
+
+event = {
+	id = dionysian_base.0
+	is_triggered_only = yes
+	hide_window = yes
+
+	immediate = {
+		random_playable_country = {
+			limit = { 
+				has_origin = dionysian_origin 
+			}
+			country_event = { id = dionysian_base.1 }
+		}
+	}
+
+}
+
+country_event = {
+	id = dionysian_base.1
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	immediate = {
+
+		save_global_event_target_as = dionysian_empire
+
+		ruler = {
+			add_trait_no_notify = leader_trait_dionysian_overlord
+			add_trait_no_notify = leader_trait_psionic
+			set_leader_flag = leader_death_events_blocked
+			set_leader_flag = immune_to_negative_traits
+			set_leader_flag = dionysian_is_archon
+			set_leader_flag = legendary_leader
+			set_variable = {
+				which = dionysian_overlord_power_level
+				value = 1
+			}
+			set_variable = {
+				which = dionysian_overlord_reputation_level
+				value = 10
+			}
+			set_variable_to_random_value = { which = dionysian_overlord_start_age min = 2700 max = 2800 rounded = yes }
+			set_age = dionysian_overlord_start_age
+			clear_variable = dionysian_overlord_start_age
+			save_global_event_target_as = dionysian_overlord
+		}
+
+		if = {
+			limit = {
+				OR = {
+					has_ethic = ethic_authoritarian
+					has_ethic = ethic_fanatic_authoritarian
+				}
+			}
+			ruler = { change_background_ethic = ethic_authoritarian }
+		}
+
+		set_variable = {
+			which = dionysian_overlord_legendary_traits
+			value = 0
+		}
+
+		set_variable = {
+			which = dionysian_archon_upkeep_mult
+			value = 3
+		}
+
+		add_research_option = tech_psionic_theory
+
+		set_country_flag = has_shroud_patron
+		set_country_flag = covenant_end_of_the_cycle  #prevent event utopia.2658 from happening
+		set_global_flag = end_of_the_cycle #maybe the Overlord is End of Cycle
+		set_country_flag = shroud_vision_10 #prevent another chosen one
+
+		capital_scope = {
+			add_modifier = {
+				modifier = dionysian_edict_remain_on_captial
+				days = -1
+			}
+		}
+
+		country_event = { id = dionysian_base.6 days = 40 }
+
+		set_variable = { which = dionysian_PM_term value = 1 }
+		set_variable = { which = dionysian_PM_level value = -1  }
+		
+		if = {
+			limit = {
+				has_authority = auth_imperial
+			}
+			set_country_flag = dionysian_is_imperial
+
+			if = { 
+				limit = { can_use_dionyian_PM = yes }
+				add_resource = { 
+					influence = 50
+				}
+				unlock_council_slots = 1
+				set_council_position_to_council = councilor_dionysian_prime_minister
+				country_event = { id = dionysian_election.0 days = 20 }
+			}
+		}
+		else = {
+			set_country_flag = dionysian_is_dictatorial
+		}
+
+		if = {
+			limit = {
+				capital_scope = { has_building = building_research_lab_1 }
+				has_valid_civic = civic_dionysian_mage_guild
+			}
+			capital_scope = {
+				remove_building = building_research_lab_1
+				add_building = building_dionysian_guild_of_warlocks
+			}
+		}
+		
+	}
+}
+
+
+
+#give overlord lengendary traits
+country_event = {
+	id = dionysian_base.2
+	title = "dionysian_base.2.name"
+	desc = "dionysian_base.2.desc"
+	diplomatic_title = BLANK_STRING
+	diplomatic = yes
+	force_open = yes
+
+	picture_event_data = {
+		room = dionysian_bastard_city_room
+	}
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+		NOT = { has_country_flag = dionysian_chosen_traits }
+	}
+
+	immediate = {
+		set_country_flag = dionysian_chosen_traits
+		change_variable = { which = dionysian_overlord_legendary_traits value = 1 }
+		if = {
+			limit = { check_variable_arithmetic = { which = dionysian_overlord_legendary_traits  value = 3 } }	
+			set_country_flag = dionysian_forbid_new_legendary_trait
+		}	
+	}
+
+	option = {
+		name = "dionysian_base.2.option1"
+		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_commanding_presence } } } }
+		ruler = { add_trait = leader_trait_legendary_commanding_presence }
+		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option2"
+		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_genetic_purist } } } }
+		ruler = { add_trait = leader_trait_legendary_genetic_purist }
+		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option3"
+		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_scientific_diplomacy } } } }
+		ruler = { add_trait = leader_trait_legendary_scientific_diplomacy }
+		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option4"
+		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_natural_ruler } } } }
+		ruler = { add_trait = leader_trait_legendary_natural_ruler }
+		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option5"
+		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_military_knowledge } } } }
+		ruler = { add_trait = leader_trait_legendary_military_knowledge }
+		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option6"
+		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_pious_ascet } } } }
+		ruler = { add_trait = leader_trait_legendary_pious_ascet }
+		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option7"
+		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_industry_titan } } } }
+		ruler = { add_trait = leader_trait_legendary_industry_titan }
+		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option8"
+		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_high_king } } } }
+		ruler = { add_trait = leader_trait_legendary_high_king }
+		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option9"
+		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_evervigilant } } } }
+		ruler = { add_trait = leader_trait_legendary_evervigilant }
+		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option10"
+		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_gunboat_diplomacy } } } }
+		ruler = { add_trait = leader_trait_legendary_gunboat_diplomacy }
+		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+
+	option = {
+		name = "dionysian_base.2.option11"
+		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_autarky } } } }
+		ruler = { add_trait = leader_trait_legendary_autarky }
+		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option12"
+		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_foe_hammer } } } }
+		ruler = { add_trait = leader_trait_legendary_foe_hammer }
+		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option13"
+		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_great_teacher } } } }
+		ruler = { add_trait = leader_trait_legendary_great_teacher }
+		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option14"
+		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_great_inventor } } } }
+		ruler = { add_trait = leader_trait_legendary_great_inventor }
+		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+}
+
+#on overlord death
+country_event = {
+	id = dionysian_base.3
+
+	title = "dionysian_base.3.name"
+	desc = "dionysian_base.3.desc"
+	picture = GFX_dionysian_collapse_spire
+	show_sound = event_life_support_fail
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+		from = {
+			is_same_value = event_target:dionysian_overlord
+		}
+	}
+
+	immediate = {
+		set_origin = dionysian_origin_death
+		remove_modifier = dionysian_party_time
+		remove_modifier = dionysian_community_dip
+		remove_modifier = covenant_end_of_the_cycle
+		remove_country_flag = has_shroud_patron
+		remove_country_flag = covenant_end_of_the_cycle
+		remove_country_flag = shroud_vision_10
+		random_owned_leader = {
+			limit = {	
+				is_heir = yes	
+			}
+			remove_trait = leader_trait_dionysian_prime_minister
+			add_trait = trait_imperial_heir
+		}
+	}
+
+	option = {
+		name = "dionysian_base.3.option"
+		add_modifier = {
+			modifier = dionysian_politics_collapse
+			days = 3600
+		}
+	}
+}
+
+#after auth changed
+country_event = {
+	id = dionysian_base.4
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	immediate = {
+		if = {
+			limit = { 
+				has_authority = auth_imperial
+				has_country_flag = dionysian_is_dictatorial 
+			}
+			remove_modifier = dionysian_party_time
+			every_owned_leader = {
+				limit = { has_trait = leader_trait_dionysian_prime_minister }
+				kill_leader = { show_notification = no }
+			}
+			country_event = { id = dionysian_election.0 days = 20 }
+			remove_country_flag = dionysian_is_dictatorial
+			set_country_flag = dionysian_is_imperial
+		}
+		else_if = {
+			limit = { 
+				has_authority = auth_dictatorial
+				has_country_flag = dionysian_is_imperial  
+			}
+			remove_modifier = dionysian_party_time
+			every_owned_leader = {
+				limit = { has_trait = leader_trait_dionysian_prime_minister }
+				kill_leader = { show_notification = no }
+			}
+			remove_country_flag = dionysian_is_imperial
+			set_country_flag = dionysian_is_dictatorial
+		}
+		else_if = {
+			limit = {
+				NOR = {
+					has_authority = auth_imperial
+					has_authority = auth_dictatorial
+				}
+			}
+			country_event = { id = dionysian_base.5 }
+		}
+	}
+}
+
+#change unallowed auth
+country_event = {
+	id = dionysian_base.5
+
+	title = "dionysian_base.5.name"
+	desc = "dionysian_base.5.desc"
+	picture = GFX_dionysian_overlord_city
+	show_sound = evn_fc_disunity_origin
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	immediate = {
+
+		if = { 
+			limit = { has_ethic = ethic_egalitarian }
+			shift_ethic = ethic_authoritarian
+		}
+		else_if = {
+			limit = { has_ethic = ethic_fanatic_egalitarian }
+			shift_ethic = ethic_fanatic_authoritarian
+		}
+
+		change_government = {
+			authority = auth_imperial
+			cooldown = no
+			remove_invalid_civics = yes
+		}
+		remove_modifier = dionysian_party_time
+		every_owned_leader = {
+			limit = { has_trait = leader_trait_dionysian_prime_minister }
+			kill_leader = { show_notification = no }
+		}
+		remove_country_flag = dionysian_is_dictatorial
+		set_country_flag = dionysian_is_imperial		
+		country_event = { id = dionysian_election.0 days = 20 }
+		
+	}
+
+	option = {
+		name = "dionysian_base.5.option"
+		dionysian_give_election_punish = yes
+		custom_tooltip = dionysian_unchangable_authority
+	}
+}
+
+#archon rise
+country_event = {
+	id = dionysian_base.6
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			has_origin = dionysian_origin
+			has_origin = dionysian_origin_death
+		}
+	}
+
+	immediate = {
+		dionysian_spawn_new_archon = yes
+		if = { 
+			limit = { has_ascension_perk = dionysian_imperial_archons }
+			country_event = { id = dionysian_base.6 days = 2200 random = 3600 }
+		}
+		else = {
+			country_event = { id = dionysian_base.6 days = 2400 random = 4000 }
+		}
+	}
+}
+
+
+
+#give exarch and archon trait for high level leader
+country_event = {
+	id = dionysian_base.7
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		from = {
+			species = { has_trait = trait_dionysian_gene }
+			NOT = { has_leader_flag = dionysian_is_archon }
+			NOT = { has_trait = leader_trait_dionysian_prime_minister }
+		}
+	}
+	immediate = {
+		from = { 
+			if = { 
+				limit = { has_skill = 4 }
+				random_list = {
+					40 = { 
+						modifier = {
+							factor = 0
+							has_leader_flag = dionysian_is_exarch
+						}
+						add_trait = leader_trait_dionysian_exarch
+						set_leader_flag = dionysian_is_exarch
+					}
+					60 = {  }
+				}
+			}
+			else_if = {
+				limit = { has_skill = 8 }
+				random_list = {
+					20 = {
+						dionysian_give_archon_trait_for_high_level_leader = yes
+					}
+					80 = { 
+						modifier = {
+							factor = 0
+							has_leader_flag = dionysian_is_exarch
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+#exarch inherit fallen archon
+country_event = {
+	id = dionysian_base.8
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		from = {
+			has_leader_flag = dionysian_is_archon
+		}
+	}
+
+	immediate = {
+		random_owned_leader = {
+			limit = { 
+				has_leader_flag = dionysian_is_exarch
+				has_skill > 7
+			}
+			dionysian_give_archon_trait_for_high_level_leader = yes
+		}
+	}
+}
+
+#reach shroud
+country_event = {
+	id = dionysian_base.9
+	
+	title = "dionysian_base.9.name"
+	desc = "dionysian_base.9.desc"
+	picture = GFX_dionysian_overlord_city
+	show_sound = event_psionic
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+		from = { is_country_type = shroud }
+	}
+
+	immediate = {
+		add_modifier = {
+			modifier = "shroud_cooldown"
+			days = 2160
+			time_multiplier = value:scripted_modifier_mult|MODIFIER|shroud_delve_cooldown|
+		}
+		event_target:dionysian_overlord = {
+			set_leader_flag = dionysian_overlord_reach_shroud	
+		}
+		country_event = { id = dionysian_base.10 days = 3 }
+	}
+
+	option = {
+		name = "dionysian_base.9.option"
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		
+		ruler = {
+			remove_all_negative_traits = yes
+			remove_trait = leader_trait_psionic
+			add_trait = leader_trait_chosen
+		}
+
+		force_add_civic = civic_psionic_sovereign
+		
+		hidden_effect = {
+			set_country_flag = chosen_one_ruler_event
+			country_event = { id = dionysian_story.100 days = 3600 random = 3600 }
+		}
+	}
+
+}
+
+#block vanilla first enter shroud event
+country_event = {
+	id = dionysian_base.10
+
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	immediate = {
+		remove_country_flag = shroud_intro
+	}
+}
+
+
+#change back ruler
+country_event = {
+	id = dionysian_base.11
+
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+		exists = event_target:dionysian_overlord
+		ruler = {
+			NOT = { is_same_value = event_target:dionysian_overlord }
+		}
+	}
+
+	immediate = {
+		set_leader = event_target:dionysian_overlord
+	}
+}
+
+country_event = {
+	id = dionysian_base.12
+	
+	title = "dionysian_base.12.name"
+	desc = "dionysian_base.12.desc"
+	picture = GFX_dionysian_great_spire
+	show_sound = event_psionic
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	immediate = {}
+
+	option = {
+		name = "dionysian_base.12.option.r_worm_scales"
+		TRIGGER = {
+			has_relic = r_worm_scales
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		remove_relic = r_worm_scales
+		hidden_effect = { 
+			event_target:dionysian_overlord = {
+				set_leader_flag = dionysian_overlord_own_r_worm_scales	
+				change_variable = { which = dionysian_overlord_power_level value = 1 }
+			}
+		}
+	}
+
+	option = {
+		name = "dionysian_base.12.option.r_rubricator"
+		TRIGGER = {
+			has_relic = r_rubricator
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		remove_relic = r_rubricator
+		hidden_effect = { 
+			event_target:dionysian_overlord = {
+				set_leader_flag = dionysian_overlord_own_r_rubricator
+				change_variable = { which = dionysian_overlord_power_level value = 1 }
+			}
+		}
+	}
+
+	option = {
+		name = "dionysian_base.12.option.r_zro_crystal"
+		TRIGGER = {
+			has_relic = r_zro_crystal
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		remove_relic = r_zro_crystal
+		hidden_effect = { 
+			event_target:dionysian_overlord = {
+				set_leader_flag = dionysian_overlord_own_r_zro_crystal
+				change_variable = { which = dionysian_overlord_power_level value = 1 }
+			}
+		}
+	}
+
+	option = {
+		name = "dionysian_base.12.option.r_galaxy"
+		TRIGGER = {
+			has_relic = r_galaxy
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		remove_relic = r_galaxy
+		hidden_effect = { 
+			event_target:dionysian_overlord = {
+				set_leader_flag = dionysian_overlord_own_r_galaxy
+				change_variable = { which = dionysian_overlord_power_level value = 1 }
+			}
+		}
+	}
+
+	option = {
+		name = "dionysian_base.12.option.r_plasmic_core"
+		TRIGGER = {
+			has_relic = r_plasmic_core
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		remove_relic = r_plasmic_core
+		hidden_effect = { 
+			event_target:dionysian_overlord = {
+				set_leader_flag = dionysian_overlord_own_r_plasmic_core
+				change_variable = { which = dionysian_overlord_power_level value = 1 }
+			}
+		}
+	}
+
+	option = {
+		name = "dionysian_base.12.option.r_continuum"
+		TRIGGER = {
+			has_relic = r_continuum
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		remove_relic = r_continuum
+		hidden_effect = { 
+			event_target:dionysian_overlord = {
+				set_leader_flag = dionysian_overlord_own_r_continuum
+				change_variable = { which = dionysian_overlord_power_level value = 1 }
+			}
+		}
+	}
+
+	option = {
+		name = "dionysian_base.12.option.r_time_crystal"
+		TRIGGER = {
+			has_relic = r_time_crystal
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		remove_relic = r_time_crystal
+		hidden_effect = { 
+			event_target:dionysian_overlord = {
+				set_leader_flag = dionysian_overlord_own_r_time_crystal
+				change_variable = { which = dionysian_overlord_power_level value = 1 }
+			}
+		}
+	}
+
+	option = {
+		name = "dionysian_base.12.option.r_odryskan_crystal"
+		TRIGGER = {
+			has_relic = r_odryskan_crystal
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		remove_relic = r_odryskan_crystal
+		hidden_effect = { 
+			event_target:dionysian_overlord = {
+				set_leader_flag = dionysian_overlord_own_r_odryskan_crystal
+				change_variable = { which = dionysian_overlord_power_level value = 1 }
+			}
+		}
+	}
+
+	option = {
+		name = "dionysian_base.12.option.r_ancient_sword"
+		TRIGGER = {
+			has_relic = r_ancient_sword
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		remove_relic = r_ancient_sword
+		hidden_effect = { 
+			event_target:dionysian_overlord = {
+				set_leader_flag = dionysian_overlord_own_r_ancient_sword
+				change_variable = { which = dionysian_overlord_power_level value = 1 }
+			}
+		}
+	}
+
+	option = {
+		name = "dionysian_base.12.option.r_scfe_music_of_the_universe"
+		TRIGGER = {
+			has_relic = r_scfe_music_of_the_universe
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		remove_relic = r_scfe_music_of_the_universe
+		hidden_effect = { 
+			event_target:dionysian_overlord = {
+				set_leader_flag = dionysian_overlord_own_r_scfe_music_of_the_universe
+				change_variable = { which = dionysian_overlord_power_level value = 1 }
+			}
+		}
+	}
+
+	option = {
+		name = "dionysian_base.12.option.r_ziaskehorn_fire"
+		TRIGGER = {
+			has_relic = r_ziaskehorn_fire
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		remove_relic = r_ziaskehorn_fire
+		hidden_effect = { 
+			event_target:dionysian_overlord = {
+				change_variable = { which = dionysian_overlord_power_level value = 1 }
+			}
+		}
+	}
+
+
+	option = {
+		name = "dionysian_base.12.option.r_eternal_throne"
+		TRIGGER = {
+			has_relic = r_eternal_throne
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		remove_relic = r_eternal_throne
+		hidden_effect = { 
+			event_target:dionysian_overlord = {
+				set_leader_flag = dionysian_overlord_own_r_eternal_throne
+				change_variable = { which = dionysian_overlord_power_level value = 1 }
+			}
+		}
+	}
+
+	option = {
+		name = "dionysian_base.12.option.cancel"
+		custom_tooltip = dionysian_relics_limit_tooltip
+	}
+
+}
+
+
+country_event = {
+	id = dionysian_base.13
+	
+	title = "dionysian_base.13.name"
+	desc = "dionysian_base.13.desc"
+	picture = GFX_dionysian_overlord_city
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	option = {
+		name = "dionysian_base.13.option.a"
+		TRIGGER = {
+			NOT = { has_country_flag = dionysian_no_more_hiding }
+		}
+		custom_tooltip = dionysian_change_face_tooltip
+		hidden_effect = {
+			ruler = { change_leader_portrait = dionysian_overlord_portrait }
+			set_country_flag = dionysian_already_covered_face
+			if = {
+				limit = { is_ai = yes }
+				set_country_flag = dionysian_no_more_hiding
+			}
+		}
+		ai_chance = {
+		 	factor = 5
+		}
+	}
+
+	option = {
+		name = "dionysian_base.13.option.b"
+		TRIGGER = {
+			NOT = { has_country_flag = dionysian_no_more_hiding }
+		}
+		custom_tooltip = dionysian_change_face_tooltip
+		hidden_effect = {
+			ruler = { change_leader_portrait = dionysian_overlord_portrait_blank }
+			set_country_flag = dionysian_already_covered_face
+			if = {
+				limit = { is_ai = yes }
+				set_country_flag = dionysian_no_more_hiding
+			}
+		}
+		ai_chance = {
+		 	factor = 0
+		}
+	}
+
+	option = {
+		name = "dionysian_base.13.option.c"
+		TRIGGER = {
+			NOT = { has_country_flag = dionysian_already_covered_face }
+		}
+		custom_tooltip = dionysian_remain_face_tooltip
+		hidden_effect = {
+			set_country_flag = dionysian_no_more_hiding
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_base.13.option.d"
+		hidden_effect = {
+			if = {
+				limit = { is_ai = yes }
+				set_country_flag = dionysian_no_more_hiding
+			}
+		}
+		ai_chance = {
+		 	factor = 0
+		}
+	}
+
+}
+
+country_event = {
+	id = dionysian_base.14
+	
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+		has_country_flag = dionysian_already_covered_face
+	}
+
+	immediate = { 
+		random_list = {
+			50 = { ruler = { set_gender = male } }
+			50 = { ruler = { set_gender = female } }
+		}
+	}
+}
+
+#archon window
+country_event = { 
+	id = dionysian_base.15
+	title = "dionysian_base.15.name"
+	desc = "dionysian_base.15.desc"
+	is_triggered_only = yes
+
+	picture = GFX_dionysian_tunnon_bg
+	auto_opens = no
+	event_window_type = leader_recruit
+	notification_event_icon = "GFX_message_dionysian_recruitment_archon"
+
+	immediate = { }
+
+	picture_event_data = {
+		portrait = event_target:dionysian_new_archon
+		room = GFX_dionysian_tunnon_room
+	}
+
+	option = {
+		name = DISMISS
+		tag = dismiss_leader
+
+		hidden_effect = {
+			event_target:dionysian_new_archon = {
+				exile_leader_as = dionysian_dismissed_archon
+				leader_event = { id = dionysian_base.16 days = 7200 random = 28800 }
+			}
+			remove_country_flag = dionysian_archon_waiting
+		}
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+
+	option = {
+		name = dionysian_base.15.a
+		response_text = dionysian_base.15.a.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.b
+		response_text = dionysian_base.15.b.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.c
+		response_text = dionysian_base.15.c.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.d
+		response_text = dionysian_base.15.d.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.e
+		response_text = dionysian_base.15.e.response
+		is_dialog_only = yes
+	}
+	
+	option = {
+		name = dionysian_base.15.destiny
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_destiny }  }
+		response_text = dionysian_base.15.destiny.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.time
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_time }  }
+		response_text = dionysian_base.15.time.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.sercets
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_sercets }  }
+		response_text = dionysian_base.15.sercets.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.stone
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_stone }  }
+		response_text = dionysian_base.15.stone.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.fire
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_fire }  }
+		response_text = dionysian_base.15.fire.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.wind
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_wind }  }
+		response_text = dionysian_base.15.wind.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.entropy
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_entropy }  }
+		response_text = dionysian_base.15.entropy.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.dream
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_dream }  }
+		response_text = dionysian_base.15.dream.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.war
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_war }  }
+		response_text = dionysian_base.15.war.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.justice
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_justice }  }
+		response_text = dionysian_base.15.justice.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.rebirth
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_rebirth }  }
+		response_text = dionysian_base.15.rebirth.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.song
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_song }  }
+		response_text = dionysian_base.15.song.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.virus
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_virus }  }
+		response_text = dionysian_base.15.virus.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.shadows
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_shadows }  }
+		response_text = dionysian_base.15.shadows.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.domination
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_domination }  }
+		response_text = dionysian_base.15.domination.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.wisdom
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_wisdom }  }
+		response_text = dionysian_base.15.wisdom.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.frost
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_frost }  }
+		response_text = dionysian_base.15.frost.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.death
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_death }  }
+		response_text = dionysian_base.15.death.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.light
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_light }  }
+		response_text = dionysian_base.15.light.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.thunder
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_thunder }  }
+		response_text = dionysian_base.15.thunder.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.forge
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_forge }  }
+		response_text = dionysian_base.15.forge.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.temptation
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_temptation }  }
+		response_text = dionysian_base.15.temptation.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.order
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_order }  }
+		response_text = dionysian_base.15.order.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.hatred
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_hatred }  }
+		response_text = dionysian_base.15.hatred.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.watchers
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_watchers }  }
+		response_text = dionysian_base.15.watchers.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.nature
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_nature }  }
+		response_text = dionysian_base.15.nature.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.foison
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_foison }  }
+		response_text = dionysian_base.15.foison.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.fortune
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_fortune }  }
+		response_text = dionysian_base.15.fortune.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.creation
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_creation }  }
+		response_text = dionysian_base.15.creation.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = dionysian_base.15.rifts
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_rifts }  }
+		response_text = dionysian_base.15.rifts.response
+		is_dialog_only = yes
+	}
+
+
+	option = {
+		name = HIRE
+		tag = hire_leader
+
+		hidden_effect = {
+			dionysian_hire_archon = yes
+			remove_country_flag = dionysian_archon_waiting
+		}
+
+		ai_chance = {
+		 	factor = 3
+		}
+	}
+}
+
+
+#dismissed archon die
+leader_event = {
+	id = dionysian_base.16
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_leader_flag = dionysian_is_archon
+	}
+
+	immediate = { 
+		kill_leader = { show_notification = no }
+	}
+}
+
+country_event = {
+	id = dionysian_base.17
+	
+	title = "dionysian_base.17.name"
+	desc = "dionysian_base.17.desc"
+	picture = GFX_dionysian_overlord_city
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+		NOT = { has_modifier = dionysian_community_dip }
+	}
+
+	immediate = { }
+
+	option = {
+		name = "dionysian_base.17.option"
+		add_modifier = {
+			modifier = dionysian_community_dip
+			days = -1
+		}
+	}
+
+}
+
+country_event = {
+	id = dionysian_base.18
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	immediate = {
+		country_event = { id = dionysian_base.17 days = 12 }
+	}
+}
+
+
+country_event = {
+	id = dionysian_base.19
+	
+	title = "dionysian_base.19.name"
+	desc = "dionysian_base.19.desc"
+	picture = GFX_dionysian_overlord_city
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+		is_galactic_emperor = yes
+		event_target:dionysian_overlord = { NOT = { has_leader_flag = dionysian_overlord_rule_galaxy } }
+	}
+
+	immediate = {}
+
+	option = {
+		name = "dionysian_base.19.option"
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		custom_tooltip = dionysian_light_overlord_tooltip
+		hidden_effect = { 
+			event_target:dionysian_overlord = {
+				set_leader_flag = dionysian_overlord_rule_galaxy
+			}
+			dionysian_give_overlord_legendary_trait = yes
+		}
+	}
+
+}
+
+country_event = {
+	id = dionysian_base.21
+	
+	title = "dionysian_base.21.name"
+	desc = "dionysian_base.21.desc"
+	picture = GFX_dionysian_overlord_city
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	immediate = { }
+
+	option = {
+		name = "dionysian_base.21.option"
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		add_modifier = { modifier = covenant_end_of_the_cycle days = -1 }
+		hidden_effect = { 
+			event_target:dionysian_overlord = {
+				change_variable = { which = dionysian_overlord_power_level value = 4 }
+			}
+		}
+	}
+
+}
+
+country_event = {
+
+	id = dionysian_base.22
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+		NOT = { has_modifier = covenant_end_of_the_cycle }
+		FROM = { is_megastructure_type = crisis_sphere_3 }
+	}
+
+	immediate = { country_event = { id = dionysian_base.21 days = 5 }  }
+
+}
+
+#give ascension traits for archons in gene
+country_event = {
+
+	id = dionysian_base.24
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			has_origin = dionysian_origin
+			has_origin = dionysian_origin_death
+		}
+	}
+
+	immediate = { 
+
+		every_owned_leader = { 
+			limit = { 
+				has_leader_flag = dionysian_is_archon 
+				species = { has_trait = trait_erudite }
+				NOT = { has_trait = leader_trait_erudite }
+			}  
+			add_trait_no_notify = leader_trait_erudite 
+		}
+
+	}
+
+}
+
+#enhance overlord over time
+country_event = {
+	id = dionysian_base.28
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	immediate = {
+		ruler = {
+			if = {
+				limit = { check_variable_arithmetic = { which = dionysian_overlord_reputation_level  value < 40 } } 
+				change_variable = {
+					which = dionysian_overlord_reputation_level
+					value = 0.5
+				}
+			}
+		}
+	}
+
+}
+
+#avoid overlord death
+country_event = {
+	id = dionysian_base.29
+	is_triggered_only = yes
+
+	title = "dionysian_base.29.name"
+	desc = "dionysian_base.29.desc"
+	picture = GFX_dionysian_overlord_city
+	show_sound = event_psionic
+
+	trigger = {
+		has_origin = dionysian_origin
+		from = {
+			is_same_value = event_target:dionysian_overlord
+		}
+		NOT = { has_country_flag = dionysian_killable_overlord }
+	}
+
+	immediate = { 
+		set_country_flag = dionysian_killable_overlord
+		clone_leader = {
+			target = from
+			effect = {
+				copy_flags_and_variables_from = from
+				save_global_event_target_as = dionysian_overlord
+			}
+		}
+		set_leader = event_target:dionysian_overlord
+	}
+
+	option = {
+		name = "dionysian_base.29.option.a"
+		TRIGGER = {
+			exists = event_target:dionysian_overlord
+		}
+		allow = {
+			resource_stockpile_compare = { resource = menace value > 100 }
+		}
+		custom_tooltip = dionysian_revive_overlord_tooltip
+		add_resource = { 
+			menace = -100
+		}
+		hidden_effect = { 
+			event_target:dionysian_overlord = {
+				remove_trait = leader_trait_the_apparatus_luminary
+				remove_trait = leader_trait_dionysian_unreal
+			}
+			remove_country_flag = dionysian_killable_overlord
+		}
+		ai_chance = {
+		 	factor = 5
+		}
+	}
+
+	option = {
+		name = "dionysian_base.29.option.b"
+		custom_tooltip = dionysian_lock_overlord_tooltip
+		TRIGGER = {
+			exists = event_target:dionysian_overlord
+			event_target:dionysian_overlord = { 
+				NOT = { has_trait = leader_trait_the_apparatus_luminary }
+			}
+		}
+		event_target:dionysian_overlord = { add_trait = leader_trait_the_apparatus_luminary }
+		hidden_effect = {
+			remove_country_flag = dionysian_killable_overlord
+		}
+		ai_chance = {
+		 	factor = 2
+		}
+	}
+
+	option = {
+		name = "dionysian_base.29.option.c"
+		TRIGGER = {
+			exists = event_target:dionysian_overlord
+			resource_stockpile_compare = { resource = sr_zro value > 1 }
+		}
+		allow = {
+			resource_stockpile_compare = { resource = sr_zro value > 500 }
+		}
+		custom_tooltip = dionysian_revive_overlord_tooltip
+		add_resource = { 
+			sr_zro = -500
+		}
+		hidden_effect = { 
+			event_target:dionysian_overlord = {
+				remove_trait = leader_trait_the_apparatus_luminary
+				remove_trait = leader_trait_dionysian_unreal
+			}
+			remove_country_flag = dionysian_killable_overlord
+		}
+		ai_chance = {
+		 	factor = 5
+		}
+	}
+
+	option = {
+		name = "dionysian_base.29.option.d"
+		TRIGGER = {
+			exists = event_target:dionysian_overlord
+		}
+		allow = {
+			event_target:dionysian_overlord = { 
+				NOT = { has_trait = leader_trait_dionysian_unreal  }
+			}
+		}
+		custom_tooltip = dionysian_overlord_down_tooltip
+		custom_tooltip = dionysian_revive_overlord_later_tooltip
+		event_target:dionysian_overlord = {
+			add_trait = leader_trait_dionysian_unreal
+		}
+		hidden_effect = { 
+			ruler = {
+				subtract_variable = {
+					which = dionysian_overlord_reputation_level
+					value = 5
+				}
+			}
+			country_event = { id = dionysian_base.30 days = 720 }
+		}
+		ai_chance = {
+		 	factor = 5
+		}
+	}
+
+	option = {
+		name = "dionysian_base.29.option.e"
+		custom_tooltip = dionysian_kill_overlord_tooltip
+		hidden_effect = { 
+			event_target:dionysian_overlord = {
+				kill_leader = { show_notification = no }
+			}
+		}
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+
+
+}
+
+country_event = {
+	id = dionysian_base.30
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+		exists = event_target:dionysian_overlord
+	}
+
+	immediate = {
+		event_target:dionysian_overlord = {
+			remove_trait = leader_trait_dionysian_unreal
+		}
+		remove_country_flag = dionysian_killable_overlord
+	}
+
+}
+
+#generate beast species
+planet_event = {
+	id = dionysian_base.31
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		owner = {
+			has_origin = dionysian_origin
+			has_valid_civic = civic_dionysian_beast_tribe
+		}
+	}
+
+	immediate = {
+		last_created_species = {
+			set_species_flag = syncretic_species@root.owner
+			if = {
+				limit = {
+					root.owner = {
+						has_ethic = ethic_xenophobe
+					}
+				}
+				set_citizenship_type = {
+					country = root.owner
+					type = citizenship_limited
+				}
+			}
+			else = {
+				set_citizenship_type = {
+					country = root.owner
+					type = citizenship_full
+				}
+			}
+		}
+		while = {
+			count = 4
+			create_pop = {
+				species = last_created_species
+				ethos = random
+			}
+		}
+		add_district_and_planet_size_if_needed_effect = { district = district_mining }
+		add_district_and_planet_size_if_needed_effect = { district = district_farming }
+	}
+
+}

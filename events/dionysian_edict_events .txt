@@ -1,0 +1,966 @@
+
+namespace = dionysian_edict
+
+#a window to choose target for edict
+country_event = {
+	id = dionysian_edict.0
+	title = dionysian_edict_prepare_cast
+	show_sound = event_death_cult
+	is_triggered_only = yes
+	force_open = yes
+	
+	diplomatic = yes
+	custom_gui = "dionysian_edict_window"
+	immediate = {
+		save_global_event_target_as = dionysian_edict_caster_country
+	}
+	option = {}
+}
+
+#enhance psi edict
+country_event = {
+
+	id = dionysian_edict.1
+	is_triggered_only = yes
+	hide_window = yes
+
+	trigger = {
+		has_modifier = dionysian_overlord_enhance_psi_pop_modifier
+	}
+
+	immediate = {
+		every_owned_pop = {
+			limit = { 
+				species = { is_robotic = no }
+				is_being_assimilated = no
+				is_being_purged = no
+				NOR = {
+					has_trait = trait_dionysian_gene
+					has_trait = trait_mechanical
+				}
+			}
+			modify_species = {
+				species = this
+				add_trait = trait_dionysian_gene
+			}
+		}
+		every_owned_planet = {
+			limit = {
+				is_colony = yes
+				NOT = { solar_system = { any_system_ambient_object = { is_ambient_object_type = psi_storm_1 } } }
+			}
+			star = {
+				create_ambient_object = {	
+					type = psi_storm_1
+					location = this	
+					duration = 3600  
+				}
+				last_created_ambient_object = {
+					set_location = {
+						target = prev
+						distance = 0
+						angle = random
+					}
+				}
+				add_modifier = { modifier = dionysian_psi_edict_on_star }
+				planet_event = { id = dionysian_edict.13 days = 3600 }
+			}
+		}
+		if = { 
+			limit = { 
+				owner_main_species = { has_trait = trait_mechanical } 
+				owner_main_species = { NOT = { has_trait = trait_dionysian_gene } }
+			}
+			every_owned_pop = {
+				limit = {
+					is_same_species = root
+					NOT = { has_trait = trait_dionysian_gene }
+				}
+				modify_species = {
+					species = this
+					add_trait = trait_dionysian_gene
+				}
+				species = { save_event_target_as = dionysian_machine_species }
+			}
+			
+			if = {
+				limit = {
+					exists = event_target:dionysian_machine_species
+				}
+				change_dominant_species = {
+					species = event_target:dionysian_machine_species
+					change_all = yes
+				}
+			}
+		}
+		country_event = { id = dionysian_edict.1009  days = 8 }
+		country_event = { id = dionysian_story.700 }		
+	}
+
+}
+
+#shape planet edict
+planet_event = {
+
+	id = dionysian_edict.2
+	is_triggered_only = yes
+	hide_window = yes
+
+	trigger = { 
+		from = { has_modifier = dionysian_overlord_shape_world_modifier }
+	}
+
+	immediate = {
+		add_modifier = {
+			modifier = dionysian_shape_world_on_planet
+			days = 3600
+		}
+		create_ambient_object = {
+			type = consecrated_planet_stage_1_object
+			location = this
+			duration = 3600
+			use_3d_location = yes
+			entity_scale_to_size = yes
+		}
+		last_created_ambient_object = {	
+			set_ambient_object_flag = dionysian_shaping_world
+		}
+		save_event_target_as = dionysian_edict_target_planet
+		from = {
+			remove_modifier = dionysian_overlord_shape_world_modifier
+			country_event = { id = dionysian_edict.3  days = 10 }
+			country_event = { id = dionysian_edict.1008  days = 8 }
+			country_event = { id = dionysian_story.700 }
+		}
+	}
+
+}
+
+country_event = {
+
+	id = dionysian_edict.3
+	is_triggered_only = yes
+	hide_window = yes
+
+
+	immediate = {
+		remove_country_flag = shape_planet_edict_unleashed
+	}
+}
+
+
+#cast aggressive edict
+planet_event = {
+	id = dionysian_edict.4
+	is_triggered_only = yes
+	hide_window = yes
+
+	immediate = {
+
+		save_event_target_as = dionysian_edict_target_planet
+
+		if = {
+			limit = { has_owner = yes }
+			owner = { save_event_target_as = dionysian_edict_target_country }
+		}
+		else_if = {
+			limit = { solar_system = { has_owner = yes } }
+			solar_system.owner = { save_event_target_as = dionysian_edict_target_country }
+		}
+
+		if = {
+			limit = { is_colony = yes}
+			set_planet_flag = dionysian_massacre_target
+		}
+
+		if = {
+			limit = { 
+				OR = {
+					event_target:dionysian_edict_caster_country = { has_country_flag = dionysian_fire_edict_ready } 
+					event_target:dionysian_edict_caster_country = { has_country_flag = dionysian_frost_edict_ready } 
+					event_target:dionysian_edict_caster_country = { has_country_flag = dionysian_lightning_edict_ready } 
+					event_target:dionysian_edict_caster_country = { has_country_flag = dionysian_crack_edict_ready } 
+				}
+			}
+			dionysian_common_edict_damage_planet = yes
+		}
+		else_if = {
+			limit = { 
+				event_target:dionysian_edict_caster_country = { has_country_flag = dionysian_storm_edict_ready } 
+			}
+			dionysian_storm_edict_attack = yes
+		}
+		else_if = {
+			limit = {
+				event_target:dionysian_edict_caster_country = { has_country_flag = dionysian_malediction_edict_ready } 
+			}
+			dionysian_malediction_edict_attack = yes
+		}
+		else_if = {
+			limit = {
+				event_target:dionysian_edict_caster_country = { has_country_flag = dionysian_nightfall_edict_ready } 
+			}
+			dionysian_nightfall_edict_destroy_star_system = yes
+		}
+
+		event_target:dionysian_edict_caster_country = {
+			if = {
+				limit = { has_country_flag = dionysian_failed_edict_cast }
+				remove_country_flag = dionysian_failed_edict_cast
+			}
+			else = {
+				country_event = { id = dionysian_edict.10 }
+				country_event = { id = dionysian_story.700 }
+			}
+		}
+
+		
+	}
+
+
+}
+
+#holy_planets react to edicts
+planet_event = {
+	id = dionysian_edict.5
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_modifier = holy_planet
+		any_country = {
+			has_ai_personality_behaviour = holy_planets # not awakened
+			NOT = { is_at_war_with = event_target:dionysian_edict_caster_country }
+		}
+	}
+
+	immediate = {
+		random_country = {
+			limit = {
+				has_ai_personality_behaviour = holy_planets # not awakened
+				NOT = { is_at_war_with = event_target:dionysian_edict_caster_country }
+			}
+			save_event_target_as = outraged_FE
+		}
+		event_target:dionysian_edict_caster_country = {
+			save_event_target_as = FE_outrager
+			country_event = { id = planet_destruction.610 days = 5 }
+		}
+	}
+}
+
+#clear storm
+planet_event = {
+	id = dionysian_edict.6
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		solar_system = { has_modifier = zroni_storm }
+	}
+
+	immediate = {
+
+		remove_modifier = dionysian_storm_edict_on_star
+
+		solar_system = {
+
+			if = {  
+				limit = {
+					NAND = {
+						has_owner = yes
+						starbase = {
+							count_starbase_buildings = { 
+								type = zroni_storm_caster 
+								include_being_constructed = no 
+								count = 1 
+							}
+						}
+					}
+				}
+				remove_modifier = zroni_storm
+				random_system_ambient_object = {
+					limit = { has_ambient_object_flag = zroni_storm }
+					destroy_ambient_object = this
+				}
+			}
+
+		}
+	}
+}
+
+#report for incorrect edict
+country_event = {
+    id = dionysian_edict.7
+
+    title = "dionysian_edict.7.name"
+	desc = "dionysian_edict.7.desc"
+	picture = GFX_dionysian_uncorrect_edict_target_picture
+
+	is_triggered_only = yes
+
+	immediate = {
+		set_country_flag = dionysian_failed_edict_cast
+		dionysian_remove_edict_flags = yes
+	}
+
+	option = {
+		name = "dionysian_edict.7.option"
+		add_resource = {
+			menace = 1
+			mult = dionysian_current_edict_cost
+		}
+		hidden_effect = {
+			clear_variable = dionysian_current_edict_cost
+		}
+	}
+}
+
+
+#ai cast edict
+country_event = {
+	id = dionysian_edict.8
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_ai = yes
+	}
+
+	immediate = {
+		save_global_event_target_as = dionysian_edict_caster_country
+
+		if = {
+			limit = { NOT = { has_country_flag = dionysian_nightfall_edict_ready } }
+			random_country = {
+				limit = { is_at_war_with = event_target:dionysian_edict_caster_country }
+				random_list = {
+					60 = {
+						capital_scope = {
+							planet_event = { id = dionysian_edict.4 }
+						}
+					}
+					40 = {
+						random_owned_planet = {
+							limit = { is_colony = yes }
+							planet_event = { id = dionysian_edict.4 }
+						}
+					}
+				}
+			}
+		}
+		else = {
+			random_country = {
+				limit = { is_at_war_with = event_target:dionysian_edict_caster_country }
+				random_list = {
+					80 = {
+						capital_star = {
+							planet_event = { id = dionysian_edict.4 }
+						}
+					}
+					20 = {
+						random_owned_planet = {
+							limit = { is_colony = yes }
+							star = { planet_event = { id = dionysian_edict.4 } }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+#judge edict caster is ai
+country_event = {
+	id = dionysian_edict.9
+	title = dionysian_edict_prepare_cast
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	immediate = {
+		if = {
+			limit = { is_ai = no }
+			country_event = { id = dionysian_edict.0 }
+		}
+		else = {
+			country_event = { id = dionysian_edict.8 }
+		}
+	}
+}
+
+#event for successful edict attack
+country_event = {
+	id = dionysian_edict.10
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	immediate = {
+		add_modifier = {
+			modifier = dionysian_edict_cooldown
+			days = 1
+			time_multiplier = dionysian_current_edict_cost
+		}
+		clear_variable = dionysian_current_edict_cost
+
+		if = { 
+			limit = {
+				OR = { 
+					event_target:dionysian_edict_target_planet = {
+						has_planet_flag = dionysian_massacre_target 
+						exists = event_target:dionysian_edict_target_country
+					}
+					has_country_flag = dionysian_nightfall_edict_ready
+					has_country_flag = dionysian_storm_edict_ready
+				}
+			}
+			country_event = { id = dionysian_edict.11 }
+			event_target:dionysian_edict_target_planet = { remove_planet_flag = dionysian_massacre_target }
+		}
+
+		dionysian_remove_edict_flags = yes
+	}
+}
+
+
+#edict inform other countries
+country_event = {
+	id = dionysian_edict.11
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	immediate = {
+		if = {
+			limit = { 
+				has_country_flag = dionysian_fire_edict_ready
+				NOT = { has_global_flag = dionysian_fire_edict_broadcasted }
+			}
+			set_global_flag = dionysian_fire_edict_broadcasted
+			every_playable_country = {
+				limit = { 
+					OR = {
+						is_same_value = event_target:dionysian_edict_caster_country
+						is_same_value = event_target:dionysian_edict_target_country 
+						has_communications = event_target:dionysian_edict_caster_country
+					}
+				}
+				country_event = { id = dionysian_edict.1001 days = 8 }
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = dionysian_frost_edict_ready
+				NOT = { has_global_flag = dionysian_frost_edict_broadcasted }
+			}
+			set_global_flag = dionysian_frost_edict_broadcasted
+			every_playable_country = {
+				limit = { 
+					OR = {
+						is_same_value = event_target:dionysian_edict_caster_country
+						is_same_value = event_target:dionysian_edict_target_country 
+						has_communications = event_target:dionysian_edict_caster_country
+					}
+				}
+				country_event = { id = dionysian_edict.1002 days = 8 }
+			}			
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = dionysian_lightning_edict_ready
+				NOT = { has_global_flag = dionysian_lightning_edict_broadcasted }
+			}
+			set_global_flag = dionysian_lightning_edict_broadcasted
+			every_playable_country = {
+				limit = { 
+					OR = {
+						is_same_value = event_target:dionysian_edict_caster_country
+						is_same_value = event_target:dionysian_edict_target_country 
+						has_communications = event_target:dionysian_edict_caster_country
+					}
+				}
+				country_event = { id = dionysian_edict.1003 days = 8 }
+			}			
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = dionysian_crack_edict_ready
+				NOT = { has_global_flag = dionysian_crack_edict_broadcasted }
+			}
+			set_global_flag = dionysian_crack_edict_broadcasted
+			every_playable_country = {
+				limit = { 
+					OR = {
+						is_same_value = event_target:dionysian_edict_caster_country
+						is_same_value = event_target:dionysian_edict_target_country 
+						has_communications = event_target:dionysian_edict_caster_country
+					}
+				}
+				country_event = { id = dionysian_edict.1004 days = 8 }
+			}			
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = dionysian_malediction_edict_ready
+				NOT = { has_global_flag = dionysian_malediction_edict_broadcasted }
+			}
+			set_global_flag = dionysian_malediction_edict_broadcasted
+			every_playable_country = {
+				limit = { 
+					OR = {
+						is_same_value = event_target:dionysian_edict_caster_country
+						is_same_value = event_target:dionysian_edict_target_country 
+						has_communications = event_target:dionysian_edict_caster_country
+					}
+				}
+				country_event = { id = dionysian_edict.1005 days = 8 }
+			}			
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = dionysian_nightfall_edict_ready
+				NOT = { has_global_flag = dionysian_nightfall_edict_broadcasted }
+			}
+			set_global_flag = dionysian_nightfall_edict_broadcasted
+			every_playable_country = {
+				limit = { 
+					OR = {
+						is_same_value = event_target:dionysian_edict_caster_country
+						is_same_value = event_target:dionysian_edict_target_country  
+						has_communications = event_target:dionysian_edict_caster_country
+					}
+				}
+				country_event = { id = dionysian_edict.1006 days = 8 }
+			}			
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = dionysian_storm_edict_ready
+				NOT = { has_global_flag = dionysian_storm_edict_broadcasted }
+			}
+			set_global_flag = dionysian_storm_edict_broadcasted
+			every_playable_country = {
+				limit = { 
+					OR = {
+						is_same_value = event_target:dionysian_edict_caster_country
+						is_same_value = event_target:dionysian_edict_target_country  
+						has_communications = event_target:dionysian_edict_caster_country
+					}
+				}
+				country_event = { id = dionysian_edict.1007 days = 8 }
+			}			
+		}
+	}
+}
+
+
+#shape planet edict, remove effct and object
+planet_event = {
+
+	id = dionysian_edict.12
+	is_triggered_only = yes
+	hide_window = yes
+
+	trigger = { 
+		has_modifier = dionysian_shape_world_on_planet
+	}
+
+	immediate = {
+		remove_modifier = dionysian_shape_world_on_planet
+		solar_system = { 
+			random_system_ambient_object = {
+				limit = { has_ambient_object_flag = dionysian_shaping_world }
+				destroy_ambient_object = this
+			}
+		}
+	}
+
+}
+
+
+#psi edict, clear storm
+planet_event = {
+	id = dionysian_edict.13
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_modifier = dionysian_psi_edict_on_star
+	}
+
+	immediate = {
+		remove_modifier = dionysian_psi_edict_on_star
+	}
+}
+
+#check star torch over
+country_event = {
+	id = dionysian_edict.14
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_modifier = dionysian_overlord_guide_fleet_modifier
+	}
+
+	immediate = {
+		if = {
+			limit = { has_resource = { type = menace amount >= 10 } }
+			country_event = { id = dionysian_edict.14 days = 10 }
+		}
+		else = {
+			remove_modifier = dionysian_overlord_guide_fleet_modifier
+		}
+	}
+}
+
+#fire edict broadcast
+country_event = {
+    id = dionysian_edict.1001
+
+    title = "edict_dionysian_overlord_fire_planet"
+	desc = "edict_dionysian_overlord_fire_planet_event"
+	picture = GFX_dionysian_edict_fire
+	location = event_target:dionysian_edict_target_planet
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "dionysian_edict_common_response.a"
+		TRIGGER = { has_origin = dionysian_origin }
+	}
+	option = {
+		name = "dionysian_edict_common_response.b"
+		TRIGGER = { 
+			NOT = { has_origin = dionysian_origin }
+			is_same_value = event_target:dionysian_edict_target_country 
+		}
+	}
+	option = {
+		name = "dionysian_edict_common_response.c"
+		TRIGGER = { 
+			NOT = { has_origin = dionysian_origin }
+			NOT = { is_same_value = event_target:dionysian_edict_target_country }
+		}
+	}
+
+}
+
+
+#frost edict broadcast
+country_event = {
+    id = dionysian_edict.1002
+
+    title = "edict_dionysian_overlord_frost_planet"
+	desc = "edict_dionysian_overlord_frost_planet_event"
+	picture = GFX_dionysian_edict_frost
+	location = event_target:dionysian_edict_target_planet
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "dionysian_edict_common_response.a"
+		TRIGGER = { has_origin = dionysian_origin }
+	}
+	option = {
+		name = "dionysian_edict_common_response.b"
+		TRIGGER = { 
+			NOT = { has_origin = dionysian_origin }
+			is_same_value = event_target:dionysian_edict_target_country 
+		}
+	}
+	option = {
+		name = "dionysian_edict_common_response.c"
+		TRIGGER = { 
+			NOT = { has_origin = dionysian_origin }
+			NOT = { is_same_value = event_target:dionysian_edict_target_country }
+		}
+	}
+
+}
+
+
+#lightning edict broadcast
+country_event = {
+    id = dionysian_edict.1003
+
+    title = "edict_dionysian_overlord_lightning_planet"
+	desc = "edict_dionysian_overlord_lightning_planet_event"
+	picture = GFX_dionysian_edict_lightning
+	location = event_target:dionysian_edict_target_planet
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "dionysian_edict_common_response.a"
+		TRIGGER = { has_origin = dionysian_origin }
+	}
+	option = {
+		name = "dionysian_edict_common_response.b"
+		TRIGGER = { 
+			NOT = { has_origin = dionysian_origin }
+			is_same_value = event_target:dionysian_edict_target_country 
+		}
+	}
+	option = {
+		name = "dionysian_edict_common_response.c"
+		TRIGGER = { 
+			NOT = { has_origin = dionysian_origin }
+			NOT = { is_same_value = event_target:dionysian_edict_target_country }
+		}
+	}
+
+}
+
+
+#crack edict broadcast
+country_event = {
+    id = dionysian_edict.1004
+
+    title = "edict_dionysian_overlord_crack_planet"
+	desc = "edict_dionysian_overlord_crack_planet_event"
+	picture = GFX_dionysian_edict_crack
+	location = event_target:dionysian_edict_target_planet
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "dionysian_edict_common_response.a"
+		TRIGGER = { has_origin = dionysian_origin }
+	}
+	option = {
+		name = "dionysian_edict_common_response.b"
+		TRIGGER = { 
+			NOT = { has_origin = dionysian_origin }
+			is_same_value = event_target:dionysian_edict_target_country 
+		}
+	}
+	option = {
+		name = "dionysian_edict_common_response.c"
+		TRIGGER = { 
+			NOT = { has_origin = dionysian_origin }
+			NOT = { is_same_value = event_target:dionysian_edict_target_country }
+		}
+	}
+
+}
+
+
+#malediction edict broadcast
+country_event = {
+    id = dionysian_edict.1005
+
+    title = "edict_dionysian_overlord_malediction"
+	desc = "edict_dionysian_overlord_malediction_planet_event"
+	picture = GFX_dionysian_edict_malediction
+	location = event_target:dionysian_edict_target_planet
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "dionysian_edict_malediction_response.a"
+		TRIGGER = { has_origin = dionysian_origin }
+	}
+	option = {
+		name = "dionysian_edict_malediction_response.b"
+		TRIGGER = { 
+			NOT = { has_origin = dionysian_origin }
+			is_same_value = event_target:dionysian_edict_target_country 
+		}
+	}
+	option = {
+		name = "dionysian_edict_malediction_response.c"
+		TRIGGER = { 
+			NOT = { has_origin = dionysian_origin }
+			NOT = { is_same_value = event_target:dionysian_edict_target_country }
+		}
+	}
+
+}
+
+#nightfall edict broadcast
+country_event = {
+    id = dionysian_edict.1006
+
+    title = "edict_dionysian_overlord_nightfall"
+	desc = "edict_dionysian_overlord_nightfall_system_event"
+	picture = GFX_evt_supernova
+	location = event_target:dionysian_edict_target_planet
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "dionysian_edict_nightfall_response.a"
+		TRIGGER = { has_origin = dionysian_origin }
+	}
+	option = {
+		name = "dionysian_edict_nightfall_response.b"
+		TRIGGER = { 
+			NOT = { has_origin = dionysian_origin }
+			is_same_value = event_target:dionysian_edict_target_country 
+		}
+	}
+	option = {
+		name = "dionysian_edict_nightfall_response.c"
+		TRIGGER = { 
+			NOT = { has_origin = dionysian_origin }
+			NOT = { is_same_value = event_target:dionysian_edict_target_country }
+		}
+	}
+
+}
+
+
+#storm edict broadcast
+country_event = {
+    id = dionysian_edict.1007
+
+    title = "edict_dionysian_overlord_storm_system"
+	desc = "edict_dionysian_overlord_storm_system_event"
+	picture = GFX_dionysian_edict_storm
+	location = event_target:dionysian_edict_target_planet
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "dionysian_edict_storm_response.a"
+		TRIGGER = { has_origin = dionysian_origin }
+	}
+	option = {
+		name = "dionysian_edict_storm_response.b"
+		TRIGGER = { 
+			NOT = { has_origin = dionysian_origin }
+			is_same_value = event_target:dionysian_edict_target_country 
+		}
+	}
+	option = {
+		name = "dionysian_edict_storm_response.c"
+		TRIGGER = { 
+			NOT = { has_origin = dionysian_origin }
+			NOT = { is_same_value = event_target:dionysian_edict_target_country }
+		}
+	}
+
+}
+
+#shape world edict desc
+country_event = {
+    id = dionysian_edict.1008
+
+    title = "edict_dionysian_overlord_shape_world"
+	desc = "edict_dionysian_overlord_shape_world_event"
+	picture = GFX_dionysian_edict_shape
+	location = event_target:dionysian_edict_target_planet
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = "dionysian_edict_shape_response.a"
+	}
+
+}
+
+#psi edict desc
+country_event = {
+    id = dionysian_edict.1009
+
+    title = "edict_dionysian_overlord_enhance_psi_pop"
+	desc = "edict_dionysian_overlord_enhance_psi_event"
+	picture = GFX_dionysian_edict_ascend
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = "dionysian_edict_psi_response.a"
+		TRIGGER = { 
+			NOT = { has_ascension_perk = ap_become_the_crisis }
+		}
+	}
+	option = {
+		name = "dionysian_edict_psi_response.b"
+		TRIGGER = { 
+			has_ascension_perk = ap_become_the_crisis
+		}
+	}
+
+}
+
+#guide edict desc
+country_event = {
+    id = dionysian_edict.1010
+
+    title = "edict_dionysian_overlord_guide_fleet"
+	desc = "edict_dionysian_overlord_guide_event"
+	picture = GFX_dionysian_edict_guide
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		has_modifier = dionysian_overlord_guide_fleet_modifier
+	}
+
+	immediate = {
+		country_event = { id = dionysian_story.700 }		
+	}
+
+	option = {
+		name = "dionysian_edict_guide_response.a"
+	}
+
+}
+
+
+#a window to select edicts
+country_event = {
+	id = dionysian_edict.2000
+	title = edict_dionysian_select_edict_menu
+	is_triggered_only = yes
+	force_open = yes	
+	diplomatic = yes
+	custom_gui = "dionysian_edict_selector_window"
+	trigger = {	
+	}
+	immediate = {
+		save_global_event_target_as = dionysian_edict_caster_country
+		export_trigger_value_to_variable = {
+			trigger = resource_stockpile_compare
+			parameters = { resource = menace }
+			variable = dionysian_now_menace
+		}
+		dionysian_remove_selected_edict = yes
+		set_country_flag = dionysian_selecting_edicts
+	}
+	option = {}
+}
+
+country_event = {
+	id = dionysian_edict.2001
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {	
+		has_country_flag = dionysian_selecting_edicts
+	}
+
+	immediate = {
+		remove_country_flag = dionysian_selecting_edicts
+		remove_country_flag = dionysian_select_edicts_over
+	}
+}

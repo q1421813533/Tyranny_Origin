@@ -1,0 +1,57 @@
+councilor_dionysian_prime_minister = {
+	leader_class = { official commander scientist }
+	possible = {
+		can_use_dionyian_PM = yes
+	}
+	is_leader_possible = {
+		has_trait = leader_trait_dionysian_prime_minister
+	}
+	modifier = {
+		pop_factions_unity_produces_mult = 0.02
+		planet_administrators_upkeep_mult = -0.01
+	}
+	icon = "GFX_dionysian_prime_minister_councilor_icon"
+	custom_unlock_title = "councilor_dionysian_prime_minister_unlock_title"
+	conditional_tooltip = "councilor_dionysian_prime_minister_conditional_tooltip"
+	ai_hiring_weight = {
+		inline_script = councilor_leader_weights
+	}
+}
+
+councilor_dionysian_beast_tribe  = {
+	leader_class = { official commander }
+	is_leader_possible = {
+		OR = {
+			leader_class = official
+			leader_class = commander
+		}
+		species = { has_trait = trait_dionysian_beast }
+	}
+	civic = civic_dionysian_beast_tribe
+	modifier = {
+		country_claim_influence_cost_mult = -0.02
+		country_war_exhaustion_mult = -0.02
+	}
+	conditional_tooltip = "councilor_dionysian_beast_tribe_conditional_tooltip"
+	ai_hiring_weight = {
+		inline_script = councilor_leader_weights
+	}
+}
+
+councilor_dionysian_mage_guild  = {
+	leader_class = { official scientist }
+	is_leader_possible = {
+		OR = {
+			leader_class = official
+			leader_class = scientist
+		}
+	}
+	civic = civic_dionysian_mage_guild
+	modifier = {
+		planet_researchers_produces_mult = 0.01
+		planet_researchers_upkeep_mult = -0.01
+	}
+	ai_hiring_weight = {
+		inline_script = councilor_leader_weights
+	}
+}

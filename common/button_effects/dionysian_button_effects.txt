@@ -1,0 +1,673 @@
+@Overlord_Edict1Cost = 120
+@Overlord_Edict2Cost = 200
+@Overlord_Edict3Cost = 300
+@Overlord_Edict4Cost = 400
+@Overlord_Edict5Cost = 500
+@Overlord_Edict6Cost = 600
+@Overlord_Edict8Cost = 800
+@Overlord_Edict10Cost = 1000
+
+@Overlord_Edict2Upkeep = 10
+
+dionysian_cast_edict_effect  = {
+	allow = {
+
+	}
+	potential = {
+
+	}
+	effect = {
+		hidden_effect = {
+
+			event_target:dionysian_edict_caster_country = {
+				remove_country_flag = dionysian_edict_preparing
+			}
+
+			if = {
+				limit = {
+					is_scope_type = planet
+					NAND = {
+						is_colony = yes
+						owner = { is_same_value = event_target:dionysian_edict_caster_country }
+					}
+					OR = {
+						solar_system = { has_owner = no }
+						is_within_borders_of = event_target:dionysian_edict_caster_country
+						AND = {
+							solar_system = { has_owner = yes }
+							solar_system.owner = { 
+								OR = { 
+									is_at_war_with = event_target:dionysian_edict_caster_country 
+									is_hostile = event_target:dionysian_edict_caster_country 
+								}
+							}
+						}
+					}
+				}
+				planet_event = { id = dionysian_edict.4 }
+			}
+			else = {
+				event_target:dionysian_edict_caster_country = {
+					country_event = { id = dionysian_edict.7 }
+					remove_country_flag = dionysian_failed_edict_cast
+				}
+				clear_global_event_target = dionysian_edict_caster_country
+			}
+		}
+	}
+}
+
+dionysian_edict_selector_close_window_effect = {
+	potential = {
+		always = yes
+	}
+	allow = {
+	}
+	effect = {
+		custom_tooltip = dionysian_issue_edict_button_tooltio	
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				
+				set_country_flag = dionysian_select_edicts_over
+				country_event = { id = dionysian_edict.2001 days = 1 } 
+
+				if = {
+					limit = {
+						has_resource = { type = menace amount >= @Overlord_Edict1Cost }
+						has_country_flag = dionysian_selected_edict_fire
+						NOT = { has_country_flag = dionysian_edict_preparing }
+						NOT = { has_modifier = dionysian_advance_election_cooldown }
+					}
+					add_resource = { menace = @Overlord_Edict1Cost mult = -1 }
+					set_country_flag = dionysian_fire_edict_ready
+					set_country_flag = dionysian_edict_preparing
+					set_variable = { which = dionysian_current_edict_cost value = @Overlord_Edict1Cost  }
+					country_event = { id = dionysian_edict.9 days = 10 } 
+				}
+				else_if = {
+					limit = {
+						has_resource = { type = menace amount >= @Overlord_Edict1Cost }
+						has_country_flag = dionysian_selected_edict_frost
+						NOT = { has_country_flag = dionysian_edict_preparing }
+						NOT = { has_modifier = dionysian_advance_election_cooldown }
+					}
+					add_resource = { menace = @Overlord_Edict1Cost mult = -1 }
+					set_country_flag = dionysian_frost_edict_ready 
+					set_country_flag = dionysian_edict_preparing
+					set_variable = { which = dionysian_current_edict_cost value = @Overlord_Edict1Cost  }
+					country_event = { id = dionysian_edict.9 days = 10 } 
+				}
+				else_if = {
+					limit = {
+						has_resource = { type = menace amount >= @Overlord_Edict1Cost }
+						has_country_flag = dionysian_selected_edict_lightning
+						NOT = { has_country_flag = dionysian_edict_preparing }
+						NOT = { has_modifier = dionysian_advance_election_cooldown }
+					}
+					add_resource = { menace = @Overlord_Edict1Cost mult = -1 }
+					set_country_flag = dionysian_lightning_edict_ready 
+					set_country_flag = dionysian_edict_preparing
+					set_variable = { which = dionysian_current_edict_cost value = @Overlord_Edict1Cost  }
+					country_event = { id = dionysian_edict.9 days = 10 } 
+				}
+				else_if = {
+					limit = {
+						has_resource = { type = menace amount >= @Overlord_Edict2Cost }
+						has_country_flag = dionysian_selected_edict_stone
+						NOT = { has_country_flag = dionysian_edict_preparing }
+						NOT = { has_modifier = dionysian_advance_election_cooldown }
+					}
+					add_resource = { menace = @Overlord_Edict2Cost mult = -1 }
+					set_country_flag = dionysian_crack_edict_ready 
+					set_country_flag = dionysian_edict_preparing
+					set_variable = { which = dionysian_current_edict_cost value = @Overlord_Edict2Cost  }
+					country_event = { id = dionysian_edict.9 days = 10 } 
+				}
+				else_if = {
+					limit = {
+						has_resource = { type = menace amount >= @Overlord_Edict3Cost }
+						has_country_flag = dionysian_selected_edict_storm
+						NOT = { has_country_flag = dionysian_edict_preparing }
+						NOT = { has_modifier = dionysian_advance_election_cooldown }
+					}
+					add_resource = { menace = @Overlord_Edict3Cost mult = -1 }
+					set_country_flag = dionysian_storm_edict_ready 
+					set_country_flag = dionysian_edict_preparing
+					set_variable = { which = dionysian_current_edict_cost value = @Overlord_Edict3Cost  }
+					country_event = { id = dionysian_edict.9 days = 10 } 
+				}
+				else_if = {
+					limit = {
+						has_resource = { type = menace amount >= @Overlord_Edict3Cost }
+						has_country_flag = dionysian_selected_edict_shape_planet
+						NOT = { has_modifier = dionysian_overlord_shape_world_modifier }
+					}
+					add_resource = { menace = @Overlord_Edict3Cost mult = -1 }
+					add_modifier = { modifier = dionysian_overlord_shape_world_modifier days = -1 }
+				}
+				else_if = {
+					limit = {
+						has_resource = { type = menace amount >= @Overlord_Edict5Cost }
+						has_country_flag = dionysian_selected_edict_guide_fleet
+						NOT = { has_modifier = dionysian_overlord_guide_fleet_modifier }
+					}
+					add_resource = { menace = @Overlord_Edict5Cost mult = -1 }
+					add_modifier = { modifier = dionysian_overlord_guide_fleet_modifier days = -1 }
+					country_event = { id = dionysian_edict.14 days = 1  }
+					country_event = { id = dionysian_edict.1010 days = 8  }
+				}
+				else_if = {
+					limit = {
+						has_resource = { type = menace amount >= @Overlord_Edict6Cost }
+						has_country_flag = dionysian_selected_edict_ascend
+						NOT = { has_modifier = dionysian_overlord_enhance_psi_pop_modifier }
+					}
+					add_resource = { menace = @Overlord_Edict6Cost mult = -1 }
+					add_modifier = { modifier = dionysian_overlord_enhance_psi_pop_modifier days = 3600 }
+					country_event = { id = dionysian_edict.1 days = 1 }
+				}
+				else_if = {
+					limit = {
+						has_resource = { type = menace amount >= @Overlord_Edict8Cost }
+						has_country_flag = dionysian_selected_edict_curse
+						NOT = { has_country_flag = dionysian_edict_preparing }
+						NOT = { has_modifier = dionysian_advance_election_cooldown }
+					}
+					add_resource = { menace = @Overlord_Edict8Cost mult = -1 }
+					set_country_flag = dionysian_malediction_edict_ready 
+					set_country_flag = dionysian_edict_preparing
+					set_variable = { which = dionysian_current_edict_cost value = @Overlord_Edict8Cost  }
+					country_event = { id = dionysian_edict.9 days = 10 } 
+				}
+				else_if = {
+					limit = {
+						has_resource = { type = menace amount >= @Overlord_Edict10Cost }
+						has_country_flag = dionysian_selected_edict_nightfall
+						NOT = { has_country_flag = dionysian_edict_preparing }
+						NOT = { has_modifier = dionysian_advance_election_cooldown }
+					}
+					add_resource = { menace = @Overlord_Edict10Cost mult = -1 }
+					set_country_flag = dionysian_nightfall_edict_ready 
+					set_country_flag = dionysian_edict_preparing
+					set_variable = { which = dionysian_current_edict_cost value = @Overlord_Edict10Cost  }
+					country_event = { id = dionysian_edict.9 days = 10 } 
+				}
+
+				dionysian_remove_selected_edict = yes
+			}
+			
+		}
+	}
+}
+
+dionysian_edict_selector_menace_amount = {
+	potential = {
+	}
+	allow = {
+	}
+	effect = {
+		custom_tooltip = dionysian_edict_selector_menace_amount_tooltip
+	}
+}
+
+dionysian_select_edict_effect_fire = {
+	potential = {
+	}
+	allow = {
+		has_resource = { type = menace amount >= @Overlord_Edict1Cost }
+		NOT = { has_modifier = dionysian_edict_cooldown }
+		custom_tooltip = {
+			fail_text = dionsyian_other_edict_active_trigger
+			NOT = {
+				has_country_flag = dionysian_edict_preparing
+			}
+		}
+
+		custom_tooltip = dionysian_extra_line_tooltip
+		custom_tooltip = dionysian_overlord_fire_planet_content
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				set_country_flag = dionysian_selected_edict_fire 
+			}
+		}
+		custom_tooltip = dionysian_overlord_fire_planet_content
+	}
+}
+
+dionysian_select_edict_effect_frost = {
+	potential = {
+	}
+	allow = {
+		has_resource = { type = menace amount >= @Overlord_Edict1Cost }
+		NOT = { has_modifier = dionysian_edict_cooldown }
+		custom_tooltip = {
+			fail_text = dionsyian_other_edict_active_trigger
+			NOT = {
+				has_country_flag = dionysian_edict_preparing
+			}
+		}
+
+		custom_tooltip = dionysian_extra_line_tooltip
+		custom_tooltip = dionysian_overlord_frost_planet_content
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				set_country_flag = dionysian_selected_edict_frost 
+			}
+		}
+		custom_tooltip = dionysian_overlord_frost_planet_content
+	}
+}
+
+dionysian_select_edict_effect_lightning = {
+	potential = {
+	}
+	allow = {
+		has_resource = { type = menace amount >= @Overlord_Edict1Cost }
+		NOT = { has_modifier = dionysian_edict_cooldown }
+		custom_tooltip = {
+			fail_text = dionsyian_other_edict_active_trigger
+			NOT = {
+				has_country_flag = dionysian_edict_preparing
+			}
+		}
+
+		custom_tooltip = dionysian_extra_line_tooltip
+		custom_tooltip = dionysian_overlord_lightning_planet_content
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				set_country_flag = dionysian_selected_edict_lightning 
+			}
+		}
+		custom_tooltip = dionysian_overlord_lightning_planet_content
+	}
+}
+
+dionysian_select_edict_effect_stone = {
+	potential = {
+	}
+	allow = {
+		has_resource = { type = menace amount >= @Overlord_Edict2Cost }
+		NOT = { has_modifier = dionysian_edict_cooldown }
+		custom_tooltip = {
+			fail_text = dionsyian_other_edict_active_trigger
+			NOT = {
+				has_country_flag = dionysian_edict_preparing
+			}
+		}
+
+		custom_tooltip = dionysian_extra_line_tooltip
+		custom_tooltip = dionysian_overlord_crack_planet_content
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				set_country_flag = dionysian_selected_edict_stone 
+			}
+		}
+		custom_tooltip = dionysian_overlord_crack_planet_content
+	}
+}
+
+dionysian_select_edict_effect_storm = {
+	potential = {
+	}
+	allow = {
+		has_resource = { type = menace amount >= @Overlord_Edict3Cost }
+		NOT = { has_modifier = dionysian_edict_cooldown }
+		custom_tooltip = {
+			fail_text = dionsyian_other_edict_active_trigger
+			NOT = {
+				has_country_flag = dionysian_edict_preparing
+			}
+		}
+
+		custom_tooltip = dionysian_extra_line_tooltip
+		custom_tooltip = dionysian_overlord_storm_system_content
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				set_country_flag = dionysian_selected_edict_storm 
+			}
+		}
+		custom_tooltip = dionysian_overlord_storm_system_content
+	}
+}
+
+dionysian_select_edict_effect_shape_planet = {
+	potential = {
+	}
+	allow = {
+		has_resource = { type = menace amount >= @Overlord_Edict3Cost }
+
+		custom_tooltip = dionysian_extra_line_tooltip
+		custom_tooltip = dionysian_overlord_shape_world_content
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				set_country_flag = dionysian_selected_edict_shape_planet 
+			}
+		}
+		custom_tooltip = dionysian_overlord_shape_world_content
+	}
+}
+
+dionysian_select_edict_effect_guide_fleet = {
+	potential = {
+	}
+	allow = {
+		has_resource = { type = menace amount >= @Overlord_Edict5Cost }
+
+		custom_tooltip = dionysian_extra_line_tooltip
+		custom_tooltip = dionysian_overlord_guide_fleet_content
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				set_country_flag = dionysian_selected_edict_guide_fleet 
+			}
+		}
+		custom_tooltip = dionysian_overlord_guide_fleet_content
+	}
+}
+
+dionysian_select_edict_effect_ascend = {
+	potential = {
+	}
+	allow = {
+		has_resource = { type = menace amount >= @Overlord_Edict6Cost }
+
+		custom_tooltip = dionysian_extra_line_tooltip
+		custom_tooltip = dionysian_overlord_enhance_psi_pop_content
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				set_country_flag = dionysian_selected_edict_ascend 
+			}
+		}
+		custom_tooltip = dionysian_overlord_enhance_psi_pop_content
+	}
+}
+
+dionysian_select_edict_effect_curse = {
+	potential = {
+	}
+	allow = {
+		has_resource = { type = menace amount >= @Overlord_Edict8Cost }
+		NOT = { has_modifier = dionysian_edict_cooldown }
+		custom_tooltip = {
+			fail_text = dionsyian_other_edict_active_trigger
+			NOT = {
+				has_country_flag = dionysian_edict_preparing
+			}
+		}
+
+		custom_tooltip = dionysian_extra_line_tooltip
+		custom_tooltip = dionysian_overlord_malediction_content
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				set_country_flag = dionysian_selected_edict_curse 
+			}
+			custom_tooltip = dionysian_overlord_malediction_content
+		}
+	}
+}
+
+dionysian_select_edict_effect_nightfall = {
+	potential = {
+	}
+	allow = {
+		has_resource = { type = menace amount >= @Overlord_Edict10Cost }
+		NOT = { has_modifier = dionysian_edict_cooldown }
+		custom_tooltip = {
+			fail_text = dionsyian_other_edict_active_trigger
+			NOT = {
+				has_country_flag = dionysian_edict_preparing
+			}
+		}
+
+		custom_tooltip = dionysian_extra_line_tooltip
+		custom_tooltip = dionysian_overlord_nightfall_content
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				set_country_flag = dionysian_selected_edict_nightfall 
+			}
+			custom_tooltip = dionysian_overlord_nightfall_content
+		}
+	}
+}
+
+
+dionysian_deselect_edict_effect_fire = {
+	potential = {
+		has_country_flag = dionysian_selected_edict_fire
+	}
+	allow = {
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				remove_country_flag = dionysian_selected_edict_fire 
+			}
+		}
+		custom_tooltip = dionysian_overlord_fire_planet_content
+	}
+}
+
+dionysian_deselect_edict_effect_frost = {
+	potential = {
+		has_country_flag = dionysian_selected_edict_frost
+	}
+	allow = {
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				remove_country_flag = dionysian_selected_edict_frost 
+			}
+		}
+		custom_tooltip = dionysian_overlord_frost_planet_content
+	}
+}
+
+dionysian_deselect_edict_effect_lightning = {
+	potential = {
+		has_country_flag = dionysian_selected_edict_lightning
+	}
+	allow = {
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				remove_country_flag = dionysian_selected_edict_lightning 
+			}
+		}
+		custom_tooltip = dionysian_overlord_lightning_planet_content
+	}
+}
+
+dionysian_deselect_edict_effect_stone = {
+	potential = {
+		has_country_flag = dionysian_selected_edict_stone
+	}
+	allow = {
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				remove_country_flag = dionysian_selected_edict_stone 
+			}
+		}
+		custom_tooltip = dionysian_overlord_crack_planet_content
+	}
+}
+
+dionysian_deselect_edict_effect_storm = {
+	potential = {
+		has_country_flag = dionysian_selected_edict_storm
+	}
+	allow = {
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				remove_country_flag = dionysian_selected_edict_storm 
+			}
+		}
+		custom_tooltip = dionysian_overlord_storm_system_content
+	}
+}
+
+dionysian_deselect_edict_effect_shape_planet = {
+	potential = {
+		has_country_flag = dionysian_selected_edict_shape_planet
+	}
+	allow = {
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				remove_country_flag = dionysian_selected_edict_shape_planet 
+			}
+		}
+		custom_tooltip = dionysian_overlord_shape_world_content
+	}
+}
+
+dionysian_deselect_edict_effect_guide_fleet = {
+	potential = {
+		has_country_flag = dionysian_selected_edict_guide_fleet
+	}
+	allow = {
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				remove_country_flag = dionysian_selected_edict_guide_fleet 
+			}
+		}
+		custom_tooltip = dionysian_overlord_guide_fleet_content
+	}
+}
+
+dionysian_deselect_edict_effect_ascend = {
+	potential = {
+		has_country_flag = dionysian_selected_edict_ascend
+	}
+	allow = {
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				remove_country_flag = dionysian_selected_edict_ascend 
+			}
+		}
+		custom_tooltip = dionysian_overlord_enhance_psi_pop_content
+	}
+}
+
+dionysian_deselect_edict_effect_curse = {
+	potential = {
+		has_country_flag = dionysian_selected_edict_curse
+	}
+	allow = {
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				remove_country_flag = dionysian_selected_edict_curse 
+			}
+		}
+		custom_tooltip = dionysian_overlord_malediction_content
+	}
+}
+
+dionysian_deselect_edict_effect_nightfall = {
+	potential = {
+		has_country_flag = dionysian_selected_edict_nightfall
+	}
+	allow = {
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				dionysian_remove_selected_edict = yes
+				remove_country_flag = dionysian_selected_edict_nightfall 
+			}
+		}
+		custom_tooltip = dionysian_overlord_nightfall_content
+	}
+}
+
+
+dionysian_enduring_edict_effect_shape_planet = {
+	potential = {
+		has_modifier = dionysian_overlord_shape_world_modifier
+	}
+	allow = {
+	}
+	effect = {
+		custom_tooltip = dionysian_enduring_edict_tooltip
+		custom_tooltip = dionysian_overlord_shape_world_content
+	}
+}
+
+dionysian_enduring_edict_effect_guide_fleet = {
+	potential = {
+		has_modifier = dionysian_overlord_guide_fleet_modifier
+	}
+	allow = {
+	}
+	effect = {
+		hidden_effect = {
+			event_target:dionysian_edict_caster_country = {
+				remove_modifier = dionysian_overlord_guide_fleet_modifier 
+			}
+		}
+		custom_tooltip = dionysian_enduring_edict_cancel_tooltip
+		custom_tooltip = dionysian_overlord_guide_fleet_content
+	}
+}
+
+dionysian_enduring_edict_effect_ascend = {
+	potential = {
+		has_modifier = dionysian_overlord_enhance_psi_pop_modifier
+	}
+	allow = {
+	}
+	effect = {
+		custom_tooltip = dionysian_enduring_edict_tooltip
+		custom_tooltip = dionysian_overlord_enhance_psi_pop_content
+	}
+}

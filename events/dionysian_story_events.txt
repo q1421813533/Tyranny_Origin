@@ -1,0 +1,1061 @@
+namespace = dionysian_story
+
+
+#enhance psi corps
+country_event = {
+
+	id = dionysian_story.100
+	
+	title = "dionysian_story.100.name"
+	desc = "dionysian_story.100.desc"
+	picture = GFX_evt_shroudwalker_enclave
+	show_sound = event_psionic
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	immediate = {
+		country_event = { id = dionysian_story.1100 days = 3600 random = 3600 }
+	}
+
+	option = {
+		name = "dionysian_story.100.option.a"
+		add_modifier = {
+			modifier = dionysian_empower_archons
+			days = -1
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.100.option.b"
+		add_modifier = {
+			modifier = dionysian_empower_psykers
+			days = -1
+		}
+		hidden_effect = {
+			subtract_variable = { which = dionysian_archon_upkeep_mult value = 1 }
+			if = {
+				limit = { check_variable_arithmetic = { which = dionysian_archon_upkeep_mult  value < 0 } }
+				set_variable = { which = dionysian_archon_upkeep_mult value = 0  }
+			} 
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+}
+
+
+#change capital
+planet_event = {
+
+	id = dionysian_story.200
+	
+	title = "dionysian_story.200.name"
+	desc = "dionysian_story.200.desc"
+	picture = GFX_dionysian_bastard_city_event_pic
+	location = from
+	is_triggered_only = yes
+
+	trigger = {
+		owner = { 
+			has_origin = dionysian_origin
+			NOT = { has_country_flag = dionysian_already_changed_capital }
+		}
+		exists = from
+		from = { is_same_value = root.owner.home_planet }
+		from.owner = { is_same_value = root.owner }
+	}
+
+	immediate = {
+		owner = { set_country_flag = dionysian_already_changed_capital }
+	}
+
+	option = {
+		name = "dionysian_story.200.option.a"
+		owner.home_planet = { 
+			add_modifier = {
+				modifier = dionysian_moving_homeworld
+				days = 3600
+			}
+		}
+		owner.capital_scope = {
+			add_modifier = {
+				modifier = dionysian_new_capital
+				days = 3600
+			}
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.200.option.b"
+		owner.home_planet = { 
+			add_modifier = {
+				modifier = dionysian_remember_homeworld
+				days = -1
+			}
+		}
+		owner.capital_scope = {
+			add_modifier = {
+				modifier = dionysian_new_capital
+				days = 3600
+			}
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.200.option.c"
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+}
+
+#meet fallen empire
+country_event = {
+
+	id = dionysian_story.300
+	
+	is_triggered_only = yes
+	hide_window = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+		NOT = { has_country_flag = dionysian_met_fallen_empire }
+		from = {
+			OR = {
+				is_country_type = fallen_empire
+				is_country_type = awakened_fallen_empire
+			}
+		}
+	}
+
+	immediate = {
+		set_country_flag = dionysian_met_fallen_empire
+		from = {  save_event_target_as = dionysian_contact_fallen_empire }
+		country_event = { id = dionysian_story.301  days = 50 }
+	}
+
+}
+
+
+country_event = {
+
+	id = dionysian_story.301
+	
+	title = "dionysian_story.301.name"
+	desc = "dionysian_story.301.desc"
+	picture = GFX_dionysian_meet_fallen_empire_pic
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+		exists = event_target:dionysian_contact_fallen_empire
+	}
+
+	option = {
+		name = "dionysian_story.301.option.a"
+		add_modifier = {
+			modifier = dionysian_fallen_info_control
+			days = 720
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.301.option.b"
+		add_modifier = {
+			modifier = dionysian_fallen_info_ignore
+			days = 720
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.301.option.c"
+		TRIGGER = {	
+			has_authority = auth_imperial	
+			NOT = { has_ethic = ethic_fanatic_authoritarian } 
+		}
+		custom_tooltip = dionysian_overlord_down_tooltip
+		add_modifier = {
+			modifier = dionysian_fallen_info_support
+			days = 720
+		}
+		hidden_effect = {
+			ruler = {
+				subtract_variable = {
+					which = dionysian_overlord_reputation_level
+					value = 2
+				}
+			}
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+}
+
+#meet levi
+fleet_event = {
+
+	id = dionysian_story.400
+	
+	is_triggered_only = yes
+	hide_window = yes
+
+	trigger = {
+		owner = {
+			has_origin = dionysian_origin
+			NOT = { has_country_flag = dionysian_met_levi }
+		}
+		from = {
+			any_fleet_in_system = {
+				exists = owner
+				owner = {
+					is_guardian_country = yes
+					NOT = { is_country_type = guardian_sphere }
+				}
+			}
+		}
+	}
+
+	immediate = {
+		owner = { 
+			set_country_flag = dionysian_met_levi
+			country_event = { id = dionysian_story.401  days = 50 }
+		}
+	}
+
+}
+
+
+
+country_event = {
+
+	id = dionysian_story.401
+	
+	title = "dionysian_story.401.name"
+	desc = "dionysian_story.401.desc"
+	picture = GFX_evt_unspeakable_horror
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	option = {
+		name = "dionysian_story.401.option.a"
+		add_modifier = {
+			modifier = dionysian_levi_hot
+			days = 720
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.401.option.b"
+		TRIGGER = {	
+			has_authority = auth_dictatorial	
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		hidden_effect = {
+			ruler = {
+				change_variable = {
+					which = dionysian_overlord_reputation_level
+					value = 4
+				}
+			}
+		}
+		ai_chance = {
+		 	factor = 20
+		}
+	}
+
+}
+
+#Archon and logic event
+country_event = {
+
+	id = dionysian_story.500
+	
+	is_triggered_only = yes
+	hide_window = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+		has_ascension_perk = ap_cosmogenesis
+		NOT = { has_country_flag = dionysian_decided_archon_logic }
+	}
+
+	immediate = {
+		set_country_flag = dionysian_decided_archon_logic
+		country_event = { id = dionysian_story.501  days = 50 }
+	}
+
+}
+
+
+country_event = {
+
+	id = dionysian_story.501
+	
+	title = "dionysian_story.501.name"
+	desc = "dionysian_story.501.desc"
+	picture = GFX_dionysian_archon_logic_pic
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+
+	option = {
+		name = "dionysian_story.501.option.a"
+		custom_tooltip = dionysian_unlock_logic_tooltip
+		hidden_effect = {
+			set_country_flag = dionysian_archon_logic_active
+		}
+		set_policy = {
+			policy = dionysian_archon_logic
+			option = dionysian_allow_archon_logic
+			cooldown = yes
+		}
+		custom_tooltip = dionysian_allow_logic_tooltip
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.501.option.b"
+		custom_tooltip = dionysian_unlock_logic_tooltip
+		hidden_effect = {
+			set_country_flag = dionysian_archon_logic_active
+			if = {
+				limit = { NOT = { has_policy_flag = dionysian_allow_archon_logic } }
+				change_variable = { which = dionysian_archon_upkeep_mult value = 1 }
+			}
+		}
+		set_policy = {
+			policy = dionysian_archon_logic
+			option = dionysian_forbid_archon_logic
+			cooldown = yes
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+}
+
+
+#Archon trait in cyb and syn
+country_event = {
+
+	id = dionysian_story.600
+	
+	is_triggered_only = yes
+	hide_window = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+		OR = {
+			has_ascension_perk = ap_the_flesh_is_weak
+			has_ascension_perk = ap_synthetic_evolution
+		}
+		NOT = { has_country_flag = dionysian_decided_archon_ascend }
+	}
+
+	immediate = {
+		set_country_flag = dionysian_decided_archon_ascend
+		country_event = { id = dionysian_story.601  days = 15 }
+	}
+
+}
+
+
+country_event = {
+
+	id = dionysian_story.601
+	
+	title = "dionysian_story.601.name"
+	desc = {
+		trigger = {
+			has_ascension_perk = ap_the_flesh_is_weak
+		}
+		text = "dionysian_story.601.desc.cyb"
+	}
+
+	desc = {
+		trigger = {
+			has_ascension_perk = ap_synthetic_evolution
+		}
+		text = "dionysian_story.601.desc.syn"
+	}
+
+
+	picture = GFX_dionysian_flesh_rev_pic
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+
+	option = {
+		name = "dionysian_story.601.option.a"
+		custom_tooltip = dionysian_unlock_archon_ascend_tooltip
+		custom_tooltip = policy_dionysian_archon_asecend_trait_desc
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+}
+
+#The First Edict
+country_event = {
+
+	id = dionysian_story.700
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	hide_window = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	immediate = {
+		country_event = { id = dionysian_story.701  days = 50 }
+	}
+
+}
+
+country_event = {
+
+	id = dionysian_story.701
+
+	title = "dionysian_story.701.name"
+	desc = "dionysian_story.701.desc"
+	picture = GFX_dionysian_overlord_city
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	option = {
+		name = "dionysian_story.701.option"
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		hidden_effect = { 
+			ruler = {
+				change_variable = {
+					which = dionysian_overlord_reputation_level
+					value = 4
+				}
+			}
+		}
+	}
+
+}
+
+#lose war
+country_event = {
+
+	id = dionysian_story.800
+
+	title = "dionysian_story.800.name"
+	desc = "dionysian_story.800.desc"
+	picture = GFX_dionysian_overlord_city
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	option = {
+		name = "dionysian_story.800.option.a"
+		custom_tooltip = dionysian_overlord_down_tooltip
+		hidden_effect = {
+			ruler = {
+				subtract_variable = {
+					which = dionysian_overlord_reputation_level
+					value = 8
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "dionysian_story.800.option.b"
+		TRIGGER = {	
+			has_authority = auth_imperial	
+			NOT = { has_ethic = ethic_fanatic_authoritarian } 
+		}
+		dionysian_give_election_punish = yes
+	}
+
+}
+
+#become vassal
+country_event = {
+
+	id = dionysian_story.900
+
+	title = "dionysian_story.900.name"
+	desc = "dionysian_story.900.desc"
+	picture = GFX_dionysian_overlord_city
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	option = {
+		name = "dionysian_story.900.option.a"
+		custom_tooltip = dionysian_overlord_down_tooltip
+		hidden_effect = {
+			ruler = {
+				subtract_variable = {
+					which = dionysian_overlord_reputation_level
+					value = 15
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "dionysian_story.900.option.b"
+		TRIGGER = {	
+			has_authority = auth_dictatorial	
+		}
+		dionysian_give_election_punish = yes
+	}
+
+}
+
+
+#Conquer the fallen
+country_event = {
+
+	id = dionysian_story.1000
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	hide_window = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+		OR = { 
+			From = { is_country_type = fallen_empire }
+			From = { is_country_type = awakened_fallen_empire }
+		}
+		FromFrom = { is_capital = yes }
+	}
+	
+	immediate = {
+		FromFrom = { save_event_target_as = dionysian_fallen_empire_capital }
+		country_event = { id = dionysian_story.1001  days = 10 }
+	}
+
+}
+
+country_event = {
+
+	id = dionysian_story.1001
+
+	title = "dionysian_story.1001.name"
+	desc = "dionysian_story.1001.desc"
+	picture = GFX_dionysian_overlord_city
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	option = {
+		name = "dionysian_story.1001.option"
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		hidden_effect = { 
+			ruler = {
+				change_variable = {
+					which = dionysian_overlord_reputation_level
+					value = 10
+				}
+			}
+		}
+	}
+
+}
+
+#overlord sanctum
+country_event = {
+
+	id = dionysian_story.1100
+	
+	title = "dionysian_story.1100.name"
+	desc = "dionysian_story.1100.desc"
+	picture = GFX_evt_shroudwalker_enclave
+	show_sound = event_psionic
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+		NOT = { has_country_flag = dionsyian_allowed_sanctum }
+	}
+
+	immediate = {
+		country_event = { id = dionysian_story.1200 days = 3600 random = 3600 }
+	}
+
+	option = {
+		name = "dionysian_story.1100.option"
+		custom_tooltip = dionysian_story.1100.tooltip
+		hidden_effect = { 
+			set_country_flag = dionsyian_allowed_sanctum
+			add_modifier = {
+				modifier = dionysian_enhance_telepath_modifier
+				days = -1
+			}
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+}
+
+
+#tame Shroud
+country_event = {
+
+	id = dionysian_story.1200
+	
+	title = "dionysian_story.1200.name"
+	desc = "dionysian_story.1200.desc"
+	picture = GFX_evt_shroudwalker_enclave
+	show_sound = event_psionic
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+		NOT = { has_country_flag = dionsyian_allowed_control_shroud }
+	}
+
+	option = {
+		name = "dionysian_story.1200.option"
+		custom_tooltip = dionysian_story.1200.tooltip
+		hidden_effect = { 
+			set_country_flag = dionsyian_allowed_control_shroud
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+}
+
+country_event = {
+
+	id = dionysian_story.1210
+	
+	title = "dionysian_story.1210.name"
+	desc = "dionysian_story.1210.desc"
+
+	diplomatic_title = BLANK_STRING
+	diplomatic = yes
+	force_open = yes
+
+	picture_event_data = {
+		portrait = shroud1
+		room = shroud_room
+	}
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	option = {
+		name = "dionysian_story.1210.option.a"
+		allow = {
+			has_resource = { type = menace amount >= 100 }
+			custom_tooltip = {
+				fail_text = dionsyian_has_shroud_curse_trigger
+				dionysian_has_shroud_curse = yes
+			}
+		}
+		add_resource = { 
+			menace = -100
+		}
+		custom_tooltip = dionysian_story.1210.option.a.tooltip
+		hidden_effect = { 
+			dionysian_remove_all_shroud_curse = yes
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1210.option.b"
+		allow = {
+			has_resource = { type = menace amount >= 500 }
+			custom_tooltip = {
+				fail_text = dionsyian_has_shroud_bless_trigger
+				NOT = { dionysian_has_shroud_bless = yes }
+			}
+		}
+		add_resource = { 
+			menace = -500
+		}
+		custom_tooltip = dionysian_story.1210.option.b.tooltip
+		hidden_effect = { 
+			country_event = { id = dionysian_story.1220 }
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1210.option.c"
+		allow = {
+			has_resource = { type = menace amount >= 1000 }
+			NAND = {
+				has_technology = tech_psionic_shield
+				has_technology = tech_precognition_interface
+				has_technology = tech_psi_jump_drive_1
+			}
+		}
+		add_resource = { 
+			menace = -1000
+		}
+		add_research_option = tech_psionic_shield
+		add_research_option = tech_precognition_interface
+		add_research_option = tech_psi_jump_drive_1
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1210.option.d"
+		allow = {
+			has_resource = { type = menace amount >= 5000 }
+			NAND = {
+				has_technology = tech_cosmogenesis_escort
+				has_technology = tech_cosmogenesis_battlecruiser
+				has_technology = tech_cosmogenesis_FE_titan
+			}
+		}
+		add_resource = { 
+			menace = -5000
+		}
+		add_research_option = tech_cosmogenesis_escort
+		add_research_option = tech_cosmogenesis_battlecruiser
+		add_research_option = tech_cosmogenesis_FE_titan
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1210.option.e"
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+}
+
+
+country_event = {
+
+	id = dionysian_story.1220
+	
+	title = "dionysian_story.1220.name"
+	desc = "dionysian_story.1220.desc"
+
+	diplomatic_title = BLANK_STRING
+	diplomatic = yes
+	force_open = yes
+
+	picture_event_data = {
+		portrait = shroud1
+		room = shroud_room
+	}
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	option = {
+		name = "dionysian_story.1220.option.1"
+		allow = {
+			custom_tooltip = {
+				fail_text = dionsyian_has_shroud_bless_trigger
+				NOT = { dionysian_has_shroud_bless = yes }
+			}
+		}
+		add_modifier = {
+			modifier = shroud_happiness
+			days = 3600
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1220.option.2"
+		allow = {
+			custom_tooltip = {
+				fail_text = dionsyian_has_shroud_bless_trigger
+				NOT = { dionysian_has_shroud_bless = yes }
+			}
+		}
+		add_modifier = {
+			modifier = shroud_ship_upkeep
+			days = 3600
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1220.option.3"
+		allow = {
+			custom_tooltip = {
+				fail_text = dionsyian_has_shroud_bless_trigger
+				NOT = { dionysian_has_shroud_bless = yes }
+			}
+		}
+		add_modifier = {
+			modifier = shroud_research_speed
+			days = 3600
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1220.option.4"
+		allow = {
+			custom_tooltip = {
+				fail_text = dionsyian_has_shroud_bless_trigger
+				NOT = { dionysian_has_shroud_bless = yes }
+			}
+		}
+		add_modifier = {
+			modifier = shroud_shield_boost
+			days = 3600
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1220.option.5"
+		allow = {
+			custom_tooltip = {
+				fail_text = dionsyian_has_shroud_bless_trigger
+				NOT = { dionysian_has_shroud_bless = yes }
+			}
+		}
+		add_modifier = {
+			modifier = shroud_weapon_boost
+			days = 3600
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1220.option.6"
+		allow = {
+			custom_tooltip = {
+				fail_text = dionsyian_has_shroud_bless_trigger
+				NOT = { dionysian_has_shroud_bless = yes }
+			}
+		}
+		add_modifier = {
+			modifier = shroud_firing_rate
+			days = 3600
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1220.option.7"
+		allow = {
+			custom_tooltip = {
+				fail_text = dionsyian_has_shroud_bless_trigger
+				NOT = { dionysian_has_shroud_bless = yes }
+			}
+		}
+		add_modifier = {
+			modifier = shroud_ethic_boost
+			days = 3600
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1220.option.8"
+		allow = {
+			custom_tooltip = {
+				fail_text = dionsyian_has_shroud_bless_trigger
+				NOT = { dionysian_has_shroud_bless = yes }
+			}
+		}
+		add_modifier = {
+			modifier = shroud_unity_boost
+			days = 3600
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1220.option.9"
+		allow = {
+			custom_tooltip = {
+				fail_text = dionsyian_has_shroud_bless_trigger
+				NOT = { dionysian_has_shroud_bless = yes }
+			}
+		}
+		add_modifier = {
+			modifier = shroud_evasion
+			days = 3600
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1220.option.10"
+		allow = {
+			custom_tooltip = {
+				fail_text = dionsyian_has_shroud_bless_trigger
+				NOT = { dionysian_has_shroud_bless = yes }
+			}
+		}
+		add_modifier = {
+			modifier = shroud_repair
+			days = 3600
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1220.option.11"
+		allow = {
+			custom_tooltip = {
+				fail_text = dionsyian_has_shroud_bless_trigger
+				NOT = { dionysian_has_shroud_bless = yes }
+			}
+		}
+		add_modifier = {
+			modifier = shroud_speed
+			days = 3600
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1220.option.12"
+		allow = {
+			custom_tooltip = {
+				fail_text = dionsyian_has_shroud_bless_trigger
+				NOT = { dionysian_has_shroud_bless = yes }
+			}
+		}
+		add_modifier = {
+			modifier = shroud_morale
+			days = 3600
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1220.option.13"
+		allow = {
+			custom_tooltip = {
+				fail_text = dionsyian_has_shroud_bless_trigger
+				NOT = { dionysian_has_shroud_bless = yes }
+			}
+		}
+		add_modifier = {
+			modifier = shroud_sensors
+			days = 3600
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1220.option.14"
+		add_resource = { 
+			menace = 500
+		}
+		hidden_effect = { 
+			country_event = { id = dionysian_story.1210 }
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+	
+}

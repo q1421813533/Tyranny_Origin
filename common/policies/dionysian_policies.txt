@@ -1,0 +1,166 @@
+
+dionysian_archon_logic = {
+
+	potential = {
+		has_origin = dionysian_origin
+		has_country_flag = dionysian_archon_logic_active
+	}
+
+	option = {
+		name = "dionysian_allow_archon_logic"
+
+		policy_flags = {
+			dionysian_allow_archon_logic
+		}
+
+		on_enabled = {
+			hidden_effect = {
+				change_variable = { which = dionysian_archon_upkeep_mult value = 1 }
+			}
+		}
+
+		modifier = {
+		}
+	}
+
+	option = {
+		name = "dionysian_forbid_archon_logic"
+
+		policy_flags = {
+			dionysian_forbid_archon_logic
+		}
+
+		on_enabled = {
+			hidden_effect = {
+				subtract_variable = { which = dionysian_archon_upkeep_mult value = 1 }
+				if = {
+					limit = { check_variable_arithmetic = { which = dionysian_archon_upkeep_mult  value < 0 } }
+					set_variable = { which = dionysian_archon_upkeep_mult value = 0  }
+				} 
+			}
+		}
+
+		modifier = {
+		}
+	}
+
+}
+
+
+dionysian_archon_asecend_trait = {
+
+
+	potential = {
+		has_origin = dionysian_origin
+	}
+
+	option = {
+		name = "dionysian_archon_psi"
+
+		policy_flags = {
+			dionysian_archon_psi
+		}
+
+		on_enabled = {
+			hidden_effect = { dionysian_give_ascension_trait_for_all_archons = yes }
+		}
+
+		modifier = { }
+	}
+
+	option = {
+		name = "dionysian_archon_full_cyb"
+
+		policy_flags = {
+			dionysian_archon_full_cyb
+		}
+
+		potential = {
+			has_ascension_perk = ap_the_flesh_is_weak
+		}
+
+		valid = {
+			owner_main_species = { has_trait = trait_cybernetic } 
+		}
+
+		on_enabled = {
+			hidden_effect = { dionysian_give_ascension_trait_for_all_archons = yes }
+		}
+
+		modifier = { }
+	}
+
+	option = {
+		name = "dionysian_archon_half_cyb"
+
+		policy_flags = {
+			dionysian_archon_half_cyb
+		}
+
+		potential = {
+			has_ascension_perk = ap_the_flesh_is_weak
+		}
+
+		valid = {
+			OR = {
+				owner_main_species = { has_trait = trait_cybernetic } 
+				owner_main_species = { has_trait = trait_limited_cybernetic } 
+			}
+		}
+
+		on_enabled = {
+			hidden_effect = { dionysian_give_ascension_trait_for_all_archons = yes }
+		}
+
+		modifier = { }
+	}
+
+	option = {
+		name = "dionysian_archon_syn"
+
+		policy_flags = {
+			dionysian_archon_syn
+		}
+
+		potential = {
+			has_ascension_perk = ap_synthetic_evolution
+		}
+
+		valid = {
+			OR = {
+				owner_main_species = { has_trait = trait_mechanical }
+				owner_main_species = { has_trait = trait_robot_digital_1 }
+			}
+		}
+
+		on_enabled = {
+			hidden_effect = { dionysian_give_ascension_trait_for_all_archons = yes }
+		}
+
+		modifier = { }
+	}
+
+	option = {
+		name = "dionysian_archon_virtual"
+
+		policy_flags = {
+			dionysian_archon_virtual
+		}
+
+		potential = {
+			has_ascension_perk = ap_synthetic_evolution
+		}
+
+		valid = {
+			owner_main_species = { has_trait = trait_robot_digital_1 }
+		}
+
+		on_enabled = {
+			hidden_effect = { dionysian_give_ascension_trait_for_all_archons = yes }
+		}
+
+		modifier = { }
+	}
+
+	
+}

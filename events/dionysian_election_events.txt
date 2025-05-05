@@ -1,0 +1,203 @@
+namespace = dionysian_election
+
+@Dionysian_PM_Time = 3600
+@Dionysian_Advance_Election_Cooldowm = 720
+
+
+#nomarl election of PM
+country_event = {
+    id = dionysian_election.0
+
+    title = "dionysian_election.0.name"
+	desc = "dionysian_election.0.desc"
+	picture = GFX_dionysian_election_picture
+	show_sound = event_inhabited_solar_system
+
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = { has_country_flag = dionysian_block_other_election }
+		can_use_dionyian_PM = yes
+	}
+
+	immediate = {
+		set_country_flag = dionysian_block_other_election
+		set_variable_to_random_value = { which = dionysian_old_PM_win_chance min = 1 max = 50 rounded = yes }
+
+		if = { 
+			limit = { has_modifier = dionysian_party_time }
+			export_modifier_duration_to_variable = { modifier = dionysian_party_time  variable = dionysian_remain_PM_time }
+			divide_variable = { which = dionysian_remain_PM_time value = 360 }
+			floor_variable = dionysian_remain_PM_time
+			change_variable  = { which = dionysian_old_PM_win_chance value = dionysian_remain_PM_time }
+		}
+
+		divide_variable = { which = dionysian_old_PM_win_chance value = dionysian_PM_term }
+		ceiling_variable = dionysian_old_PM_win_chance
+
+		set_variable = { which = dionysian_old_PM_lose_chance value = 100 }
+		subtract_variable = { which = dionysian_old_PM_lose_chance value = dionysian_old_PM_win_chance }
+		set_variable_to_random_value = { which = dionysian_election_result min = 0 max = 100 rounded = yes }
+	}
+
+	option = {
+		name = "dionysian_election.0.option1"
+		custom_tooltip = dionysian_election_resource_1
+  		custom_tooltip = dionysian_PM_compete
+  		hidden_effect = {
+  			if = {
+  				limit = { check_variable_arithmetic = { which = dionysian_election_result  value > dionysian_old_PM_win_chance } }
+  				dionysian_give_new_PM = yes
+  			}
+  			else = {
+  				dionysian_check_now_PM_alive = yes
+  			}
+  			country_event = { id = dionysian_election.1 }
+		}
+		dionysian_give_election_chaos = yes
+		custom_tooltip = dionysian_always_PM
+		ai_chance = {
+		 	factor = 90
+		}
+	}
+	option = {
+		name = "dionysian_election.0.option2"
+		custom_tooltip = dionysian_election_resource_2
+		hidden_effect = {
+			dionysian_check_now_PM_alive = yes
+			country_event = { id = dionysian_election.1 }
+		}
+		dionysian_give_election_punish = yes
+		custom_tooltip = dionysian_always_PM
+		ai_chance = {
+		 	factor = 10
+		 	modifier = {
+		 		factor = 0
+		 		resource_stockpile_compare = { resource = influence value < 200 }
+		 	}
+		}
+	}
+}
+
+#new PM time
+country_event = {
+
+    id = dionysian_election.1
+	hide_window = yes
+
+	is_triggered_only = yes
+
+
+	immediate ={
+		remove_country_flag = dionysian_block_other_election
+		remove_modifier = dionysian_party_time 
+		add_modifier = {
+			modifier = dionysian_party_time
+			days = @Dionysian_PM_Time
+		}
+		country_event = { id = dionysian_election.5  days = @Dionysian_PM_Time }
+	}
+
+}
+
+#election on PM death 1
+country_event = {
+
+    id = dionysian_election.2
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_modifier = dionysian_party_time
+		from = { 
+			has_trait = leader_trait_dionysian_prime_minister
+		}
+	}
+
+	immediate = {
+		country_event = { id = dionysian_election.3 }
+	}
+
+}
+
+#election on PM death 2
+country_event = {
+    id = dionysian_election.3
+
+    title = "dionysian_election.3.name"
+	desc = "dionysian_election.3.desc"
+	picture = GFX_dionysian_election_picture
+	show_sound = event_inhabited_solar_system
+
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = { has_country_flag = dionysian_block_other_election }
+		has_authority = auth_imperial
+		has_origin = dionysian_origin
+	}
+
+	immediate = {
+		set_country_flag = dionysian_block_other_election
+	}
+
+	option = {
+
+		name = "dionysian_election.0.option1"
+		custom_tooltip = "dionysian_election_resource_2"
+
+		hidden_effect = {
+			dionysian_give_new_PM = yes
+			country_event = { id = dionysian_election.1 }
+		}
+		
+		dionysian_give_election_chaos = yes
+	}
+}
+
+#advance election
+country_event = {
+    id = dionysian_election.4
+    title = "dionysian_election.0.name"
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		country_event = { id = dionysian_election.0 }
+		add_modifier = {
+			modifier = dionysian_advance_election_cooldown
+			days = @Dionysian_Advance_Election_Cooldowm
+		}
+	}
+
+}
+
+#check if normal election can begin
+country_event = {
+    id = dionysian_election.5
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+		has_authority = auth_imperial
+	}
+
+	immediate = {
+
+		if = { 
+			limit = { has_modifier = dionysian_party_time }
+			export_modifier_duration_to_variable = { modifier = dionysian_party_time  variable = dionysian_remain_PM_time }
+		}
+		else = {
+			set_variable = { which = dionysian_remain_PM_time value = 0 } 
+		}
+
+		if = {
+			limit = { check_variable_arithmetic = { which = dionysian_remain_PM_time  value < 10 } }
+			country_event = { id = dionysian_election.0 }
+		}
+
+	}
+}

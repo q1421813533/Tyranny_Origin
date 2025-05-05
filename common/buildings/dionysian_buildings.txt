@@ -1,0 +1,686 @@
+building_dionysian_overlord_sanctum = {
+	base_buildtime = @b3_time
+
+	category = government
+
+	empire_limit = {
+		base = 1
+	}
+
+	potential = {
+		host_has_dlc = "Utopia"
+		owner = { 
+			has_origin = dionysian_origin
+			has_country_flag = dionsyian_allowed_sanctum 
+		}
+		NOR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+		}
+	}
+
+	allow = {
+		has_major_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		exists = owner
+		NOT = {
+			owner = { has_origin = dionysian_origin }
+		}
+	}
+
+	planet_modifier = {
+		job_telepath_add = 3
+	}
+
+	country_modifier = {
+		country_influence_produces_mult = 0.2
+		empire_size_mult = -0.05
+	}
+
+	resources = {
+		category = planet_buildings
+		cost = {
+			minerals = @b3_minerals
+			exotic_gases = @b3_rare_cost
+		}
+		upkeep = {
+			energy = @b3_upkeep
+			exotic_gases = @b3_rare_upkeep
+		}
+	}
+
+	triggered_desc = {
+		text = job_telepath_effect_desc
+	}
+}
+
+building_dionysian_mystic_palace = {
+
+	base_buildtime = @b2_time
+	icon = building_dionysian_mystic_palace
+	base_cap_amount = 1
+
+	category = research
+
+	potential = {
+		exists = owner
+		planet = {
+			or = {
+				has_building = building_dionysian_mystic_palace
+				owner = { is_ai = no }
+			}
+		}
+		owner = { has_valid_civic = civic_dionysian_mage_guild }
+	}
+
+	allow = {
+		has_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		exists = owner
+		NOT = {
+			owner = { has_civic = civic_dionysian_mage_guild }
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			planet = { has_building = building_capital }
+		}
+		job_dionysian_arcanist_add = 1
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			planet = { has_building = building_major_capital }
+		}
+		job_dionysian_arcanist_add = 2
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			planet = { has_building = building_system_capital }
+		}
+		job_dionysian_arcanist_add = 3
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			planet = { has_building = building_imperial_capital }
+		}
+		job_dionysian_arcanist_add = 4
+	}
+
+	resources = {
+		category = planet_buildings
+		cost = {
+			minerals = 500
+		}
+		upkeep = {
+			energy = 2
+		}
+	}
+
+	triggered_desc = {
+		text = job_dionysian_arcanist_effect_desc
+	}
+}
+
+
+building_dionysian_guild_of_enchanters = {
+
+	base_buildtime = @b1_time
+	icon = building_dionysian_guild_of_enchanters
+	base_cap_amount = 1
+
+	category = research
+
+	potential = {
+		exists = owner
+		planet = {
+			or = {
+				has_building = building_dionysian_guild_of_enchanters
+				owner = { is_ai = no }
+			}
+		}
+		owner = { has_valid_civic = civic_dionysian_mage_guild }
+	}
+
+	destroy_trigger = {
+		exists = owner
+		NOT = {
+			owner = { has_civic = civic_dionysian_mage_guild }
+		}
+	}
+
+	planet_modifier = {
+		job_dionysian_enchanter_add = 2
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner = { has_ascension_perk = dionysian_arcane_rise }
+		}
+		job_dionysian_enchanter_per_pop = 0.05
+	}
+
+	triggered_desc = {
+		text = job_dionysian_enchanter_effect_desc
+	}
+
+	resources = {
+		category = planet_buildings
+		cost = {
+			minerals = @b1_minerals
+		}
+		upkeep = {
+			energy = @b1_upkeep
+		}
+	}
+
+	upgrades = {
+		"building_dionysian_academy_of_enchanters"
+	}
+
+}
+
+
+
+building_dionysian_academy_of_enchanters = {
+
+	base_buildtime = @b2_time
+	icon = building_dionysian_academy_of_enchanters
+	can_build = no
+
+	category = research
+
+	allow = {
+		has_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		exists = owner
+		NOT = {
+			owner = { has_civic = civic_dionysian_mage_guild }
+		}
+	}
+
+	planet_modifier = {
+		job_dionysian_enchanter_add = 4
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner = { has_ascension_perk = dionysian_arcane_rise }
+		}
+		job_dionysian_enchanter_per_pop = 0.05
+	}
+
+	triggered_desc = {
+		text = job_dionysian_enchanter_effect_desc
+	}
+
+	resources = {
+		category = planet_buildings
+		cost = {
+			minerals = @b2_minerals
+			exotic_gases = @b2_rare_cost
+		}
+		upkeep = {
+			energy = @b2_upkeep
+			exotic_gases = @b2_rare_upkeep
+		}
+	}
+
+	prerequisites = {
+		"tech_global_research_initiative"
+	}
+
+}
+
+
+building_dionysian_guild_of_warlocks = {
+
+	base_buildtime = @b1_time
+	icon = building_dionysian_guild_of_warlocks
+	base_cap_amount = 1
+
+	category = research
+
+	potential = {
+		exists = owner
+		planet = {
+			or = {
+				has_building = building_dionysian_guild_of_warlocks
+				owner = { is_ai = no }
+			}
+		}
+		owner = { has_valid_civic = civic_dionysian_mage_guild }
+	}
+
+	destroy_trigger = {
+		exists = owner
+		NOT = {
+			owner = { has_civic = civic_dionysian_mage_guild }
+		}
+	}
+
+	planet_modifier = {
+		job_dionysian_warlock_add = 2
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner = { has_ascension_perk = dionysian_arcane_rise }
+		}
+		job_dionysian_warlock_per_pop = 0.05
+	}
+
+	triggered_desc = {
+		text = job_dionysian_warlock_effect_desc
+	}
+
+	resources = {
+		category = planet_buildings
+		cost = {
+			minerals = @b1_minerals
+		}
+		upkeep = {
+			energy = @b1_upkeep
+		}
+	}
+
+	upgrades = {
+		"building_dionysian_academy_of_warlocks"
+	}
+
+}
+
+building_dionysian_academy_of_warlocks = {
+
+	base_buildtime = @b2_time
+	icon = building_dionysian_academy_of_warlocks
+	can_build = no
+
+	category = research
+
+	allow = {
+		has_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		exists = owner
+		NOT = {
+			owner = { has_civic = civic_dionysian_mage_guild }
+		}
+	}
+
+	planet_modifier = {
+		job_dionysian_warlock_add = 4
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner = { has_ascension_perk = dionysian_arcane_rise }
+		}
+		job_dionysian_warlock_per_pop = 0.05
+	}
+
+	triggered_desc = {
+		text = job_dionysian_warlock_effect_desc
+	}
+
+	resources = {
+		category = planet_buildings
+		cost = {
+			minerals = @b2_minerals
+			rare_crystals = @b2_rare_cost
+		}
+		upkeep = {
+			energy = @b2_upkeep
+			rare_crystals = @b2_rare_upkeep
+		}
+	}
+
+	prerequisites = {
+		"tech_global_research_initiative"
+	}
+
+}
+
+
+
+building_dionysian_guild_of_alchemists = {
+
+	base_buildtime = @b1_time
+	icon = building_dionysian_guild_of_alchemists
+	base_cap_amount = 1
+
+	category = research
+
+	potential = {
+		exists = owner
+		planet = {
+			or = {
+				has_building = building_dionysian_guild_of_alchemists
+				owner = { is_ai = no }
+			}
+		}
+		owner = { has_valid_civic = civic_dionysian_mage_guild }
+	}
+
+	destroy_trigger = {
+		exists = owner
+		NOT = {
+			owner = { has_civic = civic_dionysian_mage_guild }
+		}
+	}
+
+	planet_modifier = {
+		job_dionysian_alchemist_add = 2
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner = { has_ascension_perk = dionysian_arcane_rise }
+		}
+		job_dionysian_alchemist_per_pop = 0.05
+	}
+
+	triggered_desc = {
+		text = job_dionysian_alchemist_effect_desc
+	}
+
+
+	resources = {
+		category = planet_buildings
+		cost = {
+			minerals = @b1_minerals
+		}
+		upkeep = {
+			energy = @b1_upkeep
+		}
+	}
+
+	upgrades = {
+		"building_dionysian_academy_of_alchemists"
+	}
+
+}
+
+building_dionysian_academy_of_alchemists = {
+
+	base_buildtime = @b2_time
+	icon = building_dionysian_academy_of_alchemists
+	can_build = no
+
+	category = research
+
+	allow = {
+		has_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		exists = owner
+		NOT = {
+			owner = { has_civic = civic_dionysian_mage_guild }
+		}
+	}
+
+	planet_modifier = {
+		job_dionysian_alchemist_add = 4
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner = { has_ascension_perk = dionysian_arcane_rise }
+		}
+		job_dionysian_alchemist_per_pop = 0.05
+	}
+
+	triggered_desc = {
+		text = job_dionysian_alchemist_effect_desc
+	}
+
+	resources = {
+		category = planet_buildings
+		cost = {
+			minerals = @b2_minerals
+			volatile_motes = @b2_rare_cost
+		}
+		upkeep = {
+			energy = @b2_upkeep
+			volatile_motes = @b2_rare_upkeep
+		}
+	}
+
+	prerequisites = {
+		"tech_global_research_initiative"
+	}
+
+}
+
+
+
+building_dionysian_guild_of_thaumaturges = {
+
+	base_buildtime = @b1_time
+	icon = building_dionysian_guild_of_thaumaturges
+	base_cap_amount = 1
+
+	category = research
+
+	potential = {
+		exists = owner
+		planet = {
+			or = {
+				has_building = building_dionysian_guild_of_thaumaturges
+				owner = { is_ai = no }
+			}
+		}
+		owner = { has_valid_civic = civic_dionysian_mage_guild }
+	}
+
+	destroy_trigger = {
+		exists = owner
+		NOT = {
+			owner = { has_civic = civic_dionysian_mage_guild }
+		}
+	}
+
+	planet_modifier = {
+		job_dionysian_thaumaturge_add = 2
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner = { has_ascension_perk = dionysian_arcane_rise }
+		}
+		job_dionysian_thaumaturge_per_pop = 0.05
+	}
+
+
+	triggered_desc = {
+		text = job_dionysian_thaumaturge_effect_desc
+	}
+
+
+	resources = {
+		category = planet_buildings
+		cost = {
+			minerals = @b1_minerals
+		}
+		upkeep = {
+			energy = @b1_upkeep
+		}
+	}
+
+	upgrades = {
+		"building_dionysian_academy_of_thaumaturges"
+	}
+
+}
+
+building_dionysian_academy_of_thaumaturges = {
+
+	base_buildtime = @b2_time
+	icon = building_dionysian_academy_of_thaumaturges
+	can_build = no
+
+	category = research
+
+	allow = {
+		has_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		exists = owner
+		NOT = {
+			owner = { has_civic = civic_dionysian_mage_guild }
+		}
+	}
+
+	planet_modifier = {
+		job_dionysian_thaumaturge_add = 4
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner = { has_ascension_perk = dionysian_arcane_rise }
+		}
+		job_dionysian_thaumaturge_per_pop = 0.05
+	}
+
+	triggered_desc = {
+		text = job_dionysian_thaumaturge_effect_desc
+	}
+
+	resources = {
+		category = planet_buildings
+		cost = {
+			minerals = @b2_minerals
+			rare_crystals = @b2_rare_cost
+		}
+		upkeep = {
+			energy = @b2_upkeep
+			rare_crystals = @b2_rare_upkeep
+		}
+	}
+
+	prerequisites = {
+		"tech_global_research_initiative"
+	}
+
+}
+
+building_dionysian_guild_of_shamans = {
+
+	base_buildtime = @b1_time
+	icon = building_dionysian_guild_of_shamans
+	base_cap_amount = 1
+
+	category = research
+
+	potential = {
+		exists = owner
+		planet = {
+			or = {
+				has_building = building_dionysian_guild_of_shamans
+				owner = { is_ai = no }
+			}
+		}
+		owner = { has_valid_civic = civic_dionysian_mage_guild }
+	}
+
+	destroy_trigger = {
+		exists = owner
+		NOT = {
+			owner = { has_civic = civic_dionysian_mage_guild }
+		}
+	}
+
+	planet_modifier = {
+		job_dionysian_shaman_add = 2
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner = { has_ascension_perk = dionysian_arcane_rise }
+		}
+		job_dionysian_shaman_per_pop = 0.05
+	}
+
+	triggered_desc = {
+		text = job_dionysian_shaman_effect_desc
+	}
+
+	resources = {
+		category = planet_buildings
+		cost = {
+			minerals = @b1_minerals
+		}
+		upkeep = {
+			energy = @b1_upkeep
+		}
+	}
+
+	upgrades = {
+		"building_dionysian_academy_of_shamans"
+	}
+
+}
+
+building_dionysian_academy_of_shamans = {
+
+	base_buildtime = @b2_time
+	icon = building_dionysian_academy_of_shamans
+	can_build = no
+
+	category = research
+
+	allow = {
+		has_upgraded_capital = yes
+	}
+
+	destroy_trigger = {
+		exists = owner
+		NOT = {
+			owner = { has_civic = civic_dionysian_mage_guild }
+		}
+	}
+
+	planet_modifier = {
+		job_dionysian_shaman_add = 4
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			owner = { has_ascension_perk = dionysian_arcane_rise }
+		}
+		job_dionysian_shaman_per_pop = 0.05
+	}
+
+	triggered_desc = {
+		text = job_dionysian_shaman_effect_desc
+	}
+
+	resources = {
+		category = planet_buildings
+		cost = {
+			minerals = @b2_minerals
+			exotic_gases = @b2_rare_cost
+		}
+		upkeep = {
+			energy = @b2_upkeep
+			exotic_gases = @b2_rare_upkeep
+		}
+	}
+
+	prerequisites = {
+		"tech_global_research_initiative"
+	}
+
+}

@@ -1,0 +1,1 @@
+custom_subtitle = paragon_archon_trait

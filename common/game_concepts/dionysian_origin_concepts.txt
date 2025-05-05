@@ -1,0 +1,43 @@
+concept_leader_trait_dionysian_overlord = {
+	icon = "gfx/interface/icons/concepts/dionysian_overlord_concept.dds"
+}
+
+concept_trait_dionysian_gene = {
+	icon = "gfx/interface/icons/dionysian_gene.dds"
+}
+
+concept_dionysian_edict = {
+	icon = "gfx/interface/icons/edict_dionysian_overlord.dds"
+}
+
+concept_dionysian_archon = {
+	icon = "gfx/interface/icons/concepts/dionysian_archon.dds"
+}
+
+concept_dionysian_prime_minister = {
+	icon = "gfx/interface/icons/concepts/dionysian_PM_concept.dds"
+}
+
+concept_dionysian_beast_trait = {
+	icon = "gfx/interface/icons/trait_dionysian_beast.dds"
+}
+
+concept_dionysian_beast_civic = {
+	icon = "gfx/interface/icons/governments/civics/civic_dionysian_beast_tribe.dds"
+}
+
+concept_dionysian_edict_remain = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unstable_tectonics.dds"
+}
+
+concept_dionysian_mage_civic = {
+	icon = "gfx/interface/icons/governments/civics/civic_dionysian_mage_guild.dds"
+}
+
+concept_dionysian_imperial_archons = {
+	icon = "gfx/interface/icons/ascension_perks/dionysian_imperial_archons.dds"
+}
+
+concept_dionysian_arcane_rise = {
+	icon = "gfx/interface/icons/ascension_perks/dionysian_arcane_rise.dds"
+}

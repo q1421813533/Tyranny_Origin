@@ -1,0 +1,128 @@
+soundeffect = {
+	name = dionysian_edict_click_curse
+	sounds = {
+		sound = dionysian_edict_click_curse
+	} 
+	volume = 0.6
+	max_audible = 1
+	max_audible_behaviour = fail	
+}
+
+soundeffect = {
+	name = dionysian_edict_click_frost
+	sounds = {
+		sound = dionysian_edict_click_frost
+	} 
+	volume = 0.6
+	max_audible = 1
+	max_audible_behaviour = fail	
+}
+
+
+soundeffect = {
+	name = dionysian_edict_click_issue
+	sounds = {
+		sound = dionysian_edict_click_issue
+	} 
+	volume = 0.5
+	max_audible = 1
+	max_audible_behaviour = fail	
+}
+
+soundeffect = {
+	name = dionysian_edict_click_cancel
+	sounds = {
+		sound = dionysian_edict_click_cancel
+	} 
+	volume = 0.6
+	max_audible = 1
+	max_audible_behaviour = fail	
+}
+
+soundeffect = {
+	name = dionysian_edict_click_fire
+	sounds = {
+		sound = dionysian_edict_click_fire
+	} 
+	volume = 0.6
+	max_audible = 1
+	max_audible_behaviour = fail	
+}
+
+
+soundeffect = {
+	name = dionysian_edict_click_stone
+	sounds = {
+		sound = dionysian_edict_click_stone
+	} 
+	volume = 0.6
+	max_audible = 1
+	max_audible_behaviour = fail	
+}
+
+
+soundeffect = {
+	name = dionysian_edict_click_lightning
+	sounds = {
+		sound = dionysian_edict_click_lightning
+	} 
+	volume = 0.6
+	max_audible = 1
+	max_audible_behaviour = fail	
+}
+
+soundeffect = {
+	name = dionysian_edict_click_storm
+	sounds = {
+		sound = dionysian_edict_click_storm
+	} 
+	volume = 0.35
+	max_audible = 1
+	max_audible_behaviour = fail	
+}
+
+
+soundeffect = {
+	name = dionysian_edict_click_shape_planet
+	sounds = {
+		sound = dionysian_edict_click_shape_planet
+	} 
+	volume = 0.4
+	max_audible = 1
+	max_audible_behaviour = fail	
+}
+
+
+soundeffect = {
+	name = dionysian_edict_click_guide_fleet
+	sounds = {
+		sound = dionysian_edict_click_guide_fleet
+	} 
+	volume = 0.4
+	max_audible = 1
+	max_audible_behaviour = fail	
+}
+
+
+
+soundeffect = {
+	name = dionysian_edict_click_ascend
+	sounds = {
+		sound = dionysian_edict_click_ascend
+	} 
+	volume = 0.24
+	max_audible = 1
+	max_audible_behaviour = fail	
+}
+
+
+
+soundeffect = {
+	name = dionysian_edict_click_nightfall
+	sounds = {
+		sound = dionysian_edict_click_nightfall
+	} 
+	volume = 0.5
+	max_audible = 1
+	max_audible_behaviour = fail	
+}

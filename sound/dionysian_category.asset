@@ -1,0 +1,17 @@
+category = {
+	name = "Effects"
+	soundeffects = {
+		dionysian_edict_click_curse
+		dionysian_edict_click_frost
+		dionysian_edict_click_issue
+		dionysian_edict_click_cancel
+		dionysian_edict_click_fire
+		dionysian_edict_click_stone
+		dionysian_edict_click_lightning
+		dionysian_edict_click_storm
+		dionysian_edict_click_shape_planet
+		dionysian_edict_click_guide_fleet
+		dionysian_edict_click_ascend
+		dionysian_edict_click_nightfall
+	}
+}
