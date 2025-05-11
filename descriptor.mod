@@ -6,5 +6,5 @@ tags={
 }
 name="Tyranny Origin"
 picture="thumbnail.png"
-supported_version="v3.14.15926"
+supported_version="v3.14.1592653"
 remote_file_id="3138517233"
