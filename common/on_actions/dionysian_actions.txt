@@ -10,9 +10,16 @@ on_yearly_pulse_country = {
 	}
 }
 
+on_five_year_pulse_country = {
+	events = {
+		dionysian_archon.3
+		dionysian_base.28
+	}	
+}
+
 on_decade_pulse_country = {
 	events = {
-		dionysian_base.28
+		dionysian_archon.1
 	}
 }
 
@@ -40,7 +47,6 @@ on_planet_attackers_win = {
 	}
 }
 
-
 on_ascension_perk_picked = {
 	events = {
 		dionysian_story.500
@@ -51,10 +57,17 @@ on_ascension_perk_picked = {
 
 on_post_communications_established_always_fire = {
 	events = {
-		dionysian_base.9
 		dionysian_story.300
 	}
 }
+
+on_shroud_breached = {
+	events = {
+		dionysian_base.9
+	}	
+}
+
+
 
 on_entering_system_fleet = {
 	events = {
@@ -136,5 +149,14 @@ on_megastructure_upgraded = {
 on_modification_complete = { 
 	events = {
 		dionysian_base.24
+	}
+}
+
+on_active_accord_unlocked = {
+	events = {
+		dionysian_story.100
+		dionysian_story.1100
+		dionysian_story.1200
+		dionysian_story.1300
 	}
 }

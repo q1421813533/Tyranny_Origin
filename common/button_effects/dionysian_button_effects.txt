@@ -57,14 +57,15 @@ dionysian_cast_edict_effect  = {
 	}
 }
 
+
 dionysian_edict_selector_close_window_effect = {
 	potential = {
 		always = yes
 	}
 	allow = {
 	}
-	effect = {
-		custom_tooltip = dionysian_issue_edict_button_tooltio	
+	effect = {	
+		custom_tooltip = dionysian_issue_edict_button_tooltio
 		hidden_effect = {
 			event_target:dionysian_edict_caster_country = {
 				
@@ -76,7 +77,7 @@ dionysian_edict_selector_close_window_effect = {
 						has_resource = { type = menace amount >= @Overlord_Edict1Cost }
 						has_country_flag = dionysian_selected_edict_fire
 						NOT = { has_country_flag = dionysian_edict_preparing }
-						NOT = { has_modifier = dionysian_advance_election_cooldown }
+						NOT = { has_modifier = dionysian_edict_cooldown }
 					}
 					add_resource = { menace = @Overlord_Edict1Cost mult = -1 }
 					set_country_flag = dionysian_fire_edict_ready
@@ -89,7 +90,7 @@ dionysian_edict_selector_close_window_effect = {
 						has_resource = { type = menace amount >= @Overlord_Edict1Cost }
 						has_country_flag = dionysian_selected_edict_frost
 						NOT = { has_country_flag = dionysian_edict_preparing }
-						NOT = { has_modifier = dionysian_advance_election_cooldown }
+						NOT = { has_modifier = dionysian_edict_cooldown }
 					}
 					add_resource = { menace = @Overlord_Edict1Cost mult = -1 }
 					set_country_flag = dionysian_frost_edict_ready 
@@ -102,7 +103,7 @@ dionysian_edict_selector_close_window_effect = {
 						has_resource = { type = menace amount >= @Overlord_Edict1Cost }
 						has_country_flag = dionysian_selected_edict_lightning
 						NOT = { has_country_flag = dionysian_edict_preparing }
-						NOT = { has_modifier = dionysian_advance_election_cooldown }
+						NOT = { has_modifier = dionysian_edict_cooldown }
 					}
 					add_resource = { menace = @Overlord_Edict1Cost mult = -1 }
 					set_country_flag = dionysian_lightning_edict_ready 
@@ -115,7 +116,7 @@ dionysian_edict_selector_close_window_effect = {
 						has_resource = { type = menace amount >= @Overlord_Edict2Cost }
 						has_country_flag = dionysian_selected_edict_stone
 						NOT = { has_country_flag = dionysian_edict_preparing }
-						NOT = { has_modifier = dionysian_advance_election_cooldown }
+						NOT = { has_modifier = dionysian_edict_cooldown }
 					}
 					add_resource = { menace = @Overlord_Edict2Cost mult = -1 }
 					set_country_flag = dionysian_crack_edict_ready 
@@ -128,7 +129,7 @@ dionysian_edict_selector_close_window_effect = {
 						has_resource = { type = menace amount >= @Overlord_Edict3Cost }
 						has_country_flag = dionysian_selected_edict_storm
 						NOT = { has_country_flag = dionysian_edict_preparing }
-						NOT = { has_modifier = dionysian_advance_election_cooldown }
+						NOT = { has_modifier = dionysian_edict_cooldown }
 					}
 					add_resource = { menace = @Overlord_Edict3Cost mult = -1 }
 					set_country_flag = dionysian_storm_edict_ready 
@@ -171,7 +172,7 @@ dionysian_edict_selector_close_window_effect = {
 						has_resource = { type = menace amount >= @Overlord_Edict8Cost }
 						has_country_flag = dionysian_selected_edict_curse
 						NOT = { has_country_flag = dionysian_edict_preparing }
-						NOT = { has_modifier = dionysian_advance_election_cooldown }
+						NOT = { has_modifier = dionysian_edict_cooldown }
 					}
 					add_resource = { menace = @Overlord_Edict8Cost mult = -1 }
 					set_country_flag = dionysian_malediction_edict_ready 
@@ -184,7 +185,7 @@ dionysian_edict_selector_close_window_effect = {
 						has_resource = { type = menace amount >= @Overlord_Edict10Cost }
 						has_country_flag = dionysian_selected_edict_nightfall
 						NOT = { has_country_flag = dionysian_edict_preparing }
-						NOT = { has_modifier = dionysian_advance_election_cooldown }
+						NOT = { has_modifier = dionysian_edict_cooldown }
 					}
 					add_resource = { menace = @Overlord_Edict10Cost mult = -1 }
 					set_country_flag = dionysian_nightfall_edict_ready 

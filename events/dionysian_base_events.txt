@@ -9,9 +9,20 @@ event = {
 	immediate = {
 		random_playable_country = {
 			limit = { 
-				has_origin = dionysian_origin 
+				has_origin = dionysian_origin
+				is_ai = no
 			}
 			country_event = { id = dionysian_base.1 }
+		}
+		every_playable_country = {
+			limit = { 
+				has_origin = dionysian_origin
+				OR = {
+					NOT = { exists = event_target:dionysian_empire }
+					NOT = { is_same_value = event_target:dionysian_empire } 
+				}
+			}
+			set_origin = origin_default
 		}
 	}
 
@@ -31,21 +42,25 @@ country_event = {
 		save_global_event_target_as = dionysian_empire
 
 		ruler = {
-			add_trait_no_notify = leader_trait_dionysian_overlord
-			add_trait_no_notify = leader_trait_psionic
+			add_trait = { trait = leader_trait_dionysian_overlord show_message = no }
+			add_trait = { trait = leader_trait_psionic show_message = no }
 			set_leader_flag = leader_death_events_blocked
 			set_leader_flag = immune_to_negative_traits
 			set_leader_flag = dionysian_is_archon
-			set_leader_flag = legendary_leader
+			set_leader_tier = leader_tier_legendary
 			set_variable = {
 				which = dionysian_overlord_power_level
 				value = 1
 			}
 			set_variable = {
 				which = dionysian_overlord_reputation_level
-				value = 10
+				value = 100
 			}
-			set_variable_to_random_value = { which = dionysian_overlord_start_age min = 2700 max = 2800 rounded = yes }
+			set_variable = {
+				which = dionysian_overlord_legendary_traits
+				value = 0
+			}
+			set_variable_to_random_value = { which = dionysian_overlord_start_age min = 2220 max = 2800 rounded = yes }
 			set_age = dionysian_overlord_start_age
 			clear_variable = dionysian_overlord_start_age
 			save_global_event_target_as = dionysian_overlord
@@ -62,21 +77,17 @@ country_event = {
 		}
 
 		set_variable = {
-			which = dionysian_overlord_legendary_traits
-			value = 0
+			which = dionysian_archon_upkeep_mult
+			value = 3
 		}
 
 		set_variable = {
-			which = dionysian_archon_upkeep_mult
+			which = dionysian_remain_edicts_power
 			value = 3
 		}
 
 		add_research_option = tech_psionic_theory
 
-		set_country_flag = has_shroud_patron
-		set_country_flag = covenant_end_of_the_cycle  #prevent event utopia.2658 from happening
-		set_global_flag = end_of_the_cycle #maybe the Overlord is End of Cycle
-		set_country_flag = shroud_vision_10 #prevent another chosen one
 
 		capital_scope = {
 			add_modifier = {
@@ -85,6 +96,7 @@ country_event = {
 			}
 		}
 
+		country_event = { id = dionysian_base.2 days = 15 }
 		country_event = { id = dionysian_base.6 days = 40 }
 
 		set_variable = { which = dionysian_PM_term value = 1 }
@@ -130,154 +142,648 @@ country_event = {
 country_event = {
 	id = dionysian_base.2
 	title = "dionysian_base.2.name"
-	desc = "dionysian_base.2.desc"
 	diplomatic_title = BLANK_STRING
 	diplomatic = yes
 	force_open = yes
 
+
+	desc = {
+		trigger = {
+			ruler = { check_variable_arithmetic = { which = dionysian_overlord_legendary_traits  value = 0 } }
+		}
+		text = "dionysian_base.2.desc.1"
+	}
+
+	desc = {
+		trigger = {
+			ruler = { check_variable_arithmetic = { which = dionysian_overlord_legendary_traits  value = 1 } }
+		}
+		text = "dionysian_base.2.desc.2"
+	}
+
+	desc = {
+		trigger = {
+			ruler = { check_variable_arithmetic = { which = dionysian_overlord_legendary_traits  value = 2 } }
+		}
+		text = "dionysian_base.2.desc.3"
+	}
+
 	picture_event_data = {
-		room = dionysian_bastard_city_room
+		portrait = root.ruler
+   		room = crisis_room
 	}
 
 	is_triggered_only = yes
 
 	trigger = {
 		has_origin = dionysian_origin
-		NOT = { has_country_flag = dionysian_chosen_traits }
 	}
 
-	immediate = {
-		set_country_flag = dionysian_chosen_traits
-		change_variable = { which = dionysian_overlord_legendary_traits value = 1 }
-		if = {
-			limit = { check_variable_arithmetic = { which = dionysian_overlord_legendary_traits  value = 3 } }	
-			set_country_flag = dionysian_forbid_new_legendary_trait
-		}	
-	}
-
-	option = {
-		name = "dionysian_base.2.option1"
-		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_commanding_presence } } } }
-		ruler = { add_trait = leader_trait_legendary_commanding_presence }
-		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
-		ai_chance = {
-		 	factor = 1
-		}
-	}
-	option = {
-		name = "dionysian_base.2.option2"
-		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_genetic_purist } } } }
-		ruler = { add_trait = leader_trait_legendary_genetic_purist }
-		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
-		ai_chance = {
-		 	factor = 1
-		}
-	}
-	option = {
-		name = "dionysian_base.2.option3"
-		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_scientific_diplomacy } } } }
-		ruler = { add_trait = leader_trait_legendary_scientific_diplomacy }
-		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
-		ai_chance = {
-		 	factor = 1
-		}
-	}
-	option = {
-		name = "dionysian_base.2.option4"
-		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_natural_ruler } } } }
-		ruler = { add_trait = leader_trait_legendary_natural_ruler }
-		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
-		ai_chance = {
-		 	factor = 1
-		}
-	}
-	option = {
-		name = "dionysian_base.2.option5"
-		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_military_knowledge } } } }
-		ruler = { add_trait = leader_trait_legendary_military_knowledge }
-		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
-		ai_chance = {
-		 	factor = 1
-		}
-	}
-	option = {
-		name = "dionysian_base.2.option6"
-		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_pious_ascet } } } }
-		ruler = { add_trait = leader_trait_legendary_pious_ascet }
-		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
-		ai_chance = {
-		 	factor = 1
-		}
-	}
-	option = {
-		name = "dionysian_base.2.option7"
-		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_industry_titan } } } }
-		ruler = { add_trait = leader_trait_legendary_industry_titan }
-		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
-		ai_chance = {
-		 	factor = 1
-		}
-	}
-	option = {
-		name = "dionysian_base.2.option8"
-		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_high_king } } } }
-		ruler = { add_trait = leader_trait_legendary_high_king }
-		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
-		ai_chance = {
-		 	factor = 1
-		}
-	}
-	option = {
-		name = "dionysian_base.2.option9"
-		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_evervigilant } } } }
-		ruler = { add_trait = leader_trait_legendary_evervigilant }
-		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
-		ai_chance = {
-		 	factor = 1
-		}
-	}
-	option = {
-		name = "dionysian_base.2.option10"
-		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_gunboat_diplomacy } } } }
-		ruler = { add_trait = leader_trait_legendary_gunboat_diplomacy }
-		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
-		ai_chance = {
-		 	factor = 1
+	after = {
+		hidden_effect = { 
+			remove_country_flag = dionysian_lumina_event_prepared
+			ruler = { change_variable = { which = dionysian_overlord_legendary_traits value = 1 } } 
 		}
 	}
 
 	option = {
-		name = "dionysian_base.2.option11"
-		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_autarky } } } }
-		ruler = { add_trait = leader_trait_legendary_autarky }
-		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
+		name = "dionysian_base.2.option1.a"
+		TRIGGER = { 
+			is_authoritarian = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_commanding_presence } } } 
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		hidden_effect = { ruler = { change_variable = { which = dionysian_overlord_reputation_level value = 10 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_commanding_presence show_message = yes }  }
+
 		ai_chance = {
 		 	factor = 1
 		}
 	}
 	option = {
-		name = "dionysian_base.2.option12"
-		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_foe_hammer } } } }
-		ruler = { add_trait = leader_trait_legendary_foe_hammer }
-		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
+		name = "dionysian_base.2.option1.b"
+		TRIGGER = { 
+			NOR = { 
+				is_authoritarian = yes
+				is_egalitarian = yes
+			}
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_commanding_presence } } } 
+		}
+		ruler = { add_trait = { trait = leader_trait_legendary_commanding_presence show_message = yes }  }
+
 		ai_chance = {
 		 	factor = 1
 		}
 	}
 	option = {
-		name = "dionysian_base.2.option13"
-		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_great_teacher } } } }
-		ruler = { add_trait = leader_trait_legendary_great_teacher }
-		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
+		name = "dionysian_base.2.option1.c"
+		TRIGGER = { 
+			is_egalitarian = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_commanding_presence } } } 
+		}
+		custom_tooltip = dionysian_overlord_down_tooltip
+		hidden_effect = { ruler = { subtract_variable = { which = dionysian_overlord_reputation_level value = 20 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_commanding_presence show_message = yes }  }
+
 		ai_chance = {
 		 	factor = 1
 		}
 	}
 	option = {
-		name = "dionysian_base.2.option14"
-		TRIGGER = { ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_great_inventor } } } }
-		ruler = { add_trait = leader_trait_legendary_great_inventor }
-		hidden_effect = { remove_country_flag = dionysian_chosen_traits }
+		name = "dionysian_base.2.option2.a"
+		TRIGGER = { 
+			is_authoritarian = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_high_king } } } 
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		hidden_effect = { ruler = { change_variable = { which = dionysian_overlord_reputation_level value = 10 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_high_king show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option2.b"
+		TRIGGER = { 
+			NOR = { 
+				is_authoritarian = yes
+				is_egalitarian = yes
+			}
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_high_king } } } 
+		}
+		ruler = { add_trait = { trait = leader_trait_legendary_high_king show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option2.c"
+		TRIGGER = { 
+			is_egalitarian = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_high_king } } } 
+		}
+		custom_tooltip = dionysian_overlord_down_tooltip
+		hidden_effect = { ruler = { subtract_variable = { which = dionysian_overlord_reputation_level value = 20 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_high_king show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option3.a"
+		TRIGGER = { 
+			is_xenophile = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_gunboat_diplomacy } } } 
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		hidden_effect = { ruler = { change_variable = { which = dionysian_overlord_reputation_level value = 10 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_gunboat_diplomacy show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option3.b"
+		TRIGGER = { 
+			NOR = { 
+				is_xenophile = yes
+				is_xenophobe = yes
+			}
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_gunboat_diplomacy } } } 
+		}
+		ruler = { add_trait = { trait = leader_trait_legendary_gunboat_diplomacy show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option3.c"
+		TRIGGER = { 
+			is_xenophobe = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_gunboat_diplomacy } } } 
+		}
+		custom_tooltip = dionysian_overlord_down_tooltip
+		hidden_effect = { ruler = { subtract_variable = { which = dionysian_overlord_reputation_level value = 20 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_gunboat_diplomacy show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option4.a"
+		TRIGGER = { 
+			is_xenophile = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_scientific_diplomacy } } } 
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		hidden_effect = { ruler = { change_variable = { which = dionysian_overlord_reputation_level value = 10 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_scientific_diplomacy show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option4.b"
+		TRIGGER = { 
+			NOR = { 
+				is_xenophile = yes
+				is_xenophobe = yes
+			}
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_scientific_diplomacy } } } 
+		}
+		ruler = { add_trait = { trait = leader_trait_legendary_scientific_diplomacy show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option4.c"
+		TRIGGER = { 
+			is_xenophobe = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_scientific_diplomacy } } } 
+		}
+		custom_tooltip = dionysian_overlord_down_tooltip
+		hidden_effect = { ruler = { subtract_variable = { which = dionysian_overlord_reputation_level value = 20 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_scientific_diplomacy show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option5.a"
+		TRIGGER = { 
+			is_pacifist = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_autarky } } } 
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		hidden_effect = { ruler = { change_variable = { which = dionysian_overlord_reputation_level value = 10 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_autarky show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option5.b"
+		TRIGGER = { 
+			NOR = { 
+				is_pacifist = yes
+				is_militarist = yes
+			}
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_autarky } } } 
+		}
+		ruler = { add_trait = { trait = leader_trait_legendary_autarky show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option5.c"
+		TRIGGER = { 
+			is_militarist = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_autarky } } } 
+		}
+		custom_tooltip = dionysian_overlord_down_tooltip
+		hidden_effect = { ruler = { subtract_variable = { which = dionysian_overlord_reputation_level value = 20 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_autarky show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option6.a"
+		TRIGGER = { 
+			is_pacifist = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_natural_ruler } } } 
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		hidden_effect = { ruler = { change_variable = { which = dionysian_overlord_reputation_level value = 10 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_natural_ruler show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option6.b"
+		TRIGGER = { 
+			NOR = { 
+				is_pacifist = yes
+				is_militarist = yes
+			}
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_natural_ruler } } } 
+		}
+		ruler = { add_trait = { trait = leader_trait_legendary_natural_ruler show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option6.c"
+		TRIGGER = { 
+			is_militarist = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_natural_ruler } } } 
+		}
+		custom_tooltip = dionysian_overlord_down_tooltip
+		hidden_effect = { ruler = { subtract_variable = { which = dionysian_overlord_reputation_level value = 20 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_natural_ruler show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option7.a"
+		TRIGGER = { 
+			is_materialist = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_industry_titan } } } 
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		hidden_effect = { ruler = { change_variable = { which = dionysian_overlord_reputation_level value = 10 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_industry_titan show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option7.b"
+		TRIGGER = { 
+			NOR = { 
+				is_materialist = yes
+				is_spiritualist = yes
+			}
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_industry_titan } } } 
+		}
+		ruler = { add_trait = { trait = leader_trait_legendary_industry_titan show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option7.c"
+		TRIGGER = { 
+			is_spiritualist = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_industry_titan } } } 
+		}
+		custom_tooltip = dionysian_overlord_down_tooltip
+		hidden_effect = { ruler = { subtract_variable = { which = dionysian_overlord_reputation_level value = 20 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_industry_titan show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option8.a"
+		TRIGGER = { 
+			is_materialist = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_great_inventor } } } 
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		hidden_effect = { ruler = { change_variable = { which = dionysian_overlord_reputation_level value = 10 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_great_inventor show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option8.b"
+		TRIGGER = { 
+			NOR = { 
+				is_materialist = yes
+				is_spiritualist = yes
+			}
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_great_inventor } } } 
+		}
+		ruler = { add_trait = { trait = leader_trait_legendary_great_inventor show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option8.c"
+		TRIGGER = { 
+			is_spiritualist = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_great_inventor } } } 
+		}
+		custom_tooltip = dionysian_overlord_down_tooltip
+		hidden_effect = { ruler = { subtract_variable = { which = dionysian_overlord_reputation_level value = 20 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_great_inventor show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option9.a"
+		TRIGGER = { 
+			is_xenophobe = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_genetic_purist } } } 
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		hidden_effect = { ruler = { change_variable = { which = dionysian_overlord_reputation_level value = 10 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_genetic_purist show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option9.b"
+		TRIGGER = { 
+			NOR = { 
+				is_xenophobe = yes
+				is_xenophile = yes
+			}
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_genetic_purist } } } 
+		}
+		ruler = { add_trait = { trait = leader_trait_legendary_genetic_purist show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option9.c"
+		TRIGGER = { 
+			is_xenophile = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_genetic_purist } } } 
+		}
+		custom_tooltip = dionysian_overlord_down_tooltip
+		hidden_effect = { ruler = { subtract_variable = { which = dionysian_overlord_reputation_level value = 20 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_genetic_purist show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option10.a"
+		TRIGGER = { 
+			is_xenophobe = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_evervigilant } } } 
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		hidden_effect = { ruler = { change_variable = { which = dionysian_overlord_reputation_level value = 10 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_evervigilant show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option10.b"
+		TRIGGER = { 
+			NOR = { 
+				is_xenophobe = yes
+				is_xenophile = yes
+			}
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_evervigilant } } } 
+		}
+		ruler = { add_trait = { trait = leader_trait_legendary_evervigilant show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option10.c"
+		TRIGGER = { 
+			is_xenophile = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_evervigilant } } } 
+		}
+		custom_tooltip = dionysian_overlord_down_tooltip
+		hidden_effect = { ruler = { subtract_variable = { which = dionysian_overlord_reputation_level value = 20 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_evervigilant show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option11.a"
+		TRIGGER = { 
+			is_militarist = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_military_knowledge } } } 
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		hidden_effect = { ruler = { change_variable = { which = dionysian_overlord_reputation_level value = 10 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_military_knowledge show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option11.b"
+		TRIGGER = { 
+			NOR = { 
+				is_militarist = yes
+				is_pacifist = yes
+			}
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_military_knowledge } } } 
+		}
+		ruler = { add_trait = { trait = leader_trait_legendary_military_knowledge show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option11.c"
+		TRIGGER = { 
+			is_pacifist = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_military_knowledge } } } 
+		}
+		custom_tooltip = dionysian_overlord_down_tooltip
+		hidden_effect = { ruler = { subtract_variable = { which = dionysian_overlord_reputation_level value = 20 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_military_knowledge show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option12.a"
+		TRIGGER = { 
+			is_militarist = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_foe_hammer } } } 
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		hidden_effect = { ruler = { change_variable = { which = dionysian_overlord_reputation_level value = 10 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_foe_hammer show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option12.b"
+		TRIGGER = { 
+			NOR = { 
+				is_militarist = yes
+				is_pacifist = yes
+			}
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_foe_hammer } } } 
+		}
+		ruler = { add_trait = { trait = leader_trait_legendary_foe_hammer show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option12.c"
+		TRIGGER = { 
+			is_pacifist = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_foe_hammer } } } 
+		}
+		custom_tooltip = dionysian_overlord_down_tooltip
+		hidden_effect = { ruler = { subtract_variable = { which = dionysian_overlord_reputation_level value = 20 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_foe_hammer show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option13.a"
+		TRIGGER = { 
+			is_spiritualist = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_great_teacher } } } 
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		hidden_effect = { ruler = { change_variable = { which = dionysian_overlord_reputation_level value = 10 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_great_teacher show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option13.b"
+		TRIGGER = { 
+			NOR = { 
+				is_spiritualist = yes
+				is_materialist = yes
+			}
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_great_teacher } } } 
+		}
+		ruler = { add_trait = { trait = leader_trait_legendary_great_teacher show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option13.c"
+		TRIGGER = { 
+			is_materialist = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_great_teacher } } } 
+		}
+		custom_tooltip = dionysian_overlord_down_tooltip
+		hidden_effect = { ruler = { subtract_variable = { which = dionysian_overlord_reputation_level value = 20 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_great_teacher show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option14.a"
+		TRIGGER = { 
+			is_spiritualist = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_pious_ascet } } } 
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		hidden_effect = { ruler = { change_variable = { which = dionysian_overlord_reputation_level value = 10 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_pious_ascet show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option14.b"
+		TRIGGER = { 
+			NOR = { 
+				is_spiritualist = yes
+				is_materialist = yes
+			}
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_pious_ascet } } } 
+		}
+		ruler = { add_trait = { trait = leader_trait_legendary_pious_ascet show_message = yes } }
+
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+	option = {
+		name = "dionysian_base.2.option14.c"
+		TRIGGER = { 
+			is_materialist = yes
+			ruler = { NOT = { has_trait_tier1or2or3 = { TRAIT = leader_trait_legendary_pious_ascet } } } 
+		}
+		custom_tooltip = dionysian_overlord_down_tooltip
+		hidden_effect = { ruler = { subtract_variable = { which = dionysian_overlord_reputation_level value = 20 } } }
+		ruler = { add_trait = { trait = leader_trait_legendary_pious_ascet show_message = yes } }
+
 		ai_chance = {
 		 	factor = 1
 		}
@@ -307,15 +813,12 @@ country_event = {
 		remove_modifier = dionysian_party_time
 		remove_modifier = dionysian_community_dip
 		remove_modifier = covenant_end_of_the_cycle
-		remove_country_flag = has_shroud_patron
-		remove_country_flag = covenant_end_of_the_cycle
-		remove_country_flag = shroud_vision_10
 		random_owned_leader = {
 			limit = {	
 				is_heir = yes	
 			}
 			remove_trait = leader_trait_dionysian_prime_minister
-			add_trait = trait_imperial_heir
+			add_trait = { trait = trait_imperial_heir show_message = yes }
 		}
 	}
 
@@ -470,21 +973,21 @@ country_event = {
 	immediate = {
 		from = { 
 			if = { 
-				limit = { has_skill = 4 }
+				limit = { has_base_skill = 4 }
 				random_list = {
 					40 = { 
 						modifier = {
 							factor = 0
 							has_leader_flag = dionysian_is_exarch
 						}
-						add_trait = leader_trait_dionysian_exarch
+						add_trait = { trait = leader_trait_dionysian_exarch show_message = yes } 
 						set_leader_flag = dionysian_is_exarch
 					}
 					60 = {  }
 				}
 			}
 			else_if = {
-				limit = { has_skill = 8 }
+				limit = { has_base_skill = 8 }
 				random_list = {
 					20 = {
 						dionysian_give_archon_trait_for_high_level_leader = yes
@@ -517,7 +1020,7 @@ country_event = {
 		random_owned_leader = {
 			limit = { 
 				has_leader_flag = dionysian_is_exarch
-				has_skill > 7
+				has_base_skill > 7
 			}
 			dionysian_give_archon_trait_for_high_level_leader = yes
 		}
@@ -537,36 +1040,101 @@ country_event = {
 
 	trigger = {
 		has_origin = dionysian_origin
-		from = { is_country_type = shroud }
 	}
 
 	immediate = {
-		add_modifier = {
-			modifier = "shroud_cooldown"
-			days = 2160
-			time_multiplier = value:scripted_modifier_mult|MODIFIER|shroud_delve_cooldown|
-		}
 		event_target:dionysian_overlord = {
-			set_leader_flag = dionysian_overlord_reach_shroud	
+			change_variable = {
+				which = dionysian_overlord_reputation_level
+				value = 10
+			}	
 		}
-		country_event = { id = dionysian_base.10 days = 3 }
+		refuse_covenant = {
+			patron = the_eater_of_worlds
+			reset_attunement = no
+		}
+		refuse_covenant = {
+			patron = the_composer_of_strands
+			reset_attunement = no
+		}
+		refuse_covenant = {
+			patron = the_instrument_of_desire
+			reset_attunement = no
+		}
+		refuse_covenant = {
+			patron = the_cradle_of_souls
+			reset_attunement = no
+		}
+		refuse_covenant = {
+			patron = whisperers_in_the_void
+			reset_attunement = no
+		}
+		country_event = { id = dionysian_story.50 days = 20 }
 	}
 
 	option = {
-		name = "dionysian_base.9.option"
+		name = "dionysian_base.9.option.a"
+		TRIGGER = {	
+			AND = {
+				has_authority = auth_imperial	
+				NOT = { has_ethic = ethic_fanatic_authoritarian }
+			}
+		}
 		custom_tooltip = dionysian_overlord_rise_tooltip
-		
 		ruler = {
 			remove_all_negative_traits = yes
 			remove_trait = leader_trait_psionic
-			add_trait = leader_trait_chosen
+			add_trait = { trait = leader_trait_chosen show_message = yes } 
 		}
-
 		force_add_civic = civic_psionic_sovereign
-		
 		hidden_effect = {
 			set_country_flag = chosen_one_ruler_event
-			country_event = { id = dionysian_story.100 days = 3600 random = 3600 }
+		}
+	}
+
+	option = {
+		name = "dionysian_base.9.option.b"
+		TRIGGER = {	
+			NAND = {
+				has_authority = auth_imperial	
+				NOT = { has_ethic = ethic_fanatic_authoritarian }
+			}
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		ruler = {
+			add_experience = 5000
+			remove_all_negative_traits = yes
+			remove_trait = leader_trait_psionic
+			add_trait = { trait = leader_trait_chosen show_message = yes } 
+		}
+		hidden_effect = {
+			set_country_flag = chosen_one_ruler_event
+		}
+	}
+
+	option = {
+		name = "dionysian_base.9.option.c"
+		TRIGGER = {	
+			NAND = {
+				has_authority = auth_imperial	
+				NOT = { has_ethic = ethic_fanatic_authoritarian }
+			}
+		}
+		custom_tooltip = dionysian_overlord_rise_tooltip
+		ruler = {
+			remove_all_negative_traits = yes
+			remove_trait = leader_trait_psionic
+			add_trait = { trait = leader_trait_chosen show_message = yes } 
+		}
+		shift_ethic = ethic_fanatic_authoritarian
+		change_government = {
+			authority = auth_imperial
+			cooldown = no
+			remove_invalid_civics = yes
+		}
+		force_add_civic = civic_psionic_sovereign
+		hidden_effect = {
+			set_country_flag = chosen_one_ruler_event
 		}
 	}
 
@@ -923,6 +1491,7 @@ country_event = {
 	auto_opens = no
 	event_window_type = leader_recruit
 	notification_event_icon = "GFX_message_dionysian_recruitment_archon"
+	show_sound = dionysian_archon_rise
 
 	immediate = { }
 
@@ -1059,9 +1628,9 @@ country_event = {
 		is_dialog_only = yes
 	}
 	option = {
-		name = dionysian_base.15.domination
-		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_domination }  }
-		response_text = dionysian_base.15.domination.response
+		name = dionysian_base.15.slavery
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_slavery }  }
+		response_text = dionysian_base.15.slavery.response
 		is_dialog_only = yes
 	}
 	option = {
@@ -1119,9 +1688,9 @@ country_event = {
 		is_dialog_only = yes
 	}
 	option = {
-		name = dionysian_base.15.watchers
-		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_watchers }  }
-		response_text = dionysian_base.15.watchers.response
+		name = dionysian_base.15.insight
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_insight }  }
+		response_text = dionysian_base.15.insight.response
 		is_dialog_only = yes
 	}
 	option = {
@@ -1137,9 +1706,9 @@ country_event = {
 		is_dialog_only = yes
 	}
 	option = {
-		name = dionysian_base.15.fortune
-		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_fortune }  }
-		response_text = dionysian_base.15.fortune.response
+		name = dionysian_base.15.wealth
+		TRIGGER = {	event_target:dionysian_new_archon = { has_trait = leader_trait_dionysian_archon_wealth }  }
+		response_text = dionysian_base.15.wealth.response
 		is_dialog_only = yes
 	}
 	option = {
@@ -1206,10 +1775,12 @@ country_event = {
 
 	option = {
 		name = "dionysian_base.17.option"
+		custom_tooltip = dionysian_overlord_rise_tooltip
 		add_modifier = {
 			modifier = dionysian_community_dip
 			days = -1
 		}
+		hidden_effect = { ruler = { change_variable = { which = dionysian_overlord_reputation_level value = 5 } } }
 	}
 
 }
@@ -1328,7 +1899,7 @@ country_event = {
 				species = { has_trait = trait_erudite }
 				NOT = { has_trait = leader_trait_erudite }
 			}  
-			add_trait_no_notify = leader_trait_erudite 
+			add_trait = { trait = leader_trait_erudite  show_message = no }
 		}
 
 	}
@@ -1348,15 +1919,36 @@ country_event = {
 	immediate = {
 		ruler = {
 			if = {
-				limit = { check_variable_arithmetic = { which = dionysian_overlord_reputation_level  value < 40 } } 
-				change_variable = {
-					which = dionysian_overlord_reputation_level
-					value = 0.5
+				limit = { check_variable_arithmetic = { which = dionysian_overlord_reputation_level  value < 300 } }
+				if = { 
+					limit = { owner = { has_authority = auth_imperial } }
+					change_variable = {	which = dionysian_overlord_reputation_level	value = 5 }
+				}
+				else_if = { 
+					limit = { owner = { has_authority = auth_dictatorial } }
+					change_variable = {	which = dionysian_overlord_reputation_level	value = 6 }
 				}
 			}
 		}
+		if = {
+			limit = { 
+				ruler = { check_variable_arithmetic = { which = dionysian_overlord_legendary_traits  value = 1 } }
+				ruler = { check_variable_arithmetic = { which = dionysian_overlord_reputation_level  value >= 180 } }
+				NOT = { has_country_flag = dionysian_lumina_event_prepared } 
+			}	
+			set_country_flag = dionysian_lumina_event_prepared
+			country_event = { id = dionysian_base.2 days = 1 random = 3599 }
+		}
+		else_if = { 
+			limit = { 
+				ruler = { check_variable_arithmetic = { which = dionysian_overlord_legendary_traits  value = 2 } }
+				ruler = { check_variable_arithmetic = { which = dionysian_overlord_reputation_level  value >= 250 } }
+				NOT = { has_country_flag = dionysian_lumina_event_prepared } 
+			}	
+			set_country_flag = dionysian_lumina_event_prepared
+			country_event = { id = dionysian_base.2 days = 1  random = 3599 }
+		}
 	}
-
 }
 
 #avoid overlord death
@@ -1383,6 +1975,7 @@ country_event = {
 			target = from
 			effect = {
 				copy_flags_and_variables_from = from
+				set_leader_tier = leader_tier_legendary
 				save_global_event_target_as = dionysian_overlord
 			}
 		}
@@ -1422,7 +2015,7 @@ country_event = {
 				NOT = { has_trait = leader_trait_the_apparatus_luminary }
 			}
 		}
-		event_target:dionysian_overlord = { add_trait = leader_trait_the_apparatus_luminary }
+		event_target:dionysian_overlord = { add_trait = { trait = leader_trait_the_apparatus_luminary show_message = yes } }
 		hidden_effect = {
 			remove_country_flag = dionysian_killable_overlord
 		}
@@ -1469,7 +2062,7 @@ country_event = {
 		custom_tooltip = dionysian_overlord_down_tooltip
 		custom_tooltip = dionysian_revive_overlord_later_tooltip
 		event_target:dionysian_overlord = {
-			add_trait = leader_trait_dionysian_unreal
+			add_trait = { trait = leader_trait_dionysian_unreal show_message = yes }
 		}
 		hidden_effect = { 
 			ruler = {
@@ -1487,6 +2080,26 @@ country_event = {
 
 	option = {
 		name = "dionysian_base.29.option.e"
+		TRIGGER = {
+			exists = event_target:dionysian_overlord
+			event_target:dionysian_overlord = { has_trait = leader_trait_has_backup_clone }
+		}
+		custom_tooltip = dionysian_revive_overlord_tooltip
+		hidden_effect = { 
+			event_target:dionysian_overlord = {
+				remove_trait = leader_trait_the_apparatus_luminary
+				remove_trait = leader_trait_dionysian_unreal
+			}
+			remove_country_flag = dionysian_killable_overlord
+		}
+		ai_chance = {
+		 	factor = 5
+		}
+	}
+
+
+	option = {
+		name = "dionysian_base.29.option.f"
 		custom_tooltip = dionysian_kill_overlord_tooltip
 		hidden_effect = { 
 			event_target:dionysian_overlord = {
@@ -1553,11 +2166,12 @@ planet_event = {
 					type = citizenship_full
 				}
 			}
+			set_habitability_trait = { trait = trait_auto_hab_preference }
 		}
 		while = {
 			count = 4
-			create_pop = {
-				species = last_created_species
+			create_pop_group = {
+				species = last_created
 				ethos = random
 			}
 		}

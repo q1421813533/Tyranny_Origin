@@ -128,18 +128,20 @@ leader_trait_dionysian_archon_destiny = {
 			leader_class = official
 		}
 		planet_jobs_upkeep_mult = -0.1
+		pop_amenities_usage_mult = -0.1
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = official
 		}
 		planet_jobs_upkeep_mult = -0.05
+		pop_amenities_usage_mult = -0.05
 	}
 	planet_modifier = {
-		pop_happiness = 0.1
+		job_dionysian_follower_archon_destiny_per_pop = 0.05
 	}
 	sector_modifier = {
-		pop_happiness = 0.05
+		job_dionysian_follower_archon_destiny_per_pop = 0.025
 	}
 	councilor_modifier = {
 		planetary_ascension_effect_mult = 0.1
@@ -231,22 +233,24 @@ leader_trait_dionysian_archon_time = {
 		potential = {
 			leader_class = official
 		}
+		planet_stability_add = 5
 		planet_jobs_produces_mult = 0.1
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = official
 		}
+		planet_stability_add = 2.5
 		planet_jobs_produces_mult = 0.05
 	}
 	planet_modifier = {
-		job_space_time_anomaly_researcher_per_pop = 0.04
+		job_dionysian_follower_archon_time_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_space_time_anomaly_researcher_per_pop = 0.02
+		job_dionysian_follower_archon_time_per_pop = 0.025
 	}
 	councilor_modifier = {
-		country_physics_tech_research_speed = 0.1
+		country_physics_tech_research_speed = 0.2
 	}
 
 	leader_class = { commander scientist official }
@@ -303,13 +307,6 @@ leader_trait_dionysian_archon_sercets = {
 	}
 
 	triggered_self_modifier = {
-		potential = {
-			leader_class = commander
-		}
-		planet_combat_width_add = 10
-	}
-
-	triggered_self_modifier = {
 		leaders_upkeep_mult = 1
 		mult = event_target:dionysian_empire.dionysian_archon_upkeep_mult
 	}
@@ -319,7 +316,7 @@ leader_trait_dionysian_archon_sercets = {
 			leader_class = commander
 		}
 		ship_cloaking_strength_add = 1
-		command_limit_add = 30
+		command_limit_add = 50
 	}
 	triggered_army_modifier = {
 		potential = {
@@ -340,21 +337,19 @@ leader_trait_dionysian_archon_sercets = {
 		potential = {
 			leader_class = official
 		}
-		planet_army_build_speed_mult = 0.5
-		species_empire_size_mult = -0.1
+		species_empire_size_mult = -0.15
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = official
 		}
-		planet_army_build_speed_mult = 0.25
-		species_empire_size_mult = -0.05
+		species_empire_size_mult = -0.075
 	}
 	planet_modifier = {
-		armies_cost_mult = -0.2
+		job_dionysian_follower_archon_sercets_per_pop = 0.05
 	}
 	sector_modifier = {
-		armies_cost_mult = -0.1
+		job_dionysian_follower_archon_sercets_per_pop = 0.025
 	}
 	councilor_modifier = {
 		intel_decryption_add = 1
@@ -458,19 +453,21 @@ leader_trait_dionysian_archon_stone = {
 		potential = {
 			leader_class = official
 		}
-		planet_jobs_minerals_produces_mult = 0.2
+		miner_jobs_bonus_workforce_mult = 0.2
+		planet_building_build_speed_mult = 0.5
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = official
 		}
-		planet_jobs_minerals_produces_mult = 0.1
+		miner_jobs_bonus_workforce_mult = 0.1
+		planet_building_build_speed_mult = 0.25
 	}
 	planet_modifier = {
-		job_translucer_per_pop = 0.1
+		job_dionysian_follower_archon_stone_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_translucer_per_pop = 0.05
+		job_dionysian_follower_archon_stone_per_pop = 0.025
 	}
 	councilor_modifier = {
 		planet_structures_cost_mult = -0.1
@@ -582,13 +579,14 @@ leader_trait_dionysian_archon_fire = {
 		planet_jobs_consumer_goods_upkeep_mult = -0.05
 	}
 	planet_modifier = {
-		job_chemist_per_pop = 0.1
+		job_dionysian_follower_archon_fire_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_chemist_per_pop = 0.05	
+		job_dionysian_follower_archon_fire_per_pop = 0.025
 	}
 	councilor_modifier = {
 		army_starting_experience_add = 200
+		armies_upkeep_mult = -0.2
 	}
 
 	leader_class = { commander scientist official }
@@ -686,20 +684,20 @@ leader_trait_dionysian_archon_wind = {
 			leader_class = official
 		}
 		pop_environment_tolerance = 0.10
-		pop_amenities_usage_mult = -0.10
+		pop_housing_usage_mult = -0.10
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = official
 		}
 		pop_environment_tolerance = 0.05
-		pop_amenities_usage_mult = -0.05
+		pop_housing_usage_mult = -0.05
 	}
 	planet_modifier = {
-		job_gas_refiner_per_pop = 0.1
+		job_dionysian_follower_archon_wind_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_gas_refiner_per_pop = 0.05
+		job_dionysian_follower_archon_wind_per_pop = 0.025
 	}
 	councilor_modifier = {
 		terraforming_cost_mult = -0.1
@@ -790,13 +788,13 @@ leader_trait_dionysian_archon_entropy = {
 		potential = {
 			leader_class = scientist
 		}
-		pc_nuked_habitability = 0.4
+		pc_nuked_habitability = 0.5
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = scientist
 		}
-		pc_nuked_habitability = 0.2
+		pc_nuked_habitability = 0.25
 	}
 	triggered_planet_modifier = {
 		potential = {
@@ -811,10 +809,10 @@ leader_trait_dionysian_archon_entropy = {
 		planet_jobs_upkeep_mult = -0.1
 	}
 	planet_modifier = {
-		job_death_chronicler_per_pop = 0.1
+		job_dionysian_follower_archon_entropy_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_death_chronicler_per_pop = 0.05
+		job_dionysian_follower_archon_entropy_per_pop = 0.025
 	}
 	councilor_modifier = {
 		empire_size_penalty_mult = -0.05
@@ -908,6 +906,7 @@ leader_trait_dionysian_archon_dream = {
 			leader_class = official
 		}
 		planet_jobs_produces_mult = 0.05
+		species_empire_size_mult = -0.05
 		planet_hyperlane_range_add = 2
 	}
 	triggered_sector_modifier = {
@@ -915,13 +914,14 @@ leader_trait_dionysian_archon_dream = {
 			leader_class = official
 		}
 		planet_jobs_produces_mult = 0.025
+		species_empire_size_mult = -0.025
 		planet_hyperlane_range_add = 1
 	}
 	planet_modifier = {
-		pop_government_ethic_attraction = 0.5
+		job_dionysian_follower_archon_dream_per_pop = 0.05
 	}
 	sector_modifier = {
-		pop_government_ethic_attraction = 0.25
+		job_dionysian_follower_archon_dream_per_pop = 0.025
 	}
 	councilor_modifier = {
 		pop_happiness = 0.05
@@ -1025,21 +1025,21 @@ leader_trait_dionysian_archon_war = {
 		potential = {
 			leader_class = official
 		}
-		army_starting_experience_add = 200		
-		army_defense_damage_mult = 0.4
+		army_starting_experience_add = 500		
+		planet_orbital_bombardment_damage = -0.5
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = official
 		}
-		army_starting_experience_add = 100		
-		army_defense_damage_mult = 0.2
+		army_starting_experience_add = 250		
+		planet_orbital_bombardment_damage = -0.25
 	}
 	planet_modifier = {
-		job_duelist_per_pop = 0.1
+		job_dionysian_follower_archon_war_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_duelist_per_pop = 0.05
+		job_dionysian_follower_archon_war_per_pop = 0.025
 	}
 	councilor_modifier = {
 		planet_soldiers_unity_produces_add = 1
@@ -1153,10 +1153,10 @@ leader_trait_dionysian_archon_justice = {
 		empire_size_districts_mult = -0.25
 	}
 	planet_modifier = {
-		job_enforcer_per_pop = 0.1
+		job_dionysian_follower_archon_justice_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_enforcer_per_pop = 0.05
+		job_dionysian_follower_archon_justice_per_pop = 0.025
 	}
 	councilor_modifier = {
 		planet_enforcers_unity_produces_add = 3
@@ -1224,7 +1224,7 @@ leader_trait_dionysian_archon_rebirth = {
 		potential = {
 			leader_class = commander
 		}
-		ship_shield_regen_add_perc = 0.02
+		ship_damage_against_space_fauna_mult = 0.2
 		ship_armor_regen_add_perc = 0.02
 		ship_hull_regen_add_perc = 0.02
 	}
@@ -1258,19 +1258,19 @@ leader_trait_dionysian_archon_rebirth = {
 		potential = {
 			leader_class = official
 		}
-		pop_growth_speed = 0.15
+		logistic_growth_mult = 0.2
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = official
 		}
-		pop_growth_speed = 0.075
+		logistic_growth_mult = 0.1
 	}
 	planet_modifier = {
-		job_healthcare_per_pop = 0.1
+		job_dionysian_follower_archon_rebirth_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_healthcare_per_pop = 0.05
+		job_dionysian_follower_archon_rebirth_per_pop = 0.025
 	}
 	councilor_modifier = {
 		space_fauna_monthly_increased_breeding_chance_add = 1
@@ -1338,7 +1338,7 @@ leader_trait_dionysian_archon_song = {
 		potential = {
 			leader_class = commander
 		}
-		command_limit_add = 20
+		command_limit_add = 30
 		ship_fire_rate_mult = 0.1
 	}
 	triggered_army_modifier = {
@@ -1359,12 +1359,14 @@ leader_trait_dionysian_archon_song = {
 		potential = {
 			leader_class = scientist
 		}
+		planet_jobs_society_research_produces_mult = 0.1
 		pop_happiness = 0.1
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = scientist
 		}
+		planet_jobs_society_research_produces_mult = 0.05
 		pop_happiness = 0.05
 	}
 	triggered_planet_modifier = {
@@ -1382,13 +1384,14 @@ leader_trait_dionysian_archon_song = {
 		planet_jobs_unity_produces_mult = 0.05
 	}
 	planet_modifier = {
-		job_culture_worker_per_pop = 0.1
+		job_dionysian_follower_archon_song_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_culture_worker_per_pop = 0.05
+		job_dionysian_follower_archon_song_per_pop = 0.025
 	}
 	councilor_modifier = {	
-		planet_culture_workers_produces_mult = 0.25
+		empire_size_pops_mult = -0.05
+		planet_civilians_unity_produces_add = 0.5
 	}
 
 	leader_class = { commander scientist official }
@@ -1476,12 +1479,14 @@ leader_trait_dionysian_archon_virus = {
 		potential = {
 			leader_class = scientist
 		}
+		planet_jobs_society_research_produces_mult = 0.1
 		planet_researchers_upkeep_mult = -0.1
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = scientist
 		}
+		planet_jobs_society_research_produces_mult = 0.05
 		planet_researchers_upkeep_mult = -0.05
 	}
 	triggered_planet_modifier = {
@@ -1497,10 +1502,10 @@ leader_trait_dionysian_archon_virus = {
 		pop_amenities_usage_organic_mult = -0.1
 	}
 	planet_modifier = {
-		job_bath_attendant_per_pop = 0.1
+		job_dionysian_follower_archon_virus_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_bath_attendant_per_pop = 0.05
+		job_dionysian_follower_archon_virus_per_pop = 0.025
 	}
 	councilor_modifier = {
 		habitability_floor_add = 0.3
@@ -1569,7 +1574,7 @@ leader_trait_dionysian_archon_shadows = {
 			leader_class = commander
 		}
 		ship_cloaking_strength_add = 1
-		ship_evasion_add = 10
+		ship_evasion_mult = 0.2
 	}
 	triggered_army_modifier = {
 		potential = {
@@ -1589,22 +1594,24 @@ leader_trait_dionysian_archon_shadows = {
 		potential = {
 			leader_class = official
 		}
+		planet_crime_add = -50
 		pop_amenities_usage_mult = -0.1
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = official
 		}
+		planet_crime_add = -25
 		pop_amenities_usage_mult = -0.05
 	}
 	planet_modifier = {
-		planet_crime_add = -50
+		job_dionysian_follower_archon_shadows_per_pop = 0.05
 	}
 	sector_modifier = {
-		planet_crime_add = -25
+		job_dionysian_follower_archon_shadows_per_pop = 0.025
 	}
 	councilor_modifier = {
-		spy_network_daily_value_mult = 1
+		spy_network_daily_value_mult = 0.5
 		espionage_operation_skill_add = 1
 	}
 
@@ -1614,7 +1621,7 @@ leader_trait_dionysian_archon_shadows = {
 }
 
 
-leader_trait_dionysian_archon_domination = {
+leader_trait_dionysian_archon_slavery = {
 
 
 
@@ -1622,7 +1629,7 @@ leader_trait_dionysian_archon_domination = {
 	inline_script = {
 		script = trait/dionysian_archon_icon
 		CLASS = leader
-		ICON = "GFX_dionysian_archon_domination"
+		ICON = "GFX_dionysian_archon_slavery"
 		RARITY = paragon
 		COUNCIL = triggered
 		TIER = none
@@ -1704,21 +1711,21 @@ leader_trait_dionysian_archon_domination = {
 		potential = {
 			leader_class = official
 		}
+		planet_jobs_ruler_produces_mult = 0.1
 		planet_jobs_worker_produces_mult = 0.2
-		planet_jobs_slave_produces_mult = 0.2
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = official
 		}
+		planet_jobs_ruler_produces_mult = 0.05
 		planet_jobs_worker_produces_mult = 0.1
-		planet_jobs_slave_produces_mult = 0.1
 	}
 	planet_modifier = {
-		job_noble_per_pop = 0.04
+		job_dionysian_follower_archon_slavery_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_noble_per_pop = 0.02
+		job_dionysian_follower_archon_slavery_per_pop = 0.025
 	}
 	councilor_modifier = {
 		country_councilor_influence_produces_add = 0.5
@@ -1833,12 +1840,13 @@ leader_trait_dionysian_archon_wisdom = {
 		planet_researchers_upkeep_mult = -0.10
 	}
 	planet_modifier = {
-		job_head_researcher_per_pop = 0.04
+		job_dionysian_follower_archon_wisdom_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_head_researcher_per_pop = 0.02
+		job_dionysian_follower_archon_wisdom_per_pop = 0.025
 	}
 	councilor_modifier = {
+		all_technology_research_speed = 0.05
 		num_tech_alternatives_add = 1
 	}
 
@@ -1948,10 +1956,10 @@ leader_trait_dionysian_archon_frost = {
 		pop_amenities_usage_mult = -0.05
 	}
 	planet_modifier = {
-		pop_housing_usage_mult = -0.1
+		job_dionysian_follower_archon_frost_per_pop = 0.05
 	}
 	sector_modifier = {
-		pop_housing_usage_mult = -0.05
+		job_dionysian_follower_archon_frost_per_pop = 0.025
 	}
 	councilor_modifier = {
 		planet_amenities_mult = 0.1
@@ -2054,24 +2062,24 @@ leader_trait_dionysian_archon_death = {
 		potential = {
 			leader_class = official
 		}
-		defense_armies_add = 4
+		pop_bonus_workforce_mult = 0.05
 		planet_jobs_upkeep_mult = -0.1
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = official
 		}
-		defense_armies_add = 2
+		pop_bonus_workforce_mult = 0.025
 		planet_jobs_upkeep_mult = -0.05
 	}
 	planet_modifier = {
-		job_necromancer_per_pop = 0.1
+		job_dionysian_follower_archon_death_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_necromancer_per_pop = 0.05
+		job_dionysian_follower_archon_death_per_pop = 0.025
 	}
 	councilor_modifier = {
-		planet_pops_organics_upkeep_mult = -0.05
+		planet_pops_organics_upkeep_mult = -0.1
 		pop_purge_speed = 2
 	}
 
@@ -2160,34 +2168,36 @@ leader_trait_dionysian_archon_light = {
 		potential = {
 			leader_class = scientist
 		}
-		planet_priests_society_research_produces_add = 2
+		planet_jobs_society_research_produces_mult = 0.1
+		planet_bureaucrats_upkeep_mult = -0.1
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = scientist
 		}
-		planet_priests_society_research_produces_add = 1
+		planet_jobs_society_research_produces_mult = 0.05
+		planet_bureaucrats_upkeep_mult = -0.05
 	}
 	triggered_planet_modifier = {
 		potential = {
 			leader_class = official
 		}
-		planet_priests_unity_produces_add = 2
+		planet_jobs_unity_produces_mult = 0.2
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = official
 		}
-		planet_priests_unity_produces_add = 1
+		planet_jobs_unity_produces_mult = 0.1
 	}
 	planet_modifier = {
-		job_priest_per_pop = 0.1
+		job_dionysian_follower_archon_light_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_priest_per_pop = 0.05
+		job_dionysian_follower_archon_light_per_pop = 0.025
 	}
 	councilor_modifier = {
-		pop_environment_tolerance = 0.08
+		pop_environment_tolerance = 0.10
 	}
 
 	leader_class = { commander scientist official }
@@ -2272,34 +2282,41 @@ leader_trait_dionysian_archon_thunder = {
 		potential = {
 			leader_class = scientist
 		}
-		planet_jobs_physics_research_produces_mult = 0.2
+		planet_jobs_physics_research_produces_mult = 0.1
+		planet_technician_physics_research_produces_add = 1
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = scientist
 		}
-		planet_jobs_physics_research_produces_mult = 0.1
+		planet_jobs_physics_research_produces_mult = 0.05
+		planet_technician_physics_research_produces_add = 0.5
 	}
 	triggered_planet_modifier = {
 		potential = {
 			leader_class = official
 		}
-		planet_jobs_produces_mult = 0.05
+		bonus_automated_workforce_mult = 0.2
+		planet_jobs_energy_produces_mult = 0.2
+		planet_structures_energy_upkeep_mult = -0.1
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = official
 		}
-		planet_jobs_produces_mult = 0.025
+		bonus_automated_workforce_mult = 0.1
+		planet_jobs_energy_produces_mult = 0.1
+		planet_structures_energy_upkeep_mult = -0.05
 	}
 	planet_modifier = {
-		planet_jobs_energy_produces_mult = 0.2
+		job_dionysian_follower_archon_thunder_per_pop = 0.05
 	}
 	sector_modifier = {
-		planet_jobs_energy_produces_mult = 0.1
+		job_dionysian_follower_archon_thunder_per_pop = 0.025
 	}
 	councilor_modifier = {
-		planet_structures_energy_upkeep_mult = -0.1
+		ships_upkeep_mult = -0.10
+		planet_storm_devastation_mult = -0.2
 	}
 
 	leader_class = { commander scientist official }
@@ -2384,33 +2401,35 @@ leader_trait_dionysian_archon_forge = {
 		potential = {
 			leader_class = scientist
 		}
-		planet_jobs_engineering_research_produces_mult = 0.2
+		planet_jobs_engineering_research_produces_mult = 0.1
+		planet_metallurgists_engineering_research_produces_add = 1
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = scientist
 		}
-		planet_jobs_engineering_research_produces_mult = 0.1
+		planet_jobs_engineering_research_produces_mult = 0.05
+		planet_metallurgists_engineering_research_produces_add = 0.5
 	}
 	triggered_planet_modifier = {
 		potential = {
 			leader_class = official
 		}
 		planet_pop_assembly_mult = 0.1
-		planet_metallurgists_alloys_produces_mult = 0.1
+		planet_metallurgists_alloys_produces_mult = 0.2
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = official
 		}
 		planet_pop_assembly_mult = 0.05
-		planet_metallurgists_alloys_produces_mult = 0.05
+		planet_metallurgists_alloys_produces_mult = 0.1
 	}
 	planet_modifier = {
-		job_foundry_per_pop = 0.1
+		job_dionysian_follower_archon_forge_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_foundry_per_pop = 0.05
+		job_dionysian_follower_archon_forge_per_pop = 0.025
 	}
 	councilor_modifier = {
 		megastructure_build_speed_mult = 0.25
@@ -2513,25 +2532,25 @@ leader_trait_dionysian_archon_temptation = {
 		potential = {
 			leader_class = official
 		}
-		planet_entertainers_unity_produces_add = 2
-		pop_job_amenities_mult = 0.1
+		planet_entertainers_unity_produces_add = 1
+		pop_job_amenities_mult = 0.2
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = official
 		}
-		planet_entertainers_unity_produces_add = 1
-		pop_job_amenities_mult = 0.05
+		planet_entertainers_unity_produces_add = 0.5
+		pop_job_amenities_mult = 0.1
 	}
 	planet_modifier = {
-		job_entertainer_per_pop = 0.1
+		job_dionysian_follower_archon_temptation_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_entertainer_per_pop = 0.05
+		job_dionysian_follower_archon_temptation_per_pop = 0.025
 	}
 	councilor_modifier = {
-		pop_growth_from_immigration = 0.1
-		country_trust_growth = 0.1
+		country_trust_growth = 0.2
+		resolutions_cost_mult = -0.1
 	}
 
 	leader_class = { commander scientist official }
@@ -2617,34 +2636,38 @@ leader_trait_dionysian_archon_order = {
 		potential = {
 			leader_class = scientist
 		}
-		planet_jobs_society_research_produces_mult = 0.2
+		planet_jobs_society_research_produces_mult = 0.1
+		planet_bureaucrats_upkeep_mult = -0.1
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = scientist
 		}
-		planet_jobs_society_research_produces_mult = 0.1
+		planet_jobs_society_research_produces_mult = 0.05
+		planet_bureaucrats_upkeep_mult = -0.05
 	}
 	triggered_planet_modifier = {
 		potential = {
 			leader_class = official
 		}
 		planet_stability_add = 10
+		planet_decision_enact_speed_mult = 0.5
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = official
 		}
 		planet_stability_add = 5
+		planet_decision_enact_speed_mult = 0.25
 	}
 	planet_modifier = {
-		planet_administrators_upkeep_mult = -0.2
+		job_dionysian_follower_archon_order_per_pop = 0.05
 	}
 	sector_modifier = {
-		planet_administrators_upkeep_mult = -0.1
+		job_dionysian_follower_archon_order_per_pop = 0.025
 	}
 	councilor_modifier = {
-		planet_administrators_unity_produces_mult = 0.1
+		planet_bureaucrats_unity_produces_add = 0.5
 		category_statecraft_research_speed_mult = 0.2
 	}
 
@@ -2753,14 +2776,14 @@ leader_trait_dionysian_archon_hatred = {
 		pop_amenities_usage_mult = -0.1
 	}
 	planet_modifier = {
-		job_soldier_per_pop = 0.125
+		job_dionysian_follower_archon_hatred_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_soldier_per_pop = 0.0625
+		job_dionysian_follower_archon_hatred_per_pop = 0.025
 	}
 	councilor_modifier = {
 		damage_vs_rival_mult = 0.1
-		armies_upkeep_mult = -0.25
+		country_war_exhaustion_mult = -0.2
 	}
 
 	leader_class = { commander scientist official }
@@ -2768,7 +2791,7 @@ leader_trait_dionysian_archon_hatred = {
 	randomized = no
 }
 
-leader_trait_dionysian_archon_watchers = {
+leader_trait_dionysian_archon_insight = {
 
 
 
@@ -2776,7 +2799,7 @@ leader_trait_dionysian_archon_watchers = {
 	inline_script = {
 		script = trait/dionysian_archon_icon
 		CLASS = leader
-		ICON = "GFX_dionysian_archon_watchers"
+		ICON = "GFX_dionysian_archon_insight"
 		RARITY = paragon
 		COUNCIL = triggered
 		TIER = none
@@ -2857,10 +2880,10 @@ leader_trait_dionysian_archon_watchers = {
 		pop_amenities_usage_mult = -0.05
 	}
 	planet_modifier = {
-		job_archaeoengineers_per_pop = 0.1
+		job_dionysian_follower_archon_insight_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_archaeoengineers_per_pop = 0.05
+		job_dionysian_follower_archon_insight_per_pop = 0.025
 	}
 	councilor_modifier = {
 		ship_archaeological_site_excavation_speed_mult = 0.1
@@ -2948,37 +2971,37 @@ leader_trait_dionysian_archon_nature = {
 			leader_class = scientist
 		}
 		planet_jobs_society_research_produces_mult = 0.1
-		pop_growth_speed = 0.1
+		logistic_growth_mult = 0.1
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = scientist
 		}
 		planet_jobs_society_research_produces_mult = 0.05
-		pop_growth_speed = 0.05
+		logistic_growth_mult = 0.05
 	}
 	triggered_planet_modifier = {
 		potential = {
 			leader_class = official
 		}
 		pop_environment_tolerance = 0.10
-		planet_jobs_unity_produces_mult = 0.1
+		planet_jobs_food_upkeep_mult = -0.2
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = official
 		}
 		pop_environment_tolerance = 0.05
-		planet_jobs_unity_produces_mult = 0.05
+		planet_jobs_food_upkeep_mult = -0.1
 	}
 	planet_modifier = {
-		job_xeno_zoo_keeper_per_pop = 0.1
+		job_dionysian_follower_archon_nature_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_xeno_zoo_keeper_per_pop = 0.05
+		job_dionysian_follower_archon_nature_per_pop = 0.025
 	}
 	councilor_modifier = {
-		deposit_blockers_natural_unity_produces_add = 2
+		deposit_blockers_natural_unity_produces_add = 4
 		category_new_worlds_research_speed_mult = 0.2
 	}
 
@@ -3086,10 +3109,10 @@ leader_trait_dionysian_archon_foison = {
 		planet_farmers_consumer_goods_produces_add = 0.5
 	}
 	planet_modifier = {
-		job_catalytic_technician_per_pop = 0.1
+		job_dionysian_follower_archon_foison_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_catalytic_technician_per_pop = 0.05
+		job_dionysian_follower_archon_foison_per_pop = 0.025
 	}
 	councilor_modifier = {
 		country_food_produces_mult = 0.2
@@ -3103,13 +3126,13 @@ leader_trait_dionysian_archon_foison = {
 
 
 
-leader_trait_dionysian_archon_fortune = {
+leader_trait_dionysian_archon_wealth = {
 
 
 	inline_script = {
 		script = trait/dionysian_archon_icon
 		CLASS = leader
-		ICON = "GFX_dionysian_archon_fortune"
+		ICON = "GFX_dionysian_archon_wealth"
 		RARITY = paragon
 		COUNCIL = triggered
 		TIER = none
@@ -3178,35 +3201,36 @@ leader_trait_dionysian_archon_fortune = {
 		potential = {
 			leader_class = scientist
 		}
-		trade_value_mult = 0.2
+		planet_traders_upkeep_mult = -0.2
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = scientist
 		}
-		trade_value_mult = 0.1
+		planet_traders_upkeep_mult = -0.1
 	}
 	triggered_planet_modifier = {
 		potential = {
 			leader_class = official
 		}
-		trade_value_mult = 0.1
-		planet_clerks_unity_produces_add = 1
+		planet_jobs_trade_produces_mult = 0.2
+		pop_trader_bonus_workforce_mult = 0.2
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = official
 		}
-		trade_value_mult = 0.05
-		planet_clerks_unity_produces_add = 0.5
+		planet_jobs_trade_produces_mult = 0.1
+		pop_trader_bonus_workforce_mult = 0.1
 	}
 	planet_modifier = {
-		job_numistic_priest_per_pop = 0.1
+		job_dionysian_follower_archon_wealth_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_numistic_priest_per_pop = 0.05
+		job_dionysian_follower_archon_wealth_per_pop = 0.025
 	}
 	councilor_modifier = {
+		commercial_pact_mult = 0.2
 		country_trade_fee = -0.05
 	}
 
@@ -3305,22 +3329,24 @@ leader_trait_dionysian_archon_creation = {
 		potential = {
 			leader_class = official
 		}
-		planet_pops_organics_minerals_upkeep_mult = -0.2
+		planet_jobs_consumer_goods_produces_mult = 0.2
+		planet_artisans_upkeep_mult = -0.1
 	}
 	triggered_sector_modifier = {
 		potential = {
 			leader_class = official
 		}
-		planet_pops_organics_minerals_upkeep_mult = -0.1
+		planet_jobs_consumer_goods_produces_mult = 0.1
+		planet_artisans_upkeep_mult = -0.05
 	}
 	planet_modifier = {
-		job_artificer_per_pop = 0.1
+		job_dionysian_follower_archon_creation_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_artificer_per_pop = 0.05
+		job_dionysian_follower_archon_creation_per_pop = 0.025
 	}
 	councilor_modifier = {
-		country_consumer_goods_produces_mult = 0.05
+		country_consumer_goods_produces_mult = 0.1
 		category_materials_research_speed_mult = 0.2
 	}
 
@@ -3427,10 +3453,10 @@ leader_trait_dionysian_archon_rifts = {
 		planet_researchers_upkeep_mult = -0.1
 	}
 	planet_modifier = {
-		job_astral_researcher_per_pop = 0.1
+		job_dionysian_follower_archon_rifts_per_pop = 0.05
 	}
 	sector_modifier = {
-		job_astral_researcher_per_pop = 0.05
+		job_dionysian_follower_archon_rifts_per_pop = 0.025
 	}
 	councilor_modifier = {
 		country_astral_threads_produces_mult = 0.1

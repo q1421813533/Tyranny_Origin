@@ -58,8 +58,8 @@ spriteTypes = {
 		texturefile = "gfx/interface/icons/dionysian_archon_shadows.dds"
 	}
 	spriteType = {
-		name = "GFX_dionysian_archon_domination"
-		texturefile = "gfx/interface/icons/dionysian_archon_domination.dds"
+		name = "GFX_dionysian_archon_slavery"
+		texturefile = "gfx/interface/icons/dionysian_archon_slavery.dds"
 	}
 	spriteType = {
 		name = "GFX_dionysian_archon_wisdom"
@@ -98,8 +98,8 @@ spriteTypes = {
 		texturefile = "gfx/interface/icons/dionysian_archon_hatred.dds"
 	}
 	spriteType = {
-		name = "GFX_dionysian_archon_watchers"
-		texturefile = "gfx/interface/icons/dionysian_archon_watchers.dds"
+		name = "GFX_dionysian_archon_insight"
+		texturefile = "gfx/interface/icons/dionysian_archon_insight.dds"
 	}
 	spriteType = {
 		name = "GFX_dionysian_archon_nature"
@@ -110,8 +110,8 @@ spriteTypes = {
 		texturefile = "gfx/interface/icons/dionysian_archon_foison.dds"
 	}
 	spriteType = {
-		name = "GFX_dionysian_archon_fortune"
-		texturefile = "gfx/interface/icons/dionysian_archon_fortune.dds"
+		name = "GFX_dionysian_archon_wealth"
+		texturefile = "gfx/interface/icons/dionysian_archon_wealth.dds"
 	}
 	spriteType = {
 		name = "GFX_dionysian_archon_creation"
@@ -147,5 +147,197 @@ spriteTypes = {
 		name = "GFX_text_dionysian_leader_trait_small_icon"
 		texturefile = "gfx/interface/icons/text_icons/pictures/dionysian_leader_trait_small_icon.dds"
 	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_destiny"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_destiny.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_time"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_time.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_sercets"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_sercets.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_stone"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_stone.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_fire"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_fire.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_wind"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_wind.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_entropy"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_entropy.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_dream"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_dream.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_war"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_war.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_justice"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_justice.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_rebirth"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_rebirth.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_song"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_song.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_virus"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_virus.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_shadows"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_shadows.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_slavery"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_slavery.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_wisdom"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_wisdom.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_frost"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_frost.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_death"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_death.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_light"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_light.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_thunder"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_thunder.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_forge"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_forge.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_temptation"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_temptation.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_order"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_order.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_hatred"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_hatred.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_insight"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_insight.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_nature"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_nature.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_foison"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_foison.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_wealth"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_wealth.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_creation"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_creation.dds"
+	}
+
+	spriteType = {
+		name = "GFX_text_job_dionysian_follower_archon_rifts"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_follower_archon_rifts.dds"
+	}
+
+	spriteType = {
+		name = "GFX_dionysian_forsee_destiny_ritual"
+		texturefile = "gfx/interface/icons/modifiers/job_biologist_mult.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_created_dreamworld"
+		texturefile = "gfx/interface/icons/modifiers/mod_pop_other_species_happiness.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_focus_sigil"
+		texturefile = "gfx/interface/icons/modifiers/mod_pop_workforce_mult.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_ice_realm"
+		texturefile = "gfx/interface/icons/modifiers/mod_planet_amenities_add.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_view_past"
+		texturefile = "gfx/interface/icons/modifiers/mod_society_research_produces_mult.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_watch_history"
+		texturefile = "gfx/interface/icons/modifiers/mod_country_society_tech_research_speed.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_merge_animals"
+		texturefile = "gfx/interface/icons/modifiers/mod_job_xeno_zoo_animal_lithoid_add.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_mental_revolution"
+		texturefile = "gfx/interface/icons/modifiers/mod_pop_happiness.dds"
+	}
+	spriteType = {
+		name = "GFX_dionysian_imperial_martyrs"
+		texturefile = "gfx/interface/icons/modifiers/mod_pop_war_happiness.dds"
+	}
+		spriteType = {
+		name = "GFX_dionysian_efficient_machines"
+		texturefile = "gfx/interface/icons/modifiers/mod_energy_upkeep_mult.dds"
+	}
+
 }
 

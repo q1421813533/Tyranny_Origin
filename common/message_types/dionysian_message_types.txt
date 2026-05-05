@@ -1,0 +1,5 @@
+
+inline_script = {
+	script = patron_accords_messages
+	PATRON = dionysian_the_overlord_in_shroud
+}

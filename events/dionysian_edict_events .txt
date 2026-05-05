@@ -14,7 +14,12 @@ country_event = {
 	immediate = {
 		save_global_event_target_as = dionysian_edict_caster_country
 	}
-	option = {}
+	option = {
+		name = "dionysian_issue_edict_button_text"
+		add_resource = {
+			menace = 1
+		}
+	}
 }
 
 #enhance psi edict
@@ -29,14 +34,14 @@ country_event = {
 	}
 
 	immediate = {
-		every_owned_pop = {
+		every_owned_pop_group = {
 			limit = { 
 				species = { is_robotic = no }
 				is_being_assimilated = no
 				is_being_purged = no
 				NOR = {
-					has_trait = trait_dionysian_gene
-					has_trait = trait_mechanical
+					pop_group_has_trait = trait_dionysian_gene
+					pop_group_has_trait = trait_mechanical
 				}
 			}
 			modify_species = {
@@ -71,7 +76,7 @@ country_event = {
 				owner_main_species = { has_trait = trait_mechanical } 
 				owner_main_species = { NOT = { has_trait = trait_dionysian_gene } }
 			}
-			every_owned_pop = {
+			every_owned_pop_group = {
 				limit = {
 					is_same_species = root
 					NOT = { has_trait = trait_dionysian_gene }
@@ -79,10 +84,11 @@ country_event = {
 				modify_species = {
 					species = this
 					add_trait = trait_dionysian_gene
+					effect = {
+						save_event_target_as = dionysian_machine_species
+					}
 				}
-				species = { save_event_target_as = dionysian_machine_species }
-			}
-			
+			}	
 			if = {
 				limit = {
 					exists = event_target:dionysian_machine_species
@@ -141,6 +147,7 @@ country_event = {
 	id = dionysian_edict.3
 	is_triggered_only = yes
 	hide_window = yes
+
 
 
 	immediate = {
@@ -258,7 +265,7 @@ planet_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		solar_system = { has_modifier = zroni_storm }
+		solar_system = { has_modifier = dionysian_edict_storm_in_star_system }
 	}
 
 	immediate = {
@@ -266,6 +273,7 @@ planet_event = {
 		remove_modifier = dionysian_storm_edict_on_star
 
 		solar_system = {
+			remove_modifier = dionysian_edict_storm_in_star_system
 
 			if = {  
 				limit = {
@@ -280,7 +288,6 @@ planet_event = {
 						}
 					}
 				}
-				remove_modifier = zroni_storm
 				random_system_ambient_object = {
 					limit = { has_ambient_object_flag = zroni_storm }
 					destroy_ambient_object = this

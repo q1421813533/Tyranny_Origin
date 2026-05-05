@@ -22,6 +22,7 @@ country_event = {
 
 	immediate = {
 		set_country_flag = dionysian_block_other_election
+
 		set_variable_to_random_value = { which = dionysian_old_PM_win_chance min = 1 max = 50 rounded = yes }
 
 		if = { 

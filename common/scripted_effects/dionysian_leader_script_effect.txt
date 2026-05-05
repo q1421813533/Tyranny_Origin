@@ -1,13 +1,11 @@
 
 dionysian_int_leader = {
 	
-	add_trait_no_notify = "random_common"
-
 	random_list = {
 		90 = { }
 		10 = {
-			add_trait_no_notify = "random_common"
-			add_trait_no_notify = "random_negative"
+			add_trait = { trait = random_common  show_message = no }
+			add_trait = { trait = "random_negative"  show_message = no }
 			modifier = {
 				factor = 0
 				exists = owner
@@ -35,7 +33,7 @@ dionysian_int_leader = {
 			}
 			leader_class = commander
 		}
-		add_trait_no_notify = leader_trait_crusader
+		add_trait = { trait = leader_trait_crusader  show_message = no }
 	}
 
 	# Letters of Marque
@@ -46,7 +44,64 @@ dionysian_int_leader = {
 			}
 			leader_class = commander
 		}
-		add_trait_no_notify = leader_trait_corsair
+		add_trait = { trait = leader_trait_corsair  show_message = no }
+	}
+
+	# Champions of the Empire
+	# Adds a random common trait
+	if = {
+		limit = {
+			owner = {
+				has_tradition = tr_aptitude_champions_of_the_empire
+			}
+		}
+		add_trait = { trait = random_common  show_message = no }
+	}
+
+	# Optimized Neurology
+	# Adds a random common trait
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = genetic_ascension_stage_1_purity
+				has_genetic_stage_1_tradition = yes
+			}
+		}
+		add_trait = { trait = random_common show_message = no }
+	}
+
+	# Entropy Drinkers
+	if = {
+		limit = {
+			owner = {
+				is_entropy_drinkers_empire = yes
+			}
+		}
+		give_trait_no_notify_ignore_autocracy_restriction = {
+			TRAIT = leader_trait_psionic
+		}
+	}
+
+	# Biochemical Composure/Cloning Authorities
+	if = {
+		limit = {
+			leader_can_have_backup_clone = yes
+		}
+		random_list = {
+			75 = {
+				# Base 75% chance of nothing
+				modifier = {
+					factor = 0
+					root = {
+						is_cloning_authority = yes
+						has_cloning_biochemical_composure_tradition = yes
+					}
+				}
+			}
+			25 = {
+				add_trait = { trait = leader_trait_has_backup_clone show_message = no }
+			}
+		}
 	}
 
 	if = { 
@@ -55,7 +110,7 @@ dionysian_int_leader = {
 			species = { has_trait = trait_robot_digital_1 }
 		}  
 		remove_trait = leader_trait_synthetic
-		add_trait_no_notify = leader_trait_virtual
+		add_trait = { trait = leader_trait_virtual show_message = no }
 	}
 
 
@@ -70,19 +125,19 @@ dionysian_give_ascension_trait = {
 			limit = { owner = { has_policy_flag = dionysian_archon_full_cyb } }
 			remove_trait = leader_trait_psionic
 			remove_trait = leader_trait_limited_cyborg
-			add_trait_no_notify = leader_trait_cyborg
+			add_trait = { trait = leader_trait_cyborg  show_message = no }
 		}	
 		else_if = {
 			limit = { owner = { has_policy_flag = dionysian_archon_half_cyb } }
 			remove_trait = leader_trait_psionic
 			remove_trait = leader_trait_cyborg
-			add_trait_no_notify = leader_trait_limited_cyborg
+			add_trait = { trait = leader_trait_limited_cyborg  show_message = no }
 		}
 		else_if = {
 			limit = { owner = { has_policy_flag = dionysian_archon_syn } }
 			remove_trait = leader_trait_psionic
 			remove_trait = leader_trait_virtual
-			add_trait_no_notify = leader_trait_synthetic
+			add_trait = { trait = leader_trait_synthetic  show_message = no }
 			if = {
 				limit = { NOT = { species = { is_same_value = owner_main_species } } }
 				change_species = owner_main_species
@@ -93,7 +148,7 @@ dionysian_give_ascension_trait = {
 			limit = { owner = { has_policy_flag = dionysian_archon_virtual } }
 			remove_trait = leader_trait_psionic
 			remove_trait = leader_trait_synthetic
-			add_trait_no_notify = leader_trait_virtual
+			add_trait = { trait = leader_trait_virtual  show_message = no }
 			if = {
 				limit = { NOT = { species = { is_same_value = owner_main_species } } }
 				change_species = owner_main_species
@@ -105,7 +160,7 @@ dionysian_give_ascension_trait = {
 			remove_trait = leader_trait_cyborg
 			remove_trait = leader_trait_synthetic
 			remove_trait = leader_trait_virtual
-			add_trait_no_notify = leader_trait_psionic
+			add_trait = { trait = leader_trait_psionic show_message = no }
 		}
 	}
 
@@ -135,20 +190,20 @@ dionysian_spawn_new_archon = {
 		
 		random_list = { 
 			70 = {
-				random_owned_pop = {
+				random_owned_pop_group = {
 					limit = { 
 						has_citizenship_rights = yes 
-						has_trait = trait_dionysian_gene
-						species = { is_same_value = owner_main_species }
+						pop_group_has_trait = trait_dionysian_gene
+						is_same_species = owner_main_species
 					}	
 					save_event_target_as = dionysian_archon_pop
 				}
 			}
 			30 = {
-				random_owned_pop = {
+				random_owned_pop_group = {
 					limit = { 
 						has_citizenship_rights = yes 
-						has_trait = trait_dionysian_gene
+						pop_group_has_trait = trait_dionysian_gene
 					}	
 					save_event_target_as = dionysian_archon_pop
 				}
@@ -165,7 +220,7 @@ dionysian_spawn_new_archon = {
 					species = event_target:dionysian_archon_species
 					class = official
 					skill = 1
-					randomize_traits = no
+					randomize_traits = yes
 				}
 			}
 			10 = {
@@ -174,7 +229,7 @@ dionysian_spawn_new_archon = {
 					species = event_target:dionysian_archon_species
 					class = commander
 					skill = 1
-					randomize_traits = no
+					randomize_traits = yes
 				}
 			}
 			10 = {
@@ -183,7 +238,7 @@ dionysian_spawn_new_archon = {
 					species = event_target:dionysian_archon_species
 					class = scientist
 					skill = 1
-					randomize_traits = no
+					randomize_traits = yes
 				}
 			}
 		}
@@ -202,7 +257,7 @@ dionysian_spawn_new_archon = {
 				count = dionysian_archon_new_skills
 				event_target:dionysian_new_archon = {
 					if = {
-						limit = { has_skill < 3 }
+						limit = { has_base_skill < 3 }
 						add_skill = 1 
 					}
 				}
@@ -229,15 +284,13 @@ dionysian_spawn_new_archon = {
 
 dionysian_give_archon_additional_traits = {
 	
+	set_variable = { which = dionysian_archon_new_skills value = 2 }
+
 	if = {
 		limit = { exists = event_target:dionysian_overlord }
-		set_variable = { which = dionysian_archon_new_skills value = event_target:dionysian_overlord.trigger:has_skill }
+		set_variable = { which = dionysian_archon_new_skills value = event_target:dionysian_overlord.trigger:has_base_skill }
 		multiply_variable = {	which = dionysian_archon_new_skills  value = 0.34 }
 		floor_variable = dionysian_archon_new_skills
-	}
-	else_if = {
-		limit = { NOT = { is_variable_set = dionysian_archon_new_skills } }
-		set_variable = { which = dionysian_archon_new_skills value = 2 }
 	}
 
 	if = {
@@ -334,7 +387,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_destiny
-			add_trait_no_notify = leader_trait_dionysian_archon_destiny
+			add_trait = { trait = leader_trait_dionysian_archon_destiny  show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -355,7 +408,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_time
-			add_trait_no_notify = leader_trait_dionysian_archon_time
+			add_trait = { trait = leader_trait_dionysian_archon_time show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -372,7 +425,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_sercets
-			add_trait_no_notify = leader_trait_dionysian_archon_sercets
+			add_trait = { trait = leader_trait_dionysian_archon_sercets show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -389,7 +442,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_stone
-			add_trait_no_notify = leader_trait_dionysian_archon_stone
+			add_trait = { trait = leader_trait_dionysian_archon_stone show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -406,7 +459,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_fire
-			add_trait_no_notify = leader_trait_dionysian_archon_fire
+			add_trait = { trait = leader_trait_dionysian_archon_fire show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -423,7 +476,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_wind
-			add_trait_no_notify = leader_trait_dionysian_archon_wind
+			add_trait = { trait = leader_trait_dionysian_archon_wind show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -440,7 +493,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_entropy
-			add_trait_no_notify = leader_trait_dionysian_archon_entropy
+			add_trait = { trait = leader_trait_dionysian_archon_entropy show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -457,7 +510,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_dream
-			add_trait_no_notify = leader_trait_dionysian_archon_dream
+			add_trait = { trait = leader_trait_dionysian_archon_dream show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -470,7 +523,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = commander
 			}
 			save_global_event_target_as = dionysian_archon_war
-			add_trait_no_notify = leader_trait_dionysian_archon_war
+			add_trait = { trait = leader_trait_dionysian_archon_war show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -483,7 +536,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_justice
-			add_trait_no_notify = leader_trait_dionysian_archon_justice
+			add_trait = { trait = leader_trait_dionysian_archon_justice show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -500,7 +553,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_rebirth
-			add_trait_no_notify = leader_trait_dionysian_archon_rebirth
+			add_trait = { trait = leader_trait_dionysian_archon_rebirth show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -517,7 +570,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_song
-			add_trait_no_notify = leader_trait_dionysian_archon_song
+			add_trait = { trait = leader_trait_dionysian_archon_song show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -534,7 +587,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_virus
-			add_trait_no_notify = leader_trait_dionysian_archon_virus
+			add_trait = { trait = leader_trait_dionysian_archon_virus show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -551,13 +604,13 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_shadows
-			add_trait_no_notify = leader_trait_dionysian_archon_shadows
+			add_trait = { trait = leader_trait_dionysian_archon_shadows show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
 			modifier = {
 				add = 1
-				NOT = { exists = event_target:dionysian_archon_domination }
+				NOT = { exists = event_target:dionysian_archon_slavery }
 			}
 			modifier = {
 				factor = 2
@@ -567,8 +620,8 @@ dionysian_give_archon_trait_for_new_leader = {
 				factor = 3
 				leader_class = official
 			}
-			save_global_event_target_as = dionysian_archon_domination
-			add_trait_no_notify = leader_trait_dionysian_archon_domination
+			save_global_event_target_as = dionysian_archon_slavery
+			add_trait = { trait = leader_trait_dionysian_archon_slavery show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -581,7 +634,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_wisdom
-			add_trait_no_notify = leader_trait_dionysian_archon_wisdom
+			add_trait = { trait = leader_trait_dionysian_archon_wisdom show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -598,7 +651,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_frost
-			add_trait_no_notify = leader_trait_dionysian_archon_frost
+			add_trait = { trait = leader_trait_dionysian_archon_frost show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -615,7 +668,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_death
-			add_trait_no_notify = leader_trait_dionysian_archon_death
+			add_trait = { trait = leader_trait_dionysian_archon_death show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -632,7 +685,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_light
-			add_trait_no_notify = leader_trait_dionysian_archon_light
+			add_trait = { trait = leader_trait_dionysian_archon_light show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -649,7 +702,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_thunder
-			add_trait_no_notify = leader_trait_dionysian_archon_thunder
+			add_trait = { trait = leader_trait_dionysian_archon_thunder show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -666,7 +719,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_forge
-			add_trait_no_notify = leader_trait_dionysian_archon_forge
+			add_trait = { trait = leader_trait_dionysian_archon_forge show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -683,7 +736,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_temptation
-			add_trait_no_notify = leader_trait_dionysian_archon_temptation
+			add_trait = { trait = leader_trait_dionysian_archon_temptation show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -696,7 +749,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_order
-			add_trait_no_notify = leader_trait_dionysian_archon_order
+			add_trait = { trait = leader_trait_dionysian_archon_order show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -713,13 +766,13 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_hatred
-			add_trait_no_notify = leader_trait_dionysian_archon_hatred
+			add_trait = { trait = leader_trait_dionysian_archon_hatred show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
 			modifier = {
 				add = 1
-				NOT = { exists = event_target:dionysian_archon_watchers }
+				NOT = { exists = event_target:dionysian_archon_insight }
 			}
 			modifier = {
 				factor = 3
@@ -729,8 +782,8 @@ dionysian_give_archon_trait_for_new_leader = {
 				factor = 2
 				leader_class = official
 			}
-			save_global_event_target_as = dionysian_archon_watchers
-			add_trait_no_notify = leader_trait_dionysian_archon_watchers
+			save_global_event_target_as = dionysian_archon_insight
+			add_trait = { trait = leader_trait_dionysian_archon_insight show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -747,7 +800,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_nature
-			add_trait_no_notify = leader_trait_dionysian_archon_nature
+			add_trait = { trait = leader_trait_dionysian_archon_nature show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -764,13 +817,13 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_foison
-			add_trait_no_notify = leader_trait_dionysian_archon_foison
+			add_trait = { trait = leader_trait_dionysian_archon_foison show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
 			modifier = {
 				add = 1
-				NOT = { exists = event_target:dionysian_archon_fortune }
+				NOT = { exists = event_target:dionysian_archon_wealth }
 			}
 			modifier = {
 				factor = 2
@@ -780,8 +833,8 @@ dionysian_give_archon_trait_for_new_leader = {
 				factor = 3
 				leader_class = official
 			}
-			save_global_event_target_as = dionysian_archon_fortune
-			add_trait_no_notify = leader_trait_dionysian_archon_fortune
+			save_global_event_target_as = dionysian_archon_wealth
+			add_trait = { trait = leader_trait_dionysian_archon_wealth show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -798,7 +851,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_creation
-			add_trait_no_notify = leader_trait_dionysian_archon_creation
+			add_trait = { trait = leader_trait_dionysian_archon_creation show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -815,7 +868,7 @@ dionysian_give_archon_trait_for_new_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_rifts
-			add_trait_no_notify = leader_trait_dionysian_archon_rifts
+			add_trait = { trait = leader_trait_dionysian_archon_rifts show_message = no }
 			set_leader_flag = dionysian_is_archon
 		}
 	}	
@@ -831,18 +884,12 @@ dionysian_give_archon_trait_for_new_leader = {
 			dionysian_set_archon_age = yes
 		}
 
-		set_leader_flag = renowned_leader
+		set_leader_tier = leader_tier_renowned
 
 		if = {
 			limit = { has_trait = leader_trait_resilient }
 			remove_trait = leader_trait_resilient
-			add_trait_no_notify = "random_common"
-		}
-		else_if = {
-			limit = { has_trait = leader_trait_resilient }
-			remove_trait = leader_trait_resilient_2
-			add_trait_no_notify = "random_common"
-			add_trait_no_notify = "random_common"
+			add_trait = { trait = random_common show_message = no }
 		}
 	}
 }
@@ -888,7 +935,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_destiny
-			add_trait = leader_trait_dionysian_archon_destiny
+			add_trait = { trait = leader_trait_dionysian_archon_destiny show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -909,7 +956,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_time
-			add_trait = leader_trait_dionysian_archon_time
+			add_trait = { trait = leader_trait_dionysian_archon_time show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -926,7 +973,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_sercets
-			add_trait = leader_trait_dionysian_archon_sercets
+			add_trait = { trait = leader_trait_dionysian_archon_sercets show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -943,7 +990,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_stone
-			add_trait = leader_trait_dionysian_archon_stone
+			add_trait = { trait = leader_trait_dionysian_archon_stone show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -960,7 +1007,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_fire
-			add_trait = leader_trait_dionysian_archon_fire
+			add_trait = { trait = leader_trait_dionysian_archon_fire show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -977,7 +1024,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_wind
-			add_trait = leader_trait_dionysian_archon_wind
+			add_trait = { trait = leader_trait_dionysian_archon_wind show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -994,7 +1041,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_entropy
-			add_trait = leader_trait_dionysian_archon_entropy
+			add_trait = { trait = leader_trait_dionysian_archon_entropy show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -1011,7 +1058,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_dream
-			add_trait = leader_trait_dionysian_archon_dream
+			add_trait = { trait = leader_trait_dionysian_archon_dream show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -1024,7 +1071,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = commander
 			}
 			save_global_event_target_as = dionysian_archon_war
-			add_trait = leader_trait_dionysian_archon_war
+			add_trait = { trait = leader_trait_dionysian_archon_war show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -1037,7 +1084,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_justice
-			add_trait = leader_trait_dionysian_archon_justice
+			add_trait = { trait = leader_trait_dionysian_archon_justice show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -1054,7 +1101,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_rebirth
-			add_trait = leader_trait_dionysian_archon_rebirth
+			add_trait = { trait = leader_trait_dionysian_archon_rebirth show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -1071,7 +1118,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_song
-			add_trait = leader_trait_dionysian_archon_song
+			add_trait = { trait = leader_trait_dionysian_archon_song show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -1088,7 +1135,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_virus
-			add_trait = leader_trait_dionysian_archon_virus
+			add_trait = { trait = leader_trait_dionysian_archon_virus show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -1105,13 +1152,13 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_shadows
-			add_trait = leader_trait_dionysian_archon_shadows
+			add_trait = { trait = leader_trait_dionysian_archon_shadows show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
 			modifier = {
 				add = 1
-				NOT = { exists = event_target:dionysian_archon_domination }
+				NOT = { exists = event_target:dionysian_archon_slavery }
 			}
 			modifier = {
 				factor = 2
@@ -1121,8 +1168,8 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				factor = 3
 				leader_class = official
 			}
-			save_global_event_target_as = dionysian_archon_domination
-			add_trait = leader_trait_dionysian_archon_domination
+			save_global_event_target_as = dionysian_archon_slavery
+			add_trait = { trait = leader_trait_dionysian_archon_slavery show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -1135,7 +1182,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_wisdom
-			add_trait = leader_trait_dionysian_archon_wisdom
+			add_trait = { trait = leader_trait_dionysian_archon_wisdom show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -1152,7 +1199,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_frost
-			add_trait = leader_trait_dionysian_archon_frost
+			add_trait = { trait = leader_trait_dionysian_archon_frost show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -1169,7 +1216,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_death
-			add_trait = leader_trait_dionysian_archon_death
+			add_trait = { trait = leader_trait_dionysian_archon_death show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -1186,7 +1233,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_light
-			add_trait = leader_trait_dionysian_archon_light
+			add_trait = { trait = leader_trait_dionysian_archon_light show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -1203,7 +1250,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_thunder
-			add_trait = leader_trait_dionysian_archon_thunder
+			add_trait = { trait = leader_trait_dionysian_archon_thunder show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -1220,7 +1267,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_forge
-			add_trait = leader_trait_dionysian_archon_forge
+			add_trait = { trait = leader_trait_dionysian_archon_forge show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -1237,7 +1284,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_temptation
-			add_trait = leader_trait_dionysian_archon_temptation
+			add_trait = { trait = leader_trait_dionysian_archon_temptation show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -1250,7 +1297,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_order
-			add_trait = leader_trait_dionysian_archon_order
+			add_trait = { trait = leader_trait_dionysian_archon_order show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -1267,13 +1314,13 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_hatred
-			add_trait = leader_trait_dionysian_archon_hatred
+			add_trait = { trait = leader_trait_dionysian_archon_hatred show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
 			modifier = {
 				add = 1
-				NOT = { exists = event_target:dionysian_archon_watchers }
+				NOT = { exists = event_target:dionysian_archon_insight }
 			}
 			modifier = {
 				factor = 3
@@ -1283,9 +1330,9 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				factor = 2
 				leader_class = official
 			}
-			save_global_event_target_as = dionysian_archon_watchers
-			add_trait = leader_trait_dionysian_archon_watchers
-			set_leader_flag = dionysian_is_archon
+			save_global_event_target_as = dionysian_archon_insight
+			add_trait = { trait = leader_trait_dionysian_archon_insight show_message = yes } 
+			set_leader_flag = dionysian_is_archon 
 		}
 		0 = {
 			modifier = {
@@ -1301,7 +1348,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_nature
-			add_trait = leader_trait_dionysian_archon_nature
+			add_trait = { trait = leader_trait_dionysian_archon_nature show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -1318,13 +1365,13 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_foison
-			add_trait = leader_trait_dionysian_archon_foison
+			add_trait = { trait = leader_trait_dionysian_archon_foison show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
 			modifier = {
 				add = 1
-				NOT = { exists = event_target:dionysian_archon_fortune }
+				NOT = { exists = event_target:dionysian_archon_wealth }
 			}
 			modifier = {
 				factor = 2
@@ -1334,8 +1381,8 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				factor = 3
 				leader_class = official
 			}
-			save_global_event_target_as = dionysian_archon_fortune
-			add_trait = leader_trait_dionysian_archon_fortune
+			save_global_event_target_as = dionysian_archon_wealth
+			add_trait = { trait = leader_trait_dionysian_archon_wealth show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -1352,7 +1399,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = official
 			}
 			save_global_event_target_as = dionysian_archon_creation
-			add_trait = leader_trait_dionysian_archon_creation
+			add_trait = { trait = leader_trait_dionysian_archon_creation show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 		0 = {
@@ -1369,7 +1416,7 @@ dionysian_give_archon_trait_for_high_level_leader = {
 				leader_class = scientist
 			}
 			save_global_event_target_as = dionysian_archon_rifts
-			add_trait = leader_trait_dionysian_archon_rifts
+			add_trait = { trait = leader_trait_dionysian_archon_rifts show_message = yes } 
 			set_leader_flag = dionysian_is_archon
 		}
 	}	
@@ -1377,7 +1424,382 @@ dionysian_give_archon_trait_for_high_level_leader = {
 		limit = { has_leader_flag = dionysian_is_archon } 
 		remove_trait = leader_trait_dionysian_exarch
 		remove_leader_flag = dionysian_is_exarch
-		set_leader_flag = renowned_leader
+		set_leader_tier = leader_tier_renowned
 		dionysian_give_ascension_trait = yes
 	}
+}
+
+#remeber to add something like 3 = {} when all done
+dionysian_unlock_random_archon_event = {
+	optimize_memory
+	random_list = {
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_destiny
+				NOT = { has_country_flag = dionysian_unlocked_archon_destiny_event }
+				is_same_value = event_target:dionysian_archon_destiny.owner
+			}
+			set_country_flag = dionysian_unlocked_archon_destiny_event
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_dream
+				NOT = { has_country_flag = dionysian_unlocked_archon_dream_event }
+				is_same_value = event_target:dionysian_archon_dream.owner
+			}
+			set_country_flag = dionysian_unlocked_archon_dream_event
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_wisdom
+				NOT = { has_country_flag = dionysian_unlocked_archon_wisdom_event }
+				is_same_value = event_target:dionysian_archon_wisdom.owner
+			}
+			set_country_flag = dionysian_unlocked_archon_wisdom_event
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_frost
+				NOT = { has_country_flag = dionysian_unlocked_archon_frost_event }
+				is_same_value = event_target:dionysian_archon_frost.owner
+			}
+			set_country_flag = dionysian_unlocked_archon_frost_event
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_creation
+				NOT = { has_country_flag = dionysian_unlocked_archon_creation_event }
+				is_same_value = event_target:dionysian_archon_creation.owner
+			}
+			set_country_flag = dionysian_unlocked_archon_creation_event
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_time
+				NOT = { has_country_flag = dionysian_unlocked_archon_time_event }
+				is_same_value = event_target:dionysian_archon_time.owner
+			}
+			set_country_flag = dionysian_unlocked_archon_time_event
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_forge
+				NOT = { has_country_flag = dionysian_unlocked_archon_forge_event }
+				is_same_value = event_target:dionysian_archon_forge.owner
+			}
+			set_country_flag = dionysian_unlocked_archon_forge_event
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_order
+				NOT = { has_country_flag = dionysian_unlocked_archon_order_event }
+				is_same_value = event_target:dionysian_archon_order.owner
+			}
+			set_country_flag = dionysian_unlocked_archon_order_event
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_insight
+				NOT = { has_country_flag = dionysian_unlocked_archon_insight_event }
+				is_same_value = event_target:dionysian_archon_insight.owner
+			}
+			set_country_flag = dionysian_unlocked_archon_insight_event
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_nature
+				NOT = { has_country_flag = dionysian_unlocked_archon_nature_event }
+				is_same_value = event_target:dionysian_archon_nature.owner
+			}
+			set_country_flag = dionysian_unlocked_archon_nature_event
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_song
+				NOT = { has_country_flag = dionysian_unlocked_archon_song_event }
+				is_same_value = event_target:dionysian_archon_song.owner
+			}
+			set_country_flag = dionysian_unlocked_archon_song_event
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_light
+				NOT = { has_country_flag = dionysian_unlocked_archon_light_event }
+				is_same_value = event_target:dionysian_archon_light.owner
+			}
+			set_country_flag = dionysian_unlocked_archon_light_event
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_thunder
+				NOT = { has_country_flag = dionysian_unlocked_archon_thunder_event }
+				is_same_value = event_target:dionysian_archon_thunder.owner
+			}
+			set_country_flag = dionysian_unlocked_archon_thunder_event
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_hatred
+				NOT = { has_country_flag = dionysian_unlocked_archon_hatred_event }
+				is_same_value = event_target:dionysian_archon_hatred.owner
+			}
+			set_country_flag = dionysian_unlocked_archon_hatred_event
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_wealth
+				NOT = { has_country_flag = dionysian_unlocked_archon_wealth_event }
+				is_same_value = event_target:dionysian_archon_wealth.owner
+			}
+			set_country_flag = dionysian_unlocked_archon_wealth_event
+		}
+	}
+}
+
+dionysian_trigger_random_archon_event = {
+	optimize_memory
+	random_list = {
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_destiny
+				has_country_flag = dionysian_unlocked_archon_destiny_event
+				NOT = { has_country_flag = dionysian_triggered_archon_destiny_event }
+				is_same_value = event_target:dionysian_archon_destiny.owner
+			}
+			event_target:dionysian_archon_destiny = { leader_event = { id = dionysian_archon.100 } }
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_dream
+				has_country_flag = dionysian_unlocked_archon_dream_event
+				NOT = { has_country_flag = dionysian_triggered_archon_dream_event }
+				is_same_value = event_target:dionysian_archon_dream.owner
+			}
+			event_target:dionysian_archon_dream = { leader_event = { id = dionysian_archon.800 } }
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_wisdom
+				has_country_flag = dionysian_unlocked_archon_wisdom_event
+				NOT = { has_country_flag = dionysian_triggered_archon_wisdom_event }
+				is_same_value = event_target:dionysian_archon_wisdom.owner
+			}
+			event_target:dionysian_archon_wisdom = { leader_event = { id = dionysian_archon.1600 } }
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_frost
+				has_country_flag = dionysian_unlocked_archon_frost_event
+				NOT = { has_country_flag = dionysian_triggered_archon_frost_event }
+				is_same_value = event_target:dionysian_archon_frost.owner
+			}
+			event_target:dionysian_archon_frost = { leader_event = { id = dionysian_archon.1700 } }
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_creation
+				has_country_flag = dionysian_unlocked_archon_creation_event
+				NOT = { has_country_flag = dionysian_triggered_archon_creation_event }
+				is_same_value = event_target:dionysian_archon_creation.owner
+			}
+			event_target:dionysian_archon_creation = { leader_event = { id = dionysian_archon.2900 } }
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_time
+				has_country_flag = dionysian_unlocked_archon_time_event
+				NOT = { has_country_flag = dionysian_triggered_archon_time_event }
+				is_same_value = event_target:dionysian_archon_time.owner
+			}
+			event_target:dionysian_archon_time = { leader_event = { id = dionysian_archon.200 } }
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_forge
+				has_country_flag = dionysian_unlocked_archon_forge_event
+				NOT = { has_country_flag = dionysian_triggered_archon_forge_event }
+				is_same_value = event_target:dionysian_archon_forge.owner
+			}
+			event_target:dionysian_archon_forge = { leader_event = { id = dionysian_archon.2100 } }
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_order
+				has_country_flag = dionysian_unlocked_archon_order_event
+				NOT = { has_country_flag = dionysian_triggered_archon_order_event }
+				is_same_value = event_target:dionysian_archon_order.owner
+			}
+			event_target:dionysian_archon_order = { leader_event = { id = dionysian_archon.2300 } }
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_insight
+				has_country_flag = dionysian_unlocked_archon_insight_event
+				NOT = { has_country_flag = dionysian_triggered_archon_insight_event }
+				is_same_value = event_target:dionysian_archon_insight.owner
+			}
+			event_target:dionysian_archon_insight = { leader_event = { id = dionysian_archon.2500 } }
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_nature
+				has_country_flag = dionysian_unlocked_archon_nature_event
+				NOT = { has_country_flag = dionysian_triggered_archon_nature_event }
+				is_same_value = event_target:dionysian_archon_nature.owner
+			}
+			event_target:dionysian_archon_nature = { leader_event = { id = dionysian_archon.2600 } }
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_song
+				has_country_flag = dionysian_unlocked_archon_song_event
+				NOT = { has_country_flag = dionysian_triggered_archon_song_event }
+				is_same_value = event_target:dionysian_archon_song.owner
+			}
+			event_target:dionysian_archon_song = { leader_event = { id = dionysian_archon.1200 } }
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_light
+				has_country_flag = dionysian_unlocked_archon_light_event
+				NOT = { has_country_flag = dionysian_triggered_archon_light_event }
+				is_same_value = event_target:dionysian_archon_light.owner
+			}
+			event_target:dionysian_archon_light = { leader_event = { id = dionysian_archon.1900 } }
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_thunder
+				has_country_flag = dionysian_unlocked_archon_thunder_event
+				NOT = { has_country_flag = dionysian_triggered_archon_thunder_event }
+				is_same_value = event_target:dionysian_archon_thunder.owner
+			}
+			event_target:dionysian_archon_thunder = { leader_event = { id = dionysian_archon.2000 } }
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_hatred
+				has_country_flag = dionysian_unlocked_archon_hatred_event
+				NOT = { has_country_flag = dionysian_triggered_archon_hatred_event }
+				is_same_value = event_target:dionysian_archon_hatred.owner
+			}
+			event_target:dionysian_archon_hatred = { leader_event = { id = dionysian_archon.2400 } }
+		}
+		0 = {
+			modifier = {
+				add = 1
+				exists = event_target:dionysian_archon_wealth
+				has_country_flag = dionysian_unlocked_archon_wealth_event
+				NOT = { has_country_flag = dionysian_triggered_archon_wealth_event }
+				is_same_value = event_target:dionysian_archon_wealth.owner
+			}
+			event_target:dionysian_archon_wealth = { leader_event = { id = dionysian_archon.2800 } }
+		}
+	}
+}
+
+dionysian_refuse_archon_event = {
+	owner = { add_resource = { influence = 100 } }
+	custom_tooltip = dionysian_overlord_rise_tooltip
+	custom_tooltip = dionysian_archon_become_negative_tooltip
+	hidden_effect = {
+		owner = { ruler = { change_variable = { which = dionysian_overlord_reputation_level value = 5 } } }
+		random_list = {
+			50 = { add_trait = { trait = "random_negative"  show_message = yes } }
+			50 = {  }
+		}
+	}
+}
+
+dionysian_choose_3_random_planets_for_archon_event = {
+	save_event_target_as = dionysian_choosing_planet_archon
+	owner = {
+		random_owned_planet = {
+			limit = {
+				dionysian_is_available_colony_for_archon_event = yes
+				exists = leader
+				leader = { is_same_value = event_target:dionysian_choosing_planet_archon }
+			}
+			save_event_target_as = dionysian_archon_event_target_planet_a
+		}
+		if = {
+			limit = {
+				NOT = { exists = event_target:dionysian_archon_event_target_planet_a } 
+		 	}
+		 	random_owned_planet = {
+				limit = {
+					dionysian_is_available_colony_for_archon_event = yes
+					is_same_value = event_target:dionysian_choosing_planet_archon.background_planet
+				}
+				save_event_target_as = dionysian_archon_event_target_planet_a
+			}
+		}
+		if = {
+			limit = {
+				NOT = { exists = event_target:dionysian_archon_event_target_planet_a } 
+		 	}
+		 	random_owned_planet = {
+				limit = {
+					dionysian_is_available_colony_for_archon_event = yes
+					is_capital = no
+				}
+				save_event_target_as = dionysian_archon_event_target_planet_a
+			}
+		}
+		if = {
+			limit = {
+				NOT = { exists = event_target:dionysian_archon_event_target_planet_a } 
+		 	}
+		 	capital_scope = { save_event_target_as = dionysian_archon_event_target_planet_a }
+		}
+		random_owned_planet = {
+			limit = {
+				dionysian_is_available_colony_for_archon_event = yes
+				NOT = { is_same_value = event_target:dionysian_archon_event_target_planet_a }
+			}
+			save_event_target_as = dionysian_archon_event_target_planet_b
+		}
+		if = {
+			limit = {
+				exists = event_target:dionysian_archon_event_target_planet_b
+		 	}
+		 	random_owned_planet = {
+				limit = {
+					dionysian_is_available_colony_for_archon_event = yes
+					NOT = { is_same_value = event_target:dionysian_archon_event_target_planet_a }
+					NOT = { is_same_value = event_target:dionysian_archon_event_target_planet_b }
+				}
+				save_event_target_as = dionysian_archon_event_target_planet_c
+			}
+		}
+	}	
 }

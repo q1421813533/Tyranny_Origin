@@ -21,7 +21,13 @@ gov_dionysian_dictatorship = {
 	ruler_title_female = RT_DIONYSIAN_OVERLORD
 
 	possible = {
-		has_authority = auth_dictatorial
+		OR = {
+			has_authority = auth_dictatorial
+			AND = {
+				has_authority = auth_imperial
+				has_ethic = ethic_fanatic_authoritarian
+			}
+		}
 		has_origin = dionysian_origin
 	}
 

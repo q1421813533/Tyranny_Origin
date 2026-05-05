@@ -71,8 +71,8 @@ spriteTypes = {
 	}
 
 	spriteType = {
-		name = "GFX_text_job_dionysian_thaumaturge"
-		texturefile = "gfx/interface/icons/jobs/job_dionysian_thaumaturge.dds"
+		name = "GFX_text_job_dionysian_theurgist"
+		texturefile = "gfx/interface/icons/jobs/job_dionysian_theurgist.dds"
 	}
 
 	spriteType = {
@@ -94,6 +94,11 @@ spriteTypes = {
 		name = "GFX_dionysian_arcane_rise"
 		textureFile = "gfx/interface/icons/ascension_perks/dionysian_arcane_rise.dds"
 		alwaystransparent = yes
+	}
+
+	spriteType = {
+		name = "GFX_council_agenda_icon_dionysian_lift_residual_edicts"
+		texturefile = "gfx/interface/icons/agenda_icons/agenda_dionysian_lift_residual_edicts.dds"
 	}
 }
 

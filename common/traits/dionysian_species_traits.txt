@@ -1,8 +1,7 @@
 trait_dionysian_gene = {
 	cost = 0
-	potential_crossbreeding_chance = 0
 	icon = "gfx/interface/icons/dionysian_gene.dds"
-	sorting_priority = 29
+	sorting_priority = 19
 	initial = no
 	randomized = no
 	species_potential_add = {
@@ -15,10 +14,11 @@ trait_dionysian_gene = {
 		always = no
 	}
 	allowed_archetypes = { BIOLOGICAL LITHOID ROBOT MACHINE }
+	tags = { positive pop_output }
 
 	modifier = {
 		species_leader_exp_gain = 0.1
-		planet_jobs_ruler_produces_mult = 0.1
+		pop_cat_ruler_bonus_workforce_mult = 0.1
 	}
 	custom_tooltip_with_modifiers = trait_dionysian_gene_tooltip
 
@@ -39,7 +39,6 @@ trait_dionysian_gene = {
 
 trait_dionysian_beast = {
 	cost = 2
-	potential_crossbreeding_chance = 0
 	icon = "gfx/interface/icons/trait_dionysian_beast.dds"
 	sorting_priority = 28
 	initial = no
@@ -48,15 +47,22 @@ trait_dionysian_beast = {
 		always = no
 	}
 	species_possible_remove = {
-		always = no
+		OR = {
+			can_remove_beneficial_genetic_traits = yes
+			can_remove_vocational_genetic_traits = yes
+		}
 	}
 	species_possible_merge_add = {
-		always = no
+		always = yes
+	}
+	species_possible_merge_remove = {
+		always = yes
 	}
 	allowed_archetypes = { BIOLOGICAL LITHOID }
+	tags = { organic positive pop_output army }
 
 	modifier = {
-		planet_jobs_worker_produces_mult = 0.1
+		planet_jobs_worker_produces_mult = 0.1 
 		army_health = 0.1
 		army_damage_mult = 0.1
 		army_morale_damage_taken_mult = -0.2

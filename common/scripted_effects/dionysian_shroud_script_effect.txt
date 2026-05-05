@@ -1,0 +1,91 @@
+dionysian_overlord_aura_max_intensity_effect = {
+	aura_owner = {
+		add_resource = { menace = 10 }
+	}
+	create_message = {
+		type = MESSAGE_PSIONIC_AURA_dionysian_the_overlord_in_shroud
+		localization = MESSAGE_PSIONIC_AURA_MAX_INTENSITY_dionysian_the_overlord_in_shroud_DESC
+		days = 30
+		variable = {
+			type = name
+			localization = SYSTEM
+			scope = this
+		}
+	}	
+}
+
+dionysian_on_overlord_aura_spawned = {
+	aura_owner = { set_visited = prev }
+	clear_psionic_aura_visuals = yes # Visual cleanup
+	spawn_psionic_aura_object = {
+		TYPE = end_aura
+		LEVEL = 1
+	}
+	[[!NO_IMMUNE]
+		set_timed_star_flag = {
+			flag = newly_spawned_psionic_aura
+			months = 6
+		}
+	]
+}
+
+dionysian_add_overlord_aura_level_visual = {
+	switch = {
+		trigger = is_aura_intensity_level
+		2 = {
+			if = {
+				limit = {
+					NOT = {
+						any_system_ambient_object = {
+							has_ambient_object_flag = psionic_aura_level2_entity
+						}
+					}
+				}
+				spawn_psionic_aura_object = {
+					TYPE = end_aura
+					LEVEL = 2
+				}
+			}
+		}
+		3 = {
+			if = {
+				limit = {
+					NOT = {
+						any_system_ambient_object = {
+							has_ambient_object_flag = psionic_aura_level3_entity
+						}
+					}
+				}
+				spawn_psionic_aura_object = {
+					TYPE = end_aura
+					LEVEL = 3
+				}
+			}
+		}
+	}
+}
+
+dionysian_update_overlord_aura_visuals = {
+	clear_psionic_aura_visuals = yes
+	if = {
+		limit = { is_aura_intensity_level >= 1 }
+		spawn_psionic_aura_object = {
+			TYPE = end_aura
+			LEVEL = 1
+		}
+	}
+	if = {
+		limit = { is_aura_intensity_level >= 2 }
+		spawn_psionic_aura_object = {
+			TYPE = end_aura
+			LEVEL = 2
+		}
+	}
+	if = {
+		limit = { is_aura_intensity_level >= 3 }
+		spawn_psionic_aura_object = {
+			TYPE = end_aura
+			LEVEL = 3
+		}
+	}
+}

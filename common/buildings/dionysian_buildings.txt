@@ -3,12 +3,18 @@ building_dionysian_overlord_sanctum = {
 
 	category = government
 
+	building_sets = {
+		government
+		unity
+	}
+
 	empire_limit = {
 		base = 1
 	}
 
 	potential = {
 		host_has_dlc = "Utopia"
+		exists = owner
 		owner = { 
 			has_origin = dionysian_origin
 			has_country_flag = dionsyian_allowed_sanctum 
@@ -31,11 +37,11 @@ building_dionysian_overlord_sanctum = {
 	}
 
 	planet_modifier = {
-		job_telepath_add = 3
+		job_telepath_add = 300
 	}
 
 	country_modifier = {
-		country_influence_produces_mult = 0.2
+		planet_jobs_ruler_produces_mult = 0.20
 		empire_size_mult = -0.05
 	}
 
@@ -43,11 +49,11 @@ building_dionysian_overlord_sanctum = {
 		category = planet_buildings
 		cost = {
 			minerals = @b3_minerals
-			exotic_gases = @b3_rare_cost
+			sr_zro = @b2_rare_cost
 		}
 		upkeep = {
 			energy = @b3_upkeep
-			exotic_gases = @b3_rare_upkeep
+			sr_zro = @b2_rare_upkeep
 		}
 	}
 
@@ -60,14 +66,24 @@ building_dionysian_mystic_palace = {
 
 	base_buildtime = @b2_time
 	icon = building_dionysian_mystic_palace
-	base_cap_amount = 1
+	planet_limit = 1
 
 	category = research
 
+	building_sets = {
+		research
+	}
+
 	potential = {
+		NOR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = penal_colony
+		}
 		exists = owner
+		owner = { is_regular_empire = yes }
 		planet = {
-			or = {
+			OR = {
 				has_building = building_dionysian_mystic_palace
 				owner = { is_ai = no }
 			}
@@ -81,6 +97,12 @@ building_dionysian_mystic_palace = {
 
 	destroy_trigger = {
 		exists = owner
+		OR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = penal_colony
+			owner = { is_regular_empire = no }
+		}
 		NOT = {
 			owner = { has_civic = civic_dionysian_mage_guild }
 		}
@@ -90,28 +112,28 @@ building_dionysian_mystic_palace = {
 		potential = {
 			planet = { has_building = building_capital }
 		}
-		job_dionysian_arcanist_add = 1
+		job_dionysian_arcanist_add = 100
 	}
 
 	triggered_planet_modifier = {
 		potential = {
 			planet = { has_building = building_major_capital }
 		}
-		job_dionysian_arcanist_add = 2
+		job_dionysian_arcanist_add = 200
 	}
 
 	triggered_planet_modifier = {
 		potential = {
 			planet = { has_building = building_system_capital }
 		}
-		job_dionysian_arcanist_add = 3
+		job_dionysian_arcanist_add = 300
 	}
 
 	triggered_planet_modifier = {
 		potential = {
 			planet = { has_building = building_imperial_capital }
 		}
-		job_dionysian_arcanist_add = 4
+		job_dionysian_arcanist_add = 400
 	}
 
 	resources = {
@@ -134,14 +156,24 @@ building_dionysian_guild_of_enchanters = {
 
 	base_buildtime = @b1_time
 	icon = building_dionysian_guild_of_enchanters
-	base_cap_amount = 1
+	planet_limit = 1
 
 	category = research
 
+	building_sets = {
+		research
+	}
+
 	potential = {
+		NOR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = penal_colony
+		}
 		exists = owner
+		owner = { is_regular_empire = yes }
 		planet = {
-			or = {
+			OR = {
 				has_building = building_dionysian_guild_of_enchanters
 				owner = { is_ai = no }
 			}
@@ -151,17 +183,24 @@ building_dionysian_guild_of_enchanters = {
 
 	destroy_trigger = {
 		exists = owner
+		OR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = penal_colony
+			owner = { is_regular_empire = no }
+		}
 		NOT = {
 			owner = { has_civic = civic_dionysian_mage_guild }
 		}
 	}
 
 	planet_modifier = {
-		job_dionysian_enchanter_add = 2
+		job_dionysian_enchanter_add = 200
 	}
 
 	triggered_planet_modifier = {
 		potential = {
+			exists = owner
 			owner = { has_ascension_perk = dionysian_arcane_rise }
 		}
 		job_dionysian_enchanter_per_pop = 0.05
@@ -197,26 +236,41 @@ building_dionysian_academy_of_enchanters = {
 
 	category = research
 
+	building_sets = {
+		research
+	}
+
 	allow = {
 		has_upgraded_capital = yes
 	}
 
 	destroy_trigger = {
 		exists = owner
+		OR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = penal_colony
+			owner = { is_regular_empire = no }
+		}
 		NOT = {
 			owner = { has_civic = civic_dionysian_mage_guild }
 		}
 	}
 
 	planet_modifier = {
-		job_dionysian_enchanter_add = 4
+		job_dionysian_enchanter_add = 400
 	}
 
 	triggered_planet_modifier = {
 		potential = {
+			exists = owner
 			owner = { has_ascension_perk = dionysian_arcane_rise }
 		}
 		job_dionysian_enchanter_per_pop = 0.05
+	}
+
+	triggered_desc = {
+		text = building_dionysian_academy_of_enchanters_tooltip
 	}
 
 	triggered_desc = {
@@ -231,12 +285,15 @@ building_dionysian_academy_of_enchanters = {
 		}
 		upkeep = {
 			energy = @b2_upkeep
-			exotic_gases = @b2_rare_upkeep
 		}
 	}
 
 	prerequisites = {
 		"tech_global_research_initiative"
+	}
+
+	show_tech_unlock_if = {
+		has_origin = dionysian_origin
 	}
 
 }
@@ -246,12 +303,22 @@ building_dionysian_guild_of_warlocks = {
 
 	base_buildtime = @b1_time
 	icon = building_dionysian_guild_of_warlocks
-	base_cap_amount = 1
+	planet_limit = 1
 
 	category = research
 
+	building_sets = {
+		research
+	}
+
 	potential = {
+		NOR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = penal_colony
+		}
 		exists = owner
+		owner = { is_regular_empire = yes }
 		planet = {
 			or = {
 				has_building = building_dionysian_guild_of_warlocks
@@ -263,17 +330,24 @@ building_dionysian_guild_of_warlocks = {
 
 	destroy_trigger = {
 		exists = owner
+		OR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = penal_colony
+			owner = { is_regular_empire = no }
+		}
 		NOT = {
 			owner = { has_civic = civic_dionysian_mage_guild }
 		}
 	}
 
 	planet_modifier = {
-		job_dionysian_warlock_add = 2
+		job_dionysian_warlock_add = 200
 	}
 
 	triggered_planet_modifier = {
 		potential = {
+			exists = owner
 			owner = { has_ascension_perk = dionysian_arcane_rise }
 		}
 		job_dionysian_warlock_per_pop = 0.05
@@ -307,27 +381,43 @@ building_dionysian_academy_of_warlocks = {
 
 	category = research
 
+	building_sets = {
+		research
+	}
+
 	allow = {
 		has_upgraded_capital = yes
 	}
 
 	destroy_trigger = {
 		exists = owner
+		OR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = penal_colony
+			owner = { is_regular_empire = no }
+		}
 		NOT = {
 			owner = { has_civic = civic_dionysian_mage_guild }
 		}
 	}
 
 	planet_modifier = {
-		job_dionysian_warlock_add = 4
+		job_dionysian_warlock_add = 400
 	}
 
 	triggered_planet_modifier = {
 		potential = {
+			exists = owner
 			owner = { has_ascension_perk = dionysian_arcane_rise }
 		}
 		job_dionysian_warlock_per_pop = 0.05
 	}
+
+	triggered_desc = {
+		text = building_dionysian_academy_of_warlocks_tooltip
+	}
+
 
 	triggered_desc = {
 		text = job_dionysian_warlock_effect_desc
@@ -341,12 +431,15 @@ building_dionysian_academy_of_warlocks = {
 		}
 		upkeep = {
 			energy = @b2_upkeep
-			rare_crystals = @b2_rare_upkeep
 		}
 	}
 
 	prerequisites = {
 		"tech_global_research_initiative"
+	}
+
+	show_tech_unlock_if = {
+		has_origin = dionysian_origin
 	}
 
 }
@@ -357,12 +450,22 @@ building_dionysian_guild_of_alchemists = {
 
 	base_buildtime = @b1_time
 	icon = building_dionysian_guild_of_alchemists
-	base_cap_amount = 1
+	planet_limit = 1
 
 	category = research
 
+	building_sets = {
+		research
+	}
+
 	potential = {
+		NOR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = penal_colony
+		}
 		exists = owner
+		owner = { is_regular_empire = yes }
 		planet = {
 			or = {
 				has_building = building_dionysian_guild_of_alchemists
@@ -374,17 +477,24 @@ building_dionysian_guild_of_alchemists = {
 
 	destroy_trigger = {
 		exists = owner
+		OR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = penal_colony
+			owner = { is_regular_empire = no }
+		}
 		NOT = {
 			owner = { has_civic = civic_dionysian_mage_guild }
 		}
 	}
 
 	planet_modifier = {
-		job_dionysian_alchemist_add = 2
+		job_dionysian_alchemist_add = 200
 	}
 
 	triggered_planet_modifier = {
 		potential = {
+			exists = owner
 			owner = { has_ascension_perk = dionysian_arcane_rise }
 		}
 		job_dionysian_alchemist_per_pop = 0.05
@@ -419,26 +529,41 @@ building_dionysian_academy_of_alchemists = {
 
 	category = research
 
+	building_sets = {
+		research
+	}
+
 	allow = {
 		has_upgraded_capital = yes
 	}
 
 	destroy_trigger = {
 		exists = owner
+		OR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = penal_colony
+			owner = { is_regular_empire = no }
+		}
 		NOT = {
 			owner = { has_civic = civic_dionysian_mage_guild }
 		}
 	}
 
 	planet_modifier = {
-		job_dionysian_alchemist_add = 4
+		job_dionysian_alchemist_add = 400
 	}
 
 	triggered_planet_modifier = {
 		potential = {
+			exists = owner
 			owner = { has_ascension_perk = dionysian_arcane_rise }
 		}
 		job_dionysian_alchemist_per_pop = 0.05
+	}
+
+	triggered_desc = {
+		text = building_dionysian_academy_of_alchemists_tooltip
 	}
 
 	triggered_desc = {
@@ -453,7 +578,6 @@ building_dionysian_academy_of_alchemists = {
 		}
 		upkeep = {
 			energy = @b2_upkeep
-			volatile_motes = @b2_rare_upkeep
 		}
 	}
 
@@ -461,23 +585,37 @@ building_dionysian_academy_of_alchemists = {
 		"tech_global_research_initiative"
 	}
 
+	show_tech_unlock_if = {
+		has_origin = dionysian_origin
+	}
+
 }
 
 
 
-building_dionysian_guild_of_thaumaturges = {
+building_dionysian_guild_of_theurgists = {
 
 	base_buildtime = @b1_time
-	icon = building_dionysian_guild_of_thaumaturges
-	base_cap_amount = 1
+	icon = building_dionysian_guild_of_theurgists
+	planet_limit = 1
 
 	category = research
 
+	building_sets = {
+		research
+	}
+
 	potential = {
+		NOR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = penal_colony
+		}
 		exists = owner
+		owner = { is_regular_empire = yes }
 		planet = {
 			or = {
-				has_building = building_dionysian_guild_of_thaumaturges
+				has_building = building_dionysian_guild_of_theurgists
 				owner = { is_ai = no }
 			}
 		}
@@ -486,25 +624,31 @@ building_dionysian_guild_of_thaumaturges = {
 
 	destroy_trigger = {
 		exists = owner
+		OR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = penal_colony
+			owner = { is_regular_empire = no }
+		}
 		NOT = {
 			owner = { has_civic = civic_dionysian_mage_guild }
 		}
 	}
 
 	planet_modifier = {
-		job_dionysian_thaumaturge_add = 2
+		job_dionysian_theurgist_add = 200
 	}
 
 	triggered_planet_modifier = {
 		potential = {
+			exists = owner
 			owner = { has_ascension_perk = dionysian_arcane_rise }
 		}
-		job_dionysian_thaumaturge_per_pop = 0.05
+		job_dionysian_theurgist_per_pop = 0.05
 	}
 
-
 	triggered_desc = {
-		text = job_dionysian_thaumaturge_effect_desc
+		text = job_dionysian_theurgist_effect_desc
 	}
 
 
@@ -519,18 +663,22 @@ building_dionysian_guild_of_thaumaturges = {
 	}
 
 	upgrades = {
-		"building_dionysian_academy_of_thaumaturges"
+		"building_dionysian_academy_of_theurgists"
 	}
 
 }
 
-building_dionysian_academy_of_thaumaturges = {
+building_dionysian_academy_of_theurgists = {
 
 	base_buildtime = @b2_time
-	icon = building_dionysian_academy_of_thaumaturges
+	icon = building_dionysian_academy_of_theurgists
 	can_build = no
 
 	category = research
+
+	building_sets = {
+		research
+	}
 
 	allow = {
 		has_upgraded_capital = yes
@@ -538,24 +686,35 @@ building_dionysian_academy_of_thaumaturges = {
 
 	destroy_trigger = {
 		exists = owner
+		OR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = penal_colony
+			owner = { is_regular_empire = no }
+		}
 		NOT = {
 			owner = { has_civic = civic_dionysian_mage_guild }
 		}
 	}
 
 	planet_modifier = {
-		job_dionysian_thaumaturge_add = 4
+		job_dionysian_theurgist_add = 400
 	}
 
 	triggered_planet_modifier = {
 		potential = {
+			exists = owner
 			owner = { has_ascension_perk = dionysian_arcane_rise }
 		}
-		job_dionysian_thaumaturge_per_pop = 0.05
+		job_dionysian_theurgist_per_pop = 0.05
 	}
 
 	triggered_desc = {
-		text = job_dionysian_thaumaturge_effect_desc
+		text = building_dionysian_academy_of_theurgists_tooltip
+	}
+
+	triggered_desc = {
+		text = job_dionysian_theurgist_effect_desc
 	}
 
 	resources = {
@@ -566,12 +725,15 @@ building_dionysian_academy_of_thaumaturges = {
 		}
 		upkeep = {
 			energy = @b2_upkeep
-			rare_crystals = @b2_rare_upkeep
 		}
 	}
 
 	prerequisites = {
 		"tech_global_research_initiative"
+	}
+
+	show_tech_unlock_if = {
+		has_origin = dionysian_origin
 	}
 
 }
@@ -580,12 +742,22 @@ building_dionysian_guild_of_shamans = {
 
 	base_buildtime = @b1_time
 	icon = building_dionysian_guild_of_shamans
-	base_cap_amount = 1
+	planet_limit = 1
 
 	category = research
 
+	building_sets = {
+		research
+	}
+
 	potential = {
+		NOR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = penal_colony
+		}
 		exists = owner
+		owner = { is_regular_empire = yes }
 		planet = {
 			or = {
 				has_building = building_dionysian_guild_of_shamans
@@ -597,17 +769,24 @@ building_dionysian_guild_of_shamans = {
 
 	destroy_trigger = {
 		exists = owner
+		OR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = penal_colony
+			owner = { is_regular_empire = no }
+		}
 		NOT = {
 			owner = { has_civic = civic_dionysian_mage_guild }
 		}
 	}
 
 	planet_modifier = {
-		job_dionysian_shaman_add = 2
+		job_dionysian_shaman_add = 200
 	}
 
 	triggered_planet_modifier = {
 		potential = {
+			exists = owner
 			owner = { has_ascension_perk = dionysian_arcane_rise }
 		}
 		job_dionysian_shaman_per_pop = 0.05
@@ -641,26 +820,41 @@ building_dionysian_academy_of_shamans = {
 
 	category = research
 
+	building_sets = {
+		research
+	}
+
 	allow = {
 		has_upgraded_capital = yes
 	}
 
 	destroy_trigger = {
 		exists = owner
+		OR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = penal_colony
+			owner = { is_regular_empire = no }
+		}
 		NOT = {
 			owner = { has_civic = civic_dionysian_mage_guild }
 		}
 	}
 
 	planet_modifier = {
-		job_dionysian_shaman_add = 4
+		job_dionysian_shaman_add = 400
 	}
 
 	triggered_planet_modifier = {
 		potential = {
+			exists = owner
 			owner = { has_ascension_perk = dionysian_arcane_rise }
 		}
 		job_dionysian_shaman_per_pop = 0.05
+	}
+
+	triggered_desc = {
+		text = building_dionysian_academy_of_shamans_tooltip
 	}
 
 	triggered_desc = {
@@ -675,12 +869,15 @@ building_dionysian_academy_of_shamans = {
 		}
 		upkeep = {
 			energy = @b2_upkeep
-			exotic_gases = @b2_rare_upkeep
 		}
 	}
 
 	prerequisites = {
 		"tech_global_research_initiative"
+	}
+
+	show_tech_unlock_if = {
+		has_origin = dionysian_origin
 	}
 
 }

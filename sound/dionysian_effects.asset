@@ -115,8 +115,6 @@ soundeffect = {
 	max_audible_behaviour = fail	
 }
 
-
-
 soundeffect = {
 	name = dionysian_edict_click_nightfall
 	sounds = {
@@ -125,4 +123,28 @@ soundeffect = {
 	volume = 0.5
 	max_audible = 1
 	max_audible_behaviour = fail	
+}
+
+soundeffect = {
+	name = dionysian_archon_rise
+	sounds = {
+		sound = dionysian_archon_rise
+	} 
+	volume = 1.0
+	loop = no
+	is3d = no
+	random_sound_when_looping = no
+	prevent_random_repetition = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+
+soundeffect = {
+	name = message_notification_dionysian_the_overlord_in_shroud
+	sounds = {
+		sound = message_notification_dionysian_the_overlord_in_shroud
+	} 
+	volume = 0.4
+	max_audible = 1
+	max_audible_behaviour = fail
 }

@@ -1,8 +1,14 @@
 dionysian_arcanist = {
 	category = ruler
-	condition_string = RULER_JOB_TRIGGER
-	building_icon = building_dionysian_mystic_palace
-	clothes_texture_index = 1
+
+	swappable_data = {
+		default = {
+			condition_string = RULER_JOB_TRIGGER
+			building_icon = building_dionysian_mystic_palace
+		}
+	}
+
+	tags = { research }
 
 	possible_pre_triggers = {
 		has_owner = yes
@@ -15,7 +21,7 @@ dionysian_arcanist = {
 	possible_precalc = can_fill_ruler_job
 
 	resources = {
-		category = planet_researchers
+		category = planet_politicians
 		produces = {
 			physics_research = 4
 			engineering_research = 4
@@ -54,21 +60,16 @@ dionysian_arcanist = {
 
 	weight = {
 		weight = @ruler_job_weight
-		mult = value:job_weights_research_modifier|JOB|head_researcher|
-		mult = value:job_weights_modifier|JOB|head_researcher|RESOURCE|unity|FACTOR|0.25|
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
 		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
 		modifier = {
-			factor = 0.2
+			factor = 0.1
 			has_citizenship_rights = no
 			NOT = { has_trait = trait_mechanical }
 		}
 		modifier = {
 			factor = 2
 			has_living_standard = { type = living_standard_academic_privilege }
-		}
-		modifier = {
-			factor = 5
-			has_job = dionysian_arcanist
 		}
 		modifier = {
 			factor = 0.01
@@ -81,20 +82,32 @@ dionysian_arcanist = {
 				}
 			}
 		}
-		modifier = {
-			factor = 5
-			has_trait = trait_cyborg_creed_of_research
-		}
 	}
 
 	inline_script = "jobs/automodding_priority_research"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				CATEGORY = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
 }
 
 dionysian_enchanter = {
 	category = specialist
-	condition_string = SPECIALIST_JOB_TRIGGER
-	building_icon = building_dionysian_academy_of_enchanters
-	clothes_texture_index = 3
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_dionysian_academy_of_enchanters
+		}
+	}
+
+	tags = { research amenities }
 
 	possible_pre_triggers = {
 		has_owner = yes
@@ -110,11 +123,11 @@ dionysian_enchanter = {
 	}
 
 	resources = {
-		category = planet_researchers
+		category = planet_entertainers
 		produces = {
-			physics_research = 3
-			engineering_research = 3
-			society_research = 3
+			physics_research = 2
+			engineering_research = 2
+			society_research = 2
 		}
 		upkeep = {
 			consumer_goods = 2.5
@@ -128,14 +141,36 @@ dionysian_enchanter = {
 			}
 			minor_artifacts = 0.2
 		}
+		produces = {
+			trigger = {
+				planet = { has_building = building_dionysian_academy_of_enchanters }
+			}
+			physics_research = 1
+			engineering_research = 1
+			society_research = 1
+		}
+		upkeep = {
+			trigger = {
+				planet = { has_building = building_dionysian_academy_of_enchanters }
+			}
+			consumer_goods = 3
+		}
 	}
 
 
 	triggered_planet_modifier = {
 		potential = {
-			always = yes
+			NOT = { planet = { has_building = building_dionysian_academy_of_enchanters } }
 		}
-		planet_amenities_add = 4
+		planet_amenities_add = 800
+		mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			planet = { has_building = building_dionysian_academy_of_enchanters }
+		}
+		planet_amenities_add = 1200
 		mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|
 	}
 
@@ -147,45 +182,57 @@ dionysian_enchanter = {
 		pop_happiness = 0.025
 	}
 
+
 	weight = {
-		weight = @specialist_job_weight
-		mult = value:job_weights_research_modifier|JOB|researcher|
+		weight = @high_prio_specialist_job_weight
+		mult = value:job_weights_modifier|JOB|entertainer|RESOURCE|unity|FACTOR|0.25|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
 		modifier = {
 			factor = 0.2
 			has_citizenship_rights = no
 			NOT = { has_trait = trait_mechanical }
 		}
 		modifier = {
-			factor = 2
-			has_living_standard = { type = living_standard_academic_privilege }
+			factor = 3
+			has_trait = trait_robot_domestic_protocols
+			OR = {
+				is_non_sapient_robot = yes
+				is_shackled_robot = yes
+			}
 		}
 		modifier = {
 			factor = 0.1
-			can_take_servant_job = yes
+			is_domestic_servant = yes
 		}
 		modifier = {
-			factor = 1.5
-			has_job = dionysian_enchanter
-		}
-		modifier = {
-			factor = 0.8
-			is_enslaved = yes
-			has_slavery_type = { type = slavery_indentured }
-		}
-		modifier = {
-			factor = 5
-			has_trait = trait_cyborg_creed_of_research
+			factor = 50
 		}
 	}
 
-	inline_script = "jobs/automodding_priority_research"
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				CATEGORY = specialist
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
 }
 
 dionysian_warlock = {
 	category = specialist
-	condition_string = SPECIALIST_JOB_TRIGGER
-	building_icon = building_dionysian_academy_of_warlocks
-	clothes_texture_index = 3
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_dionysian_academy_of_warlocks
+		}
+	}
+
+	tags = { research unity }
 
 	possible_pre_triggers = {
 		has_owner = yes
@@ -201,12 +248,12 @@ dionysian_warlock = {
 	}
 
 	resources = {
-		category = planet_researchers
+		category = planet_bureaucrats
 		produces = {
-			physics_research = 3
-			engineering_research = 3
-			society_research = 3
-			unity = 1
+			physics_research = 2
+			engineering_research = 2
+			society_research = 2
+			unity = 2
 		}
 		upkeep = {
 			consumer_goods = 2.5
@@ -220,6 +267,21 @@ dionysian_warlock = {
 			}
 			astral_threads = 0.2
 		}
+		produces = {
+			trigger = {
+				planet = { has_building = building_dionysian_academy_of_warlocks }
+			}
+			physics_research = 1
+			engineering_research = 1
+			society_research = 1
+			unity = 1
+		}
+		upkeep = {
+			trigger = {
+				planet = { has_building = building_dionysian_academy_of_warlocks }
+			}
+			consumer_goods = 3
+		}
 	}
 
 	triggered_planet_modifier = {
@@ -232,7 +294,8 @@ dionysian_warlock = {
 
 	weight = {
 		weight = @specialist_job_weight
-		mult = value:job_weights_research_modifier|JOB|researcher|
+		mult = value:job_weights_modifier|JOB|bureaucrat|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
 		modifier = {
 			factor = 0.2
 			has_citizenship_rights = no
@@ -240,36 +303,46 @@ dionysian_warlock = {
 		}
 		modifier = {
 			factor = 2
-			has_living_standard = { type = living_standard_academic_privilege }
+			exists = owner
+			owner = { has_civic = civic_exalted_priesthood }
 		}
 		modifier = {
 			factor = 0.1
 			can_take_servant_job = yes
 		}
 		modifier = {
-			factor = 1.5
-			has_job = dionysian_warlock
-		}
-		modifier = {
-			factor = 0.8
+			factor = 0.1
 			is_enslaved = yes
 			has_slavery_type = { type = slavery_indentured }
 		}
-		modifier = {
-			factor = 5
-			has_trait = trait_cyborg_creed_of_research
-		}
 	}
 
-	inline_script = "jobs/automodding_priority_research"
+	inline_script = "jobs/automodding_priority_unity"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				CATEGORY = specialist
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
 }
 
 
 dionysian_alchemist = {
 	category = specialist
-	condition_string = SPECIALIST_JOB_TRIGGER
-	building_icon = building_dionysian_academy_of_alchemists
-	clothes_texture_index = 3
+
+	tags = { research }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_dionysian_academy_of_alchemists
+		}
+	}
+
 
 	possible_pre_triggers = {
 		has_owner = yes
@@ -285,94 +358,11 @@ dionysian_alchemist = {
 	}
 
 	resources = {
-		category = planet_researchers
+		category = planet_engineers
 		produces = {
-			physics_research = 3
-			engineering_research = 4
-			society_research = 3
-		}
-		upkeep = {
-			consumer_goods = 2.5
-		}
-		produces = {
-			trigger = {
-				owner = {
-					has_ascension_perk = dionysian_arcane_rise
-					has_technology = tech_mine_volatile_motes
-				}
-			}
-			volatile_motes = 0.2
-		}
-	}
-
-	triggered_planet_modifier = {
-		potential = {
-			always = yes
-		}
-		planet_jobs_minerals_produces_mult = 0.05
-		planet_jobs_consumer_goods_produces_mult = 0.05
-		trade_value_mult = 0.05
-	}
-
-	weight = {
-		weight = @specialist_job_weight
-		mult = value:job_weights_research_modifier|JOB|researcher|
-		modifier = {
-			factor = 0.2
-			has_citizenship_rights = no
-			NOT = { has_trait = trait_mechanical }
-		}
-		modifier = {
-			factor = 2
-			has_living_standard = { type = living_standard_academic_privilege }
-		}
-		modifier = {
-			factor = 0.1
-			can_take_servant_job = yes
-		}
-		modifier = {
-			factor = 1.5
-			has_job = dionysian_alchemist
-		}
-		modifier = {
-			factor = 0.8
-			is_enslaved = yes
-			has_slavery_type = { type = slavery_indentured }
-		}
-		modifier = {
-			factor = 5
-			has_trait = trait_cyborg_creed_of_research
-		}
-	}
-
-	inline_script = "jobs/automodding_priority_research"
-}
-
-dionysian_thaumaturge = {
-	category = specialist
-	condition_string = SPECIALIST_JOB_TRIGGER
-	building_icon = building_dionysian_academy_of_thaumaturges
-	clothes_texture_index = 3
-
-	possible_pre_triggers = {
-		has_owner = yes
-		is_being_purged = no
-		is_being_assimilated = no
-		is_sapient = yes
-	}
-
-	possible_precalc = can_fill_specialist_job
-
-	possible = {
-		complex_specialist_job_check_trigger = yes
-	}
-
-	resources = {
-		category = planet_researchers
-		produces = {
-			physics_research = 4
-			engineering_research = 3
-			society_research = 3
+			physics_research = 1
+			engineering_research = 5
+			society_research = 1
 		}
 		upkeep = {
 			consumer_goods = 2.5
@@ -386,21 +376,32 @@ dionysian_thaumaturge = {
 			}
 			rare_crystals = 0.2
 		}
+		produces = {
+			trigger = {
+				planet = { has_building = building_dionysian_academy_of_alchemists }
+			}
+			engineering_research = 2
+		}
+		upkeep = {
+			trigger = {
+				planet = { has_building = building_dionysian_academy_of_alchemists }
+			}
+			consumer_goods = 1
+		}
 	}
 
 	triggered_planet_modifier = {
 		potential = {
 			always = yes
 		}
-		planet_jobs_energy_produces_mult = 0.05
-		planet_jobs_alloys_produces_mult = 0.05
-		planet_buildings_upkeep_mult = -0.025
-		planet_districts_upkeep_mult = -0.025
+		planet_jobs_minerals_produces_mult = 0.05
+		planet_jobs_consumer_goods_produces_mult = 0.05
+		planet_jobs_trade_produces_mult = 0.05
 	}
 
 	weight = {
 		weight = @specialist_job_weight
-		mult = value:job_weights_research_modifier|JOB|researcher|
+		mult = value:job_weights_modifier|JOB|engineer|RESOURCE|engineering_research|
 		modifier = {
 			factor = 0.2
 			has_citizenship_rights = no
@@ -415,28 +416,38 @@ dionysian_thaumaturge = {
 			can_take_servant_job = yes
 		}
 		modifier = {
-			factor = 1.5
-			has_job = dionysian_thaumaturge
-		}
-		modifier = {
 			factor = 0.8
 			is_enslaved = yes
 			has_slavery_type = { type = slavery_indentured }
 		}
-		modifier = {
-			factor = 5
-			has_trait = trait_cyborg_creed_of_research
-		}
+
 	}
 
 	inline_script = "jobs/automodding_priority_research"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				CATEGORY = specialist
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
 }
 
-dionysian_shaman = {
+dionysian_theurgist = {
 	category = specialist
-	condition_string = SPECIALIST_JOB_TRIGGER
-	building_icon = building_dionysian_academy_of_shamans
-	clothes_texture_index = 3
+
+	tags = { research }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_dionysian_academy_of_theurgists
+		}
+	}
+
 
 	possible_pre_triggers = {
 		has_owner = yes
@@ -452,11 +463,11 @@ dionysian_shaman = {
 	}
 
 	resources = {
-		category = planet_researchers
+		category = planet_physicists
 		produces = {
-			physics_research = 3
-			engineering_research = 3
-			society_research = 4
+			physics_research = 5
+			engineering_research = 1
+			society_research = 1
 		}
 		upkeep = {
 			consumer_goods = 2.5
@@ -465,10 +476,22 @@ dionysian_shaman = {
 			trigger = {
 				owner = {
 					has_ascension_perk = dionysian_arcane_rise
-					has_technology = tech_mine_exotic_gases
+					has_technology = tech_mine_volatile_motes
 				}
 			}
-			exotic_gases = 0.2
+			volatile_motes = 0.2
+		}
+		produces = {
+			trigger = {
+				planet = { has_building = building_dionysian_academy_of_theurgists }
+			}
+			physics_research = 2
+		}
+		upkeep = {
+			trigger = {
+				planet = { has_building = building_dionysian_academy_of_theurgists }
+			}
+			consumer_goods = 1
 		}
 	}
 
@@ -476,13 +499,15 @@ dionysian_shaman = {
 		potential = {
 			always = yes
 		}
-		planet_jobs_food_produces_mult = 0.05
-		pop_growth_speed = 0.025
+		planet_jobs_energy_produces_mult = 0.05
+		planet_jobs_alloys_produces_mult = 0.05
+		planet_structures_upkeep_mult = -0.025
 	}
+
 
 	weight = {
 		weight = @specialist_job_weight
-		mult = value:job_weights_research_modifier|JOB|researcher|
+		mult = value:job_weights_modifier|JOB|physicist|RESOURCE|physics_research|
 		modifier = {
 			factor = 0.2
 			has_citizenship_rights = no
@@ -497,19 +522,2440 @@ dionysian_shaman = {
 			can_take_servant_job = yes
 		}
 		modifier = {
-			factor = 1.5
-			has_job = dionysian_shaman
+			factor = 0.8
+			is_enslaved = yes
+			has_slavery_type = { type = slavery_indentured }
+		}
+
+	}
+
+	inline_script = "jobs/automodding_priority_research"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				CATEGORY = specialist
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+}
+
+dionysian_shaman = {
+	category = specialist
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_dionysian_academy_of_shamans
+		}
+	}
+
+	tags = { research }
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_specialist_job
+
+	possible = {
+		complex_specialist_job_check_trigger = yes
+	}
+
+	resources = {
+		category = planet_biologists
+		produces = {
+			physics_research = 1
+			engineering_research = 1
+			society_research = 5
+		}
+		upkeep = {
+			consumer_goods = 2.5
+		}
+		produces = {
+			trigger = {
+				owner = {
+					has_ascension_perk = dionysian_arcane_rise
+					has_technology = tech_mine_exotic_gases
+				}
+			}
+			exotic_gases = 0.2
+		}
+		produces = {
+			trigger = {
+				planet = { has_building = building_dionysian_academy_of_shamans }
+			}
+			society_research = 2
+		}
+		upkeep = {
+			trigger = {
+				planet = { has_building = building_dionysian_academy_of_shamans }
+			}
+			consumer_goods = 1
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		planet_jobs_food_produces_mult = 0.05
+		logistic_growth_mult = 0.025
+	}
+
+	weight = {
+		weight = @specialist_job_weight
+		mult = value:job_weights_modifier|JOB|biologist|RESOURCE|society_research|
+		modifier = {
+			factor = 0.2
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		modifier = {
+			factor = 2
+			has_living_standard = { type = living_standard_academic_privilege }
+		}
+		modifier = {
+			factor = 0.1
+			can_take_servant_job = yes
 		}
 		modifier = {
 			factor = 0.8
 			is_enslaved = yes
 			has_slavery_type = { type = slavery_indentured }
 		}
-		modifier = {
-			factor = 5
-			has_trait = trait_cyborg_creed_of_research
-		}
+
 	}
 
 	inline_script = "jobs/automodding_priority_research"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				CATEGORY = specialist
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
 }
+
+
+dionysian_follower_archon_destiny = {
+	category = ruler
+
+	tags = { research }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_biolab_3
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+	resources = {
+		category = planet_biologists
+		produces = {
+			society_research = 10
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		pop_happiness = 0.05
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_time = {
+	category = ruler
+
+	tags = { research }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_physics_lab_3
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_physicists
+		produces = {
+			physics_research = 10
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		planet_stability_add = 3
+	}
+
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_sercets = {
+	category = ruler
+
+	tags = { research crime }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_biolab_3
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_biologists
+		produces = {
+			society_research = 10
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	country_modifier = {
+		intel_encryption_add = 0.25
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_stone = {
+	category = ruler
+
+	tags = { research strategic_resource rare_crystals }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_archaeo_refinery
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_engineers
+		produces = {
+			engineering_research = 8
+			rare_crystals = 1
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_fire = {
+	category = ruler
+
+
+	tags = { research strategic_resource volatile_motes }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_archaeo_refinery
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_physicists
+		produces = {
+			physics_research = 8
+			volatile_motes = 1
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_wind = {
+	category = ruler
+
+	tags = { research strategic_resource exotic_gases }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_archaeo_refinery
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_biologists
+		produces = {
+			society_research = 8
+			exotic_gases = 1
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_entropy = {
+	category = ruler
+
+	tags = { research }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_galactic_memorial_3
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_physicists
+		produces = {
+			physics_research = 4
+			society_research = 2
+			engineering_research = 2
+			sr_dark_matter = 0.2
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		planet_stability_add = -2
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_dream = {
+	category = ruler
+
+	tags = { unity amenities }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_hyper_entertainment_forum
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_entertainers
+		produces = {
+			unity = 6
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		pop_government_ethic_attraction = 0.30
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_war = {
+	category = ruler
+
+	tags = { soldier unity }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_order_keep
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_bureaucrats
+		produces = {
+			unity = 3
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		planet_defense_armies_add = 4
+		pop_soldier_bonus_workforce_mult = 0.05
+	}
+
+	country_modifier = {
+		country_naval_cap_add = 6
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_justice = {
+	category = ruler
+
+	tags = { crime enforcer unity }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_hall_judgment
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_enforcers
+		produces = {
+			unity = 5
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		planet_stability_add = 2
+		planet_crime_add = -20
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_rebirth = {
+	category = ruler
+
+	tags = { research pop_growth pop_assembly amenities }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_medical_3
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_doctors
+		produces = {
+			society_research = 8
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		planet_amenities_add = 300
+		mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		logistic_growth_mult = 0.05
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_song = {
+	category = ruler
+
+	tags = { unity amenities }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_artist_patron
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_entertainers
+		produces = {
+			unity = 5
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		planet_amenities_add = 1800
+		mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_virus = {
+	category = ruler
+
+	tags = { research }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_ancient_relics
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_biologists
+		produces = {
+			society_research = 10
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		planet_pops_organics_upkeep_mult = -0.05
+		pop_environment_tolerance = -0.02
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_shadows = {
+	category = ruler
+
+	tags = { research unity }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_sacrificial_temple_3
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_enforcers
+		produces = {
+			physics_research = 5
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		planet_crime_add = -40
+	}
+
+	country_modifier = {
+		espionage_operation_cost_mult = -0.05
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_slavery = {
+	category = ruler
+
+	tags = { unity }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_slave_processing
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_bureaucrats
+		produces = {
+			unity = 6
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		pop_cat_slave_bonus_workforce_mult = 0.05
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_wisdom = {
+	category = ruler
+
+	tags = { research }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_institute
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_biologists
+		produces = {
+			physics_research = 2
+			engineering_research = 2
+			society_research = 8
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_frost = {
+	category = ruler
+
+	tags = { research }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_physics_lab_3
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_physicists
+		produces = {
+			physics_research = 10
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		pop_housing_usage_mult = -0.05
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_death = {
+	category = ruler
+
+	tags = { research unity }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_chamber_of_elevation_2
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_biologists
+		produces = {
+			society_research = 4
+			unity = 2
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		planet_defense_armies_add = 2
+		pop_cat_worker_bonus_workforce_mult = 0.025
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_light = {
+	category = ruler
+
+	tags = { unity }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_sacred_nexus
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_bureaucrats
+		produces = {
+			unity = 6
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		pop_amenities_usage_mult = -0.05
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_thunder = {
+	category = ruler
+
+	tags = { research }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_storm_grand_theater
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_physicists
+		produces = {
+			physics_research = 10
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		pop_technician_bonus_workforce_mult = 0.05
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_forge = {
+	category = ruler
+
+	tags = { alloys }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_foundry_3
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+	resources = {
+		category = planet_metallurgists
+		produces = {
+			alloys = 8
+			trade = 4
+		}
+		upkeep = {
+			minerals = 6
+		}
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_temptation = {
+	category = ruler
+
+	tags = { research amenities }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_hyper_entertainment_forum
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_entertainers
+		produces = {
+			society_research = 6
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			NOT = { planet = { has_building = building_dionysian_academy_of_enchanters } }
+		}
+		planet_amenities_add = 1800
+		mult = value:scripted_modifier_mult|MODIFIER|pop_job_amenities_mult|
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_order = {
+	category = ruler
+
+	tags = { unity }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_league_offices
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_bureaucrats
+		produces = {
+			unity = 6
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_country_modifier = {
+		potential = {
+			always = yes
+		}
+		country_edict_fund_add = 4
+		mult = value:job_total_output_modifier|JOB|bureaucrat|RESOURCE|unity|
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_hatred = {
+	category = ruler
+
+	tags = { unity }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_chamber_of_elevation_2
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_bureaucrats
+		produces = {
+			unity = 5
+			society_research = 4
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		planet_crime_add = 5
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_insight = {
+	category = ruler
+
+	tags = { research minor_artifacts }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_archaeostudies_faculty
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_biologists
+		produces = {
+			society_research = 8
+			minor_artifacts = 0.2
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_nature = {
+	category = ruler
+
+	tags = { unity }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_gaiaseeders_4
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_bureaucrats
+		produces = {
+			unity = 6
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		planet_clear_blocker_time_mult = -0.1
+		terraform_speed_mult = 0.1
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_foison = {
+	category = ruler
+
+	tags = { unity }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_farming_districts_4
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_bureaucrats
+		produces = {
+			unity = 5
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			always = yes
+		}
+		pop_farmer_bonus_workforce_mult = 0.1
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_wealth = {
+	category = ruler
+
+	tags = { unity trade }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_nuumismatic_shrine
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_traders
+		produces = {
+			unity = 4
+			trade = 15
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_creation = {
+	category = ruler
+
+	tags = { consumer_goods trade }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_factory_3
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_artisans
+		produces = {
+			consumer_goods = 10
+			trade = 4
+		}
+		upkeep = {
+			minerals = 6
+		}
+	}
+	
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+
+dionysian_follower_archon_rifts = {
+	category = ruler
+
+	tags = { research }
+
+	swappable_data = {
+		default = {
+			condition_string = SPECIALIST_JOB_TRIGGER
+			building_icon = building_astral_siphon_3
+		}
+	}
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_ruler_job
+
+
+
+	resources = {
+		category = planet_physicists
+		produces = {
+			physics_research = 8
+			astral_threads = 2
+		}
+		upkeep = {
+			consumer_goods = 2
+		}
+	}
+
+	weight = {
+		weight = @ruler_job_weight
+		mult = value:job_weights_modifier|JOB|politician|RESOURCE|unity|
+		mult = value:scripted_modifier_job_weight_mult|MODIFIER|pop_job_amenities_mult|
+		modifier = {
+			factor = 0.1
+			has_citizenship_rights = no
+			NOT = { has_trait = trait_mechanical }
+		}
+		# crisis purge
+		modifier = {
+			factor = 0.01
+			exists = planet
+			exists = planet.controller
+			planet.controller = {
+				OR = {
+					is_country_type = swarm
+					is_country_type = ai_empire
+				}
+			}
+		}
+	}
+
+	inline_script = "jobs/automodding_priority_charisma"
+
+	promotion = {
+		time = @standard_promotion_time
+		effect = {
+			pop_amount_change_category = {
+				category = ruler
+				AMOUNT = local_pop_amount
+			}
+		}
+	}
+
+}
+

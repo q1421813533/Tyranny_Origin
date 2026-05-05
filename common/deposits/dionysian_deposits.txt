@@ -1,0 +1,16 @@
+dionysian_ice_realm_unity_deposit = {
+	resources = {
+		category = orbital_research_deposits
+		produces = {
+			unity = 12
+		}
+	}
+
+	habitat_modifier = {
+		district_hab_science_max_add = 2
+	}
+
+	station = shipclass_research_station
+	is_for_colonizable = no
+	drop_weight = { weight = 0 }
+}

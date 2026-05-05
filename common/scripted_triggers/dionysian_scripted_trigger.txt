@@ -51,3 +51,24 @@ can_use_dionyian_PM = {
 	has_authority = auth_imperial	
 	NOT = { has_ethic = ethic_fanatic_authoritarian }
 }
+
+dionysian_has_edict_selected = {
+	OR = {
+		has_country_flag = dionysian_selected_edict_fire
+		has_country_flag = dionysian_selected_edict_frost
+		has_country_flag = dionysian_selected_edict_lightning
+		has_country_flag = dionysian_selected_edict_stone
+		has_country_flag = dionysian_selected_edict_storm
+		has_country_flag = dionysian_selected_edict_shape_planet
+		has_country_flag = dionysian_selected_edict_guide_fleet
+		has_country_flag = dionysian_selected_edict_ascend
+		has_country_flag = dionysian_selected_edict_curse
+		has_country_flag = dionysian_selected_edict_nightfall		
+	}
+}
+
+dionysian_is_available_colony_for_archon_event = {
+	is_colony = yes
+	has_upgraded_capital = yes
+	NOT = { has_planet_flag = dionysian_was_chosen_by_archons }
+}

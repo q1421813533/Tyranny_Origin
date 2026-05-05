@@ -2,10 +2,6 @@ concept_leader_trait_dionysian_overlord = {
 	icon = "gfx/interface/icons/concepts/dionysian_overlord_concept.dds"
 }
 
-concept_trait_dionysian_gene = {
-	icon = "gfx/interface/icons/dionysian_gene.dds"
-}
-
 concept_dionysian_edict = {
 	icon = "gfx/interface/icons/edict_dionysian_overlord.dds"
 }
@@ -18,9 +14,6 @@ concept_dionysian_prime_minister = {
 	icon = "gfx/interface/icons/concepts/dionysian_PM_concept.dds"
 }
 
-concept_dionysian_beast_trait = {
-	icon = "gfx/interface/icons/trait_dionysian_beast.dds"
-}
 
 concept_dionysian_beast_civic = {
 	icon = "gfx/interface/icons/governments/civics/civic_dionysian_beast_tribe.dds"

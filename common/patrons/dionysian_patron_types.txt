@@ -1,0 +1,125 @@
+#patron_example = {
+#	category = major_patron 					# / minor_patron / great_patron
+#	color = { 0.1 0.2 0.3 0.4 }					# Color of the Patron { Red Green Blue Alpha }
+#	text_color_code = "P"						# Text color character used for its localization
+#	first_contact_event = shroud.x				# First contact event launched in code when the patron is discovered naturally in the Shroud (delving, attunement position)
+#	covenant_event = shroud.x
+#	covenant_confirmation_time = 360
+#	add_modifier = yes/no 						# (default: no) Generates patron-specific attunement modifiers (i.e. add_attunement_<patron>, <patron>_attunement_mult)
+#
+#	potential = { 								# Can be empty
+#		has_shroud_dlc = yes
+#	}
+#
+#	# GFX Files needed:
+#	# All:
+#	# - "GFX_patron_example_icon"
+#
+#	# Minor patron:
+#	# - "GFX_patron_example_icon_hovered"
+#
+#	# Can be a cardinal patron (with his own quadrant):
+#	# - "GFX_patron_example_bg"
+#	# - "GFX_patron_example_quadrant_1"
+#	# - "GFX_patron_example_quadrant_2"
+#	# - "GFX_patron_example_quadrant_3"
+#	# - "GFX_patron_example_quadrant_selected_1"
+#	# - "GFX_patron_example_quadrant_selected_2"
+#	# - "GFX_patron_example_quadrant_selected_3"
+#	# - "GFX_patron_example_calling_anim"
+#	# - "GFX_patron_example_calling_X_bg" (one for each possible tier with X = tier)
+#	# - "GFX_patron_example_active_accords_bg" (if 1 or more active accords)
+#
+#	# Can end cycle:
+#	# - "GFX_patron_example_background"
+#	# - "GFX_patron_example_quadrant"
+#	# - "GFX_patron_example_active_accords_bg"
+#	# - "GFX_patron_example_active_accords_bg_potential"
+#
+#	# Shroud plane position, must be contained within the circle of radius 1 centered at (0, 0)
+#	# Major Patrons represent one end of an axis (they must be positioned at the end of one (1, 0) (-1, 0) (0, 1) (0, -1))
+#	# Here are some examples on the border of this circle:
+#	position = { x = -1 y = 0 } 			# Full left (FL)
+#	position = { x = -0.707 y = 0.707 }	# Top left (TL)
+#	position = { x = 0 y = 1 }				# Full top (FT)
+#	position = { x = 0.707 y = 0.707 }		# Top right	(TR)
+#	position = { x = 1 y = 0 }				# Full right (FR)
+#	position = { x = 0.707 y = -0.707 }	# Bottom right (BR)
+#	position = { x = 0 y = -1 }			# Full bottom (FB)
+#	position = { x = -0.707 y = -0.707 }	# Bottom left (BL)
+#
+#	# If eligible patron, you can add Callings: (to create callings, see 00_callings.txt)
+#
+#	callings = {
+#		calling_example_1
+#		calling_example_2
+#		calling_example_...
+#	}
+#
+#	# If eligible patron, you can add Deeds: (to create deeds, see 00_deeds.txt)
+#	deeds = {
+#		deed_example_1
+#		deed_example_2
+#		deed_example_...
+#	}
+#
+#	covenant = {
+#		name = "COVENANT_NAME"				# Covenant name
+#		icon = "GFX_X"						# Icon (will need a large version "icon_large" and a background "icon_bg")
+#		desc = covenant_desc				# Lore description
+#		custom_tooltip = covenant_tt		# Custom tooltip for modifiers
+#		show_only_custom_tooltip = yes		# If true, will only show custom tooltips (and not triggered modifiers)
+#		triggered_modifier = {
+#			potential = { }
+#			modifier = { }
+#		}
+#	}
+#
+#	passive_accord = {
+#		name = "ACCORD_NAME"				# Name used for accord localization
+#		triggered_modifier = {
+#			army_damage_mult = 0.15			# Given conutry modifier when accord is unlocked
+#		}
+#		on_unlock = { }						# Effect executed when accord is unlocked
+#	}
+#
+#	active_accord = {
+#		name = "ACCORD_NAME"				# Name used for accord localization
+#		cooldown = 3600						# Cooldown between accord activations
+#		first_cooldown = 7200				# First cooldown when making the covenant
+#		activation_cost = {					# Accord activation cost
+#			cost = { }
+#		}
+#		cost_override_key = "CUSTOM_COST"	# Will override what is displayed in the UI Frame
+#		effect = { }						# Effect that will execute when accord is activated
+#		possible = { }						# Trigger for activating the accord
+#		potential = { }						# Trigger for obtaining the accord
+#		ai_will_do = { }					# Trigger for AIs to activate the accord (must be activable in the first place)
+#	}
+#}
+
+#################
+# Major Patrons #
+#################
+
+dionysian_the_overlord_in_shroud = {
+	category = great_patron
+	color = { 0.79 0.27 0.22 1 }
+	text_color_code = "Y"
+
+	pre_communications_name_format = "{<end_cycle_adj> {<patron_noun>}}"
+
+	position = { x = 0 y = 0 }
+
+	covenant = {
+		name = "DIONYSIAN_COVENANT_OVERLORD"
+		icon = "GFX_dionysian_the_overlord_in_shroud_covenant"
+		desc = dionysian_dionysian_the_overlord_in_shroud_desc
+		triggered_modifier = {
+			country_naval_cap_mult = 1
+			country_starbase_capacity_add = 10
+			country_covenant_influence_produces_add = 5
+		}
+	}
+
+}

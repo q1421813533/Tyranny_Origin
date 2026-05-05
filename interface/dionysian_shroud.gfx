@@ -1,0 +1,40 @@
+
+
+spriteTypes = {
+	spriteType = {
+		name = "GFX_dionysian_the_overlord_in_shroud_icon"
+		texturefile = "gfx/interface/icons/patrons/dionysian_the_overlord_in_shroud.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+	spriteType = {
+		name = "GFX_dionysian_the_overlord_in_shroud_covenant"
+		texturefile = "gfx/interface/icons/patrons/covenants/whisperers_in_the_void_covenant.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+	corneredTileSpriteType = {
+		name = "GFX_dionysian_the_overlord_in_shroud_covenant_bg"
+		texturefile = "gfx/interface/icons/patrons/covenants/whisperers_in_the_void_covenant_bg.dds" # Reuse
+		effectFile = "gfx/FX/buttonstate_onlydisable.shader"
+	}
+	spriteType = {
+		name = "GFX_dionysian_the_overlord_in_shroud_accords_bg"
+		texturefile = "gfx/interface/icons/patrons/accords/end_of_the_cycle_accords_bg.dds"
+		alwaysTransparent = yes
+	}
+	spriteType = {
+		name = "GFX_dionysian_the_overlord_in_shroud_active_accords_bg"
+		texturefile = "gfx/interface/icons/patrons/accords/accord_cost_eotc.dds"
+		transparenceCheck = yes
+	}
+	spriteType = {
+		name = "GFX_dionysian_the_overlord_in_shroud_active_accords_bg_potential"
+		texturefile = "gfx/interface/icons/patrons/accords/accord_cost_eotc_potential.dds"
+		transparenceCheck = yes
+	}
+	spriteType = {
+		name = "GFX_message_aura_dionysian_the_overlord_in_shroud"
+		textureFile = "gfx/interface/icons/message/message_aura_dionysian_the_overlord_in_shroud.dds"
+	}
+	
+}
+

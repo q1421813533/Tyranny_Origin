@@ -1,0 +1,902 @@
+namespace = dionysian_archon
+
+#1 basic
+
+#unlock the paragon event of a random exisiting Archon
+country_event = {
+	id = dionysian_archon.1
+	
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	immediate = { 
+		random_list = {
+			50 = {
+				country_event = { id = dionysian_archon.2 days = 1 random = 3599 }
+			}
+			50 = { }
+		}
+	}
+}
+
+country_event = {
+	id = dionysian_archon.2
+	
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	immediate = { 
+		dionysian_unlock_random_archon_event = yes
+	}
+}
+
+
+#trigger the paragon event of a random exisiting Archon
+country_event = {
+	id = dionysian_archon.3
+	
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	immediate = { 
+		random_list = {
+			50 = {
+				country_event = { id = dionysian_archon.4 days = 1 random = 1799 }
+			}
+			50 = { }
+		}
+	}
+}
+
+country_event = {
+	id = dionysian_archon.4
+	
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	immediate = { 
+		dionysian_trigger_random_archon_event = yes
+	}
+}
+
+
+
+#100 Destiny 
+
+leader_event = {
+	id = dionysian_archon.100
+	title = dionysian_archon.100.name
+	desc = dionysian_archon.100.desc
+	picture = GFX_evt_overt_indoctrination
+	show_sound = event_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_renowned"
+
+	picture_event_data = {
+		portrait = root
+	}
+
+	immediate = { 
+		owner = { set_country_flag = dionysian_triggered_archon_destiny_event }
+	}
+
+	option = {
+		name = dionysian_archon.100.a
+		add_experience = 2000
+		owner = { add_modifier = { modifier = dionysian_forsee_destiny_ritual days = 3600 } }
+	}
+
+	option = {
+		name = dionysian_archon.100.b
+		dionysian_refuse_archon_event = yes
+	}
+
+}
+
+#200 Time
+
+leader_event = {
+	id = dionysian_archon.200
+	title = dionysian_archon.200.name
+	desc = dionysian_archon.200.desc
+	picture = GFX_evt_surreal_visions
+	show_sound = event_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_renowned"
+
+	picture_event_data = {
+		portrait = root
+	}
+
+	immediate = { 
+		owner = { set_country_flag = dionysian_triggered_archon_time_event }
+	}
+
+	option = {
+		name = dionysian_archon.200.a
+		add_experience = 2000
+		owner = { add_modifier = { modifier = dionysian_view_past days = 3600 } }
+	}
+
+	option = {
+		name = dionysian_archon.200.b
+		dionysian_refuse_archon_event = yes
+	}
+}
+
+#300 Secrets
+
+#400 Stone
+
+#500 Fire
+
+#600 Wind
+
+#700 Entropy
+
+#800 Dream
+
+leader_event = {
+	id = dionysian_archon.800
+	title = dionysian_archon.800.name
+	desc = dionysian_archon.800.desc
+	picture = GFX_evt_virtual_world
+	show_sound = event_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_renowned"
+
+	picture_event_data = {
+		portrait = root
+	}
+
+	immediate = { 
+		owner = { set_country_flag = dionysian_triggered_archon_dream_event }
+	}
+
+	option = {
+		name = dionysian_archon.800.a
+		add_experience = 2000
+		owner = { add_modifier = { modifier = dionysian_created_dreamworld days = 3600 } }
+	}
+
+	option = {
+		name = dionysian_archon.800.b
+		dionysian_refuse_archon_event = yes
+	}
+}
+
+#900 War
+
+#1000 Justice
+
+#1100 Rebirth
+
+#1200 Song
+
+leader_event = {
+	id = dionysian_archon.1200
+	title = dionysian_archon.1200.name
+	desc = dionysian_archon.1200.desc
+	picture = GFX_evt_bribery
+	show_sound = event_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_renowned"
+
+	picture_event_data = {
+		portrait = root
+	}
+
+	immediate = { 
+		owner = { set_country_flag = dionysian_triggered_archon_song_event }
+	}
+
+	option = {
+		name = dionysian_archon.1200.a
+		add_experience = 2000
+		owner = { add_modifier = { modifier = dionysian_mental_revolution days = 3600 } }
+	}
+
+	option = {
+		name = dionysian_archon.1200.b
+		dionysian_refuse_archon_event = yes
+	}
+}
+
+#1300 Virus
+
+#1400 Shadows
+
+#1500 Slavery
+
+#1600 Wisdom
+
+leader_event = {
+	id = dionysian_archon.1600
+	title = dionysian_archon.1600.name
+	desc = dionysian_archon.1600.desc
+	picture = GFX_evt_astral_rift_desert_ruins_first_chamber
+	show_sound = event_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_renowned"
+
+	picture_event_data = {
+		portrait = root
+	}
+
+	immediate = { 
+		owner = { set_country_flag = dionysian_triggered_archon_wisdom_event }
+	}
+
+	option = {
+		name = dionysian_archon.1600.a
+		TRIGGER = {	owner = { has_ethic = ethic_fanatic_materialist } }
+		add_experience = 2500
+		owner = { add_modifier = { modifier = dionysian_focus_sigil days = 7200 } }
+	}
+
+	option = {
+		name = dionysian_archon.1600.b
+		add_experience = 2000
+		owner = { add_modifier = { modifier = dionysian_focus_sigil days = 3600 } }
+	}
+
+	option = {
+		name = dionysian_archon.1600.c
+		dionysian_refuse_archon_event = yes
+	}
+}
+
+#1700 Frost
+
+leader_event = {
+	id = dionysian_archon.1700
+	title = dionysian_archon.1700.name
+	desc = dionysian_archon.1700.desc
+	picture = GFX_evt_frozen
+	show_sound = event_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_renowned"
+
+	picture_event_data = {
+		portrait = root
+	}
+
+	trigger = {
+		owner = {
+			any_planet_within_border = {
+				is_planet_class = pc_frozen
+				OR = {
+					has_deposit = no
+					has_deposit_for = shipclass_research_station
+				}
+			}
+		}
+	}
+
+	immediate = {
+		owner = { set_country_flag = dionysian_triggered_archon_frost_event } 
+		owner = { 
+			random_planet_within_border = {
+				limit = {
+					is_planet_class = pc_frozen
+					OR = {
+						has_deposit = no
+						has_deposit_for = shipclass_research_station
+					}
+				}
+				save_event_target_as = dionysian_archon_event_target_planet
+			} 
+		}
+	}
+
+	option = {
+		name = dionysian_archon.1700.a
+		add_experience = 2000
+		event_target:dionysian_archon_event_target_planet = { add_deposit = dionysian_ice_realm_unity_deposit }
+		owner = { add_modifier = { modifier = dionysian_ice_realm days = 3600 } }
+	}
+
+	option = {
+		name = dionysian_archon.1700.b
+		allow = {
+			owner = { resource_stockpile_compare = { resource = energy value > 2000 } }
+		}
+		owner = { add_resource = { energy = -2000 } }
+		event_target:dionysian_archon_event_target_planet = { change_pc = pc_arctic }
+		hidden_effect = {
+			event_target:dionysian_archon_event_target_planet = { reroll_planet = yes }
+		}
+	}
+
+	option = {
+		name = dionysian_archon.1700.c
+		dionysian_refuse_archon_event = yes
+	}
+}
+
+#1800 Death
+
+#1900 Light
+
+leader_event = {
+	id = dionysian_archon.1900
+	title = dionysian_archon.1900.name
+	desc = dionysian_archon.1900.desc
+	picture = GFX_evt_kaleidoscopic_lights
+	show_sound = event_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_renowned"
+
+	picture_event_data = {
+		portrait = root
+	}
+
+	trigger = {
+		owner = {
+			any_owned_planet = {
+				dionysian_is_available_colony_for_archon_event = yes
+			}
+		}
+	}
+
+	immediate = { 
+		owner = { set_country_flag = dionysian_triggered_archon_light_event }
+		dionysian_choose_3_random_planets_for_archon_event = yes
+	}
+
+	option = {
+		name = dionysian_archon.1900.a
+		add_experience = 2000
+		event_target:dionysian_archon_event_target_planet_a = { add_modifier = { modifier = dionysian_controlled_light days = -1 } }
+		hidden_effect = { event_target:dionysian_archon_event_target_planet_a = { set_planet_flag = dionysian_was_chosen_by_archons } }
+	}
+
+	option = {
+		name = dionysian_archon.1900.b
+		TRIGGER = {	exists = event_target:dionysian_archon_event_target_planet_b }
+		event_target:dionysian_archon_event_target_planet_b = { add_modifier = { modifier = dionysian_controlled_light days = -1 } }
+		hidden_effect = { event_target:dionysian_archon_event_target_planet_b = { set_planet_flag = dionysian_was_chosen_by_archons } }
+	}
+
+	option = {
+		name = dionysian_archon.1900.c
+		TRIGGER = {	exists = event_target:dionysian_archon_event_target_planet_c }
+		event_target:dionysian_archon_event_target_planet_c = { add_modifier = { modifier = dionysian_controlled_light days = -1 } }
+		hidden_effect = { event_target:dionysian_archon_event_target_planet_c = { set_planet_flag = dionysian_was_chosen_by_archons } }
+	}
+
+	option = {
+		name = dionysian_archon.1900.d
+		dionysian_refuse_archon_event = yes
+	}
+}
+
+#2000 Thunder
+
+leader_event = {
+	id = dionysian_archon.2000
+	title = dionysian_archon.2000.name
+	desc = dionysian_archon.2000.desc
+	picture = GFX_evt_ai_planet
+	show_sound = event_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_renowned"
+
+	picture_event_data = {
+		portrait = root
+	}
+
+	immediate = { 
+		owner = { set_country_flag = dionysian_triggered_archon_thunder_event }
+	}
+
+	option = {
+		name = dionysian_archon.2000.a
+		TRIGGER = {	owner = { has_ascension_perk = ap_synthetic_evolution } }
+		add_experience = 2500
+		owner = { add_modifier = { modifier = dionysian_efficient_machines days = 7200 } }
+	}
+
+	option = {
+		name = dionysian_archon.2000.b
+		add_experience = 2000
+		owner = { add_modifier = { modifier = dionysian_efficient_machines days = 3600 } }
+	}
+
+	option = {
+		name = dionysian_archon.2000.c
+		dionysian_refuse_archon_event = yes
+	}
+}
+
+#2100 Forge
+
+leader_event = {
+	id = dionysian_archon.2100
+	title = dionysian_archon.2100.name
+	desc = dionysian_archon.2100.desc
+	picture = GFX_evt_organic_oppression
+	show_sound = event_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_renowned"
+
+	picture_event_data = {
+		portrait = root
+	}
+
+	immediate = {
+		owner = { set_country_flag = dionysian_triggered_archon_forge_event } 
+	}
+
+	option = {
+		name = dionysian_archon.2100.a
+		add_experience = 2000
+		custom_tooltip = dionysian_forge_army_tooltip
+		hidden_effect = { 
+			owner = { set_country_flag = dionysian_allow_forge_army }
+		}
+	}
+
+	option = {
+		name = dionysian_archon.2100.b
+		owner = { add_resource = { alloys = 200 } }
+		dionysian_refuse_archon_event = yes
+	}
+}
+
+
+#2200 Temptation
+
+#2300 Order
+
+leader_event = {
+	id = dionysian_archon.2300
+	title = dionysian_archon.2300.name
+	desc = dionysian_archon.2300.desc
+	picture = GFX_evt_astral_rift_genesis_3
+	show_sound = event_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_renowned"
+
+	picture_event_data = {
+		portrait = root
+	}
+
+	trigger = {
+		owner = {
+			any_owned_planet = {
+				dionysian_is_available_colony_for_archon_event = yes
+			}
+		}
+	}
+
+	immediate = { 
+		owner = { set_country_flag = dionysian_triggered_archon_order_event }
+		dionysian_choose_3_random_planets_for_archon_event = yes
+	}
+
+	option = {
+		name = dionysian_archon.2300.a
+		add_experience = 2000
+		event_target:dionysian_archon_event_target_planet_a = { add_modifier = { modifier = dionysian_mystic_rule days = -1 } }
+		hidden_effect = { event_target:dionysian_archon_event_target_planet_a = { set_planet_flag = dionysian_was_chosen_by_archons } }
+	}
+
+	option = {
+		name = dionysian_archon.2300.b
+		TRIGGER = {	exists = event_target:dionysian_archon_event_target_planet_b }
+		event_target:dionysian_archon_event_target_planet_b = { add_modifier = { modifier = dionysian_mystic_rule days = -1 } }
+		hidden_effect = { event_target:dionysian_archon_event_target_planet_b = { set_planet_flag = dionysian_was_chosen_by_archons } }
+	}
+
+	option = {
+		name = dionysian_archon.2300.c
+		TRIGGER = {	exists = event_target:dionysian_archon_event_target_planet_c }
+		event_target:dionysian_archon_event_target_planet_c = { add_modifier = { modifier = dionysian_mystic_rule days = -1 } }
+		hidden_effect = { event_target:dionysian_archon_event_target_planet_c = { set_planet_flag = dionysian_was_chosen_by_archons } }
+	}
+
+	option = {
+		name = dionysian_archon.2300.d
+		dionysian_refuse_archon_event = yes
+	}
+}
+
+#2400 Hatred
+
+leader_event = {
+	id = dionysian_archon.2400
+	title = dionysian_archon.2400.name
+	desc = dionysian_archon.2400.desc
+	picture = GFX_evt_alien_propaganda
+	show_sound = event_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_renowned"
+
+	picture_event_data = {
+		portrait = root
+	}
+
+	trigger = {
+		owner = {
+			any_owned_planet = {
+				pop_amount > 500
+			}
+		}
+	}
+
+	immediate = { 
+		owner = { 
+			set_country_flag = dionysian_triggered_archon_hatred_event 
+
+			random_owned_planet = {
+				limit = {
+					is_colony = yes
+					pop_amount > 500
+					exists = leader
+					leader = { is_same_value = event_target:dionysian_choosing_planet_archon }
+				}
+				save_event_target_as = dionysian_archon_event_target_planet
+			}
+
+			if = {
+				limit = {
+					NOT = { exists = event_target:dionysian_archon_event_target_planet } 
+			 	}
+			 	random_owned_planet = {
+					limit = {
+						is_capital = no
+						pop_amount > 500
+					}
+					save_event_target_as = dionysian_archon_event_target_planet
+				}
+			}
+
+			if = {
+				limit = {
+					NOT = { exists = event_target:dionysian_archon_event_target_planet } 
+			 	}
+			 	capital_scope = { save_event_target_as = dionysian_archon_event_target_planet }
+			}
+		}
+	}
+
+	option = {
+		name = dionysian_archon.2400.a
+		TRIGGER = {	owner = { has_ethic = ethic_fanatic_militarist } }
+		ALLOW = { event_target:dionysian_archon_event_target_planet = { pop_amount > 800 } }
+		custom_tooltip = dionysian_archon.2400.a_tooltips
+		add_experience = 2500
+		owner = { 
+			add_resource = { 
+				sr_zro = 1500
+			}
+			add_modifier = { modifier = dionysian_imperial_martyrs days = 7200 } 
+		}
+		if = {
+			limit = { owner = { NOT = { has_technology = tech_existential_campaigns } } }
+			owner = {
+				add_research_option = tech_existential_campaigns
+				add_tech_progress = {
+					tech = tech_existential_campaigns
+					progress = 0.2
+				}
+			}
+		}
+		hidden_effect = {
+			event_target:dionysian_archon_event_target_planet = {
+				while = {
+					count = 800
+					random_owned_pop_group = {
+						sacrifice_pop_group = { pop_group = this amount = 1 }
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = dionysian_archon.2400.b
+		ALLOW = { event_target:dionysian_archon_event_target_planet = { pop_amount > 500 } }
+		custom_tooltip = dionysian_archon.2400.b_tooltips
+		add_experience = 2000
+		owner = { 
+			add_resource = { 
+				sr_zro = 1000
+			}
+			add_modifier = { modifier = dionysian_imperial_martyrs days = 3600 } 
+		}
+		if = {
+			limit = { owner = { NOT = { has_technology = tech_existential_campaigns } } }
+			owner = { 
+				add_research_option = tech_existential_campaigns
+				add_tech_progress = {
+					tech = tech_existential_campaigns
+					progress = 0.1
+				}
+			}
+		}
+		hidden_effect = {
+			event_target:dionysian_archon_event_target_planet = {
+				while = {
+					count = 500
+					random_owned_pop_group = {
+						sacrifice_pop_group = { pop_group = this amount = 1 }
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = dionysian_archon.2400.c
+		dionysian_refuse_archon_event = yes
+	}
+}
+
+#2500 Insight
+
+leader_event = {
+	id = dionysian_archon.2500
+	title = dionysian_archon.2500.name
+	desc = dionysian_archon.2500.desc
+	picture = GFX_evt_alien_hieroglyphics
+	show_sound = event_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	event_window_type = leader_story
+	event_picture_background = "GFX_evt_ancient_records"
+
+	picture_event_data = {
+		portrait = root
+	}
+
+	immediate = { 
+		owner = { set_country_flag = dionysian_triggered_archon_insight_event }
+	}
+
+	option = {
+		name = dionysian_archon.2500.a
+		add_experience = 2000
+		owner = { add_modifier = { modifier = dionysian_watch_history_1 days = 3600 } }
+	}
+
+	option = {
+		name = dionysian_archon.2500.b
+		owner = { add_modifier = { modifier = dionysian_watch_history_2 days = 3600 } }
+	}
+
+	option = {
+		name = dionysian_archon.2500.c
+		dionysian_refuse_archon_event = yes
+	}
+}
+
+#2600 Nature
+
+leader_event = {
+	id = dionysian_archon.2600
+	title = dionysian_archon.2600.name
+	desc = dionysian_archon.2600.desc
+	picture = GFX_evt_bogplants
+	show_sound = event_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_renowned"
+
+	picture_event_data = {
+		portrait = root
+	}
+
+	immediate = { 
+		owner = { set_country_flag = dionysian_triggered_archon_nature_event }
+	}
+
+	option = {
+		name = dionysian_archon.2600.a
+		add_experience = 2000
+		owner = { add_modifier = { modifier = dionysian_merge_animals_1 days = 3600 } }
+		if = {
+			limit = { owner = { NOT = { has_technology = tech_gene_tailoring } } }
+			owner = { 
+				add_research_option = tech_gene_tailoring
+				add_tech_progress = {
+					tech = tech_gene_tailoring
+					progress = 0.5
+				}
+			}
+		}
+	}
+
+	option = {
+		name = dionysian_archon.2600.b
+		owner = { add_modifier = { modifier = dionysian_merge_animals_2 days = 3600 } }
+		if = {
+			limit = { owner = { NOT = { has_technology = tech_gene_tailoring } } }
+			owner = {
+				add_research_option = tech_gene_tailoring 
+				add_tech_progress = {
+					tech = tech_gene_tailoring
+					progress = 0.2
+				}
+			}
+		}
+	}
+
+	option = {
+		name = dionysian_archon.2600.c
+		dionysian_refuse_archon_event = yes
+	}
+}
+
+#2700 Foison
+
+#2800 Wealth
+
+leader_event = {
+	id = dionysian_archon.2800
+	title = dionysian_archon.2800.name
+	desc = dionysian_archon.2800.desc
+	picture = GFX_evt_treasure_pile
+	show_sound = event_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_renowned"
+
+	picture_event_data = {
+		portrait = root
+	}
+
+	trigger = {
+		owner = {
+			any_owned_planet = {
+				dionysian_is_available_colony_for_archon_event = yes
+			}
+		}
+	}
+
+	immediate = { 
+		owner = { set_country_flag = dionysian_triggered_archon_wealth_event }
+		dionysian_choose_3_random_planets_for_archon_event = yes
+	}
+
+	option = {
+		name = dionysian_archon.2800.a
+		add_experience = 2000
+		event_target:dionysian_archon_event_target_planet_a = { add_modifier = { modifier = dionysian_materialized_desire days = -1 } }
+		hidden_effect = { event_target:dionysian_archon_event_target_planet_a = { set_planet_flag = dionysian_was_chosen_by_archons } }
+	}
+
+	option = {
+		name = dionysian_archon.2900.b
+		TRIGGER = {	exists = event_target:dionysian_archon_event_target_planet_b }
+		event_target:dionysian_archon_event_target_planet_b = { add_modifier = { modifier = dionysian_materialized_desire days = -1 } }
+		hidden_effect = { event_target:dionysian_archon_event_target_planet_b = { set_planet_flag = dionysian_was_chosen_by_archons } }
+	}
+
+	option = {
+		name = dionysian_archon.2900.c
+		TRIGGER = {	exists = event_target:dionysian_archon_event_target_planet_c }
+		event_target:dionysian_archon_event_target_planet_c = { add_modifier = { modifier = dionysian_materialized_desire days = -1 } }
+		hidden_effect = { event_target:dionysian_archon_event_target_planet_c = { set_planet_flag = dionysian_was_chosen_by_archons } }
+	}
+
+	option = {
+		name = dionysian_archon.2800.d
+		dionysian_refuse_archon_event = yes
+	}
+}
+
+#2900 Creation
+
+leader_event = {
+	id = dionysian_archon.2900
+	title = dionysian_archon.2900.name
+	desc = dionysian_archon.2900.desc
+	picture = GFX_evt_city_planet
+	show_sound = event_default
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	event_window_type = leader_story
+	event_picture_background = "GFX_leader_recruitment_bg_renowned"
+
+	picture_event_data = {
+		portrait = root
+	}
+
+	trigger = {
+		owner = {
+			any_owned_planet = {
+				dionysian_is_available_colony_for_archon_event = yes
+			}
+		}
+	}
+
+	immediate = { 
+		owner = { set_country_flag = dionysian_triggered_archon_creation_event }
+		dionysian_choose_3_random_planets_for_archon_event = yes
+	}
+
+	option = {
+		name = dionysian_archon.2900.a
+		add_experience = 2000
+		event_target:dionysian_archon_event_target_planet_a = { add_modifier = { modifier = dionysian_living_city days = -1 } }
+		hidden_effect = { event_target:dionysian_archon_event_target_planet_a = { set_planet_flag = dionysian_was_chosen_by_archons } }
+	}
+
+	option = {
+		name = dionysian_archon.2900.b
+		TRIGGER = {	exists = event_target:dionysian_archon_event_target_planet_b }
+		event_target:dionysian_archon_event_target_planet_b = { add_modifier = { modifier = dionysian_living_city days = -1 } }
+		hidden_effect = { event_target:dionysian_archon_event_target_planet_b = { set_planet_flag = dionysian_was_chosen_by_archons } }
+	}
+
+	option = {
+		name = dionysian_archon.2900.c
+		TRIGGER = {	exists = event_target:dionysian_archon_event_target_planet_c }
+		event_target:dionysian_archon_event_target_planet_c = { add_modifier = { modifier = dionysian_living_city days = -1 } }
+		hidden_effect = { event_target:dionysian_archon_event_target_planet_c = { set_planet_flag = dionysian_was_chosen_by_archons } }
+	}
+
+	option = {
+		name = dionysian_archon.2900.d
+		dionysian_refuse_archon_event = yes
+	}
+}
+
+#3000 Rifts

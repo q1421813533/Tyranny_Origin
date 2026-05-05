@@ -48,8 +48,7 @@ dionysian_edict_damaging_planet = {
 	planet_buildings_cost_mult = 1
 	planet_districts_cost_mult = 1
 	terraform_speed_mult = -2
-	planet_immigration_pull_mult = -10
-	planet_emigration_push_add = 100
+	planet_resettlement_unemployed_destination_mult = -10
 }
 
 dionysian_storm_edict_on_star = {
@@ -75,6 +74,22 @@ dionysian_edict_remain_on_captial = {
 	planet_jobs_energy_produces_mult = 0.1
 }
 
+dionysian_edict_remain_on_captial_2 = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unstable_tectonics.dds"
+	icon_frame = 3
+	
+	habitability_ceil_add = -0.2
+	planet_jobs_energy_produces_mult = 0.1
+}
+
+dionysian_edict_remain_on_captial_3 = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unstable_tectonics.dds"
+	icon_frame = 3
+	
+	habitability_ceil_add = -0.1
+	planet_jobs_energy_produces_mult = 0.1
+}
+
 
 dionysian_community_dip = {
 	icon = GFX_dionysian_community_dip
@@ -87,7 +102,7 @@ dionysian_community_dip = {
 dionysian_empower_archons = {
 	icon = GFX_dionysian_empower_archon
 	
-	job_telepath_per_pop = 0.031
+	pop_telepath_bonus_workforce_mult = 0.25
 }
 
 dionysian_empower_psykers = {
@@ -102,23 +117,22 @@ dionysian_moving_homeworld = {
 	icon_frame = 1
 
 	pop_resettlement_cost_mult = -0.5
-	planet_emigration_push_add = 100
+	planet_resettlement_unemployed_mult = 0.25
+	planet_resettlement_unemployed_destination_mult = -0.5
 }
 
 dionysian_remember_homeworld = {
 	icon = "gfx/interface/icons/planet_modifiers/pm_artist_monument_erected.dds"
 	icon_frame = 1
 
-	planet_culture_workers_unity_produces_mult = 0.4
-	planet_jobs_unity_produces_mult = 0.2
+	planet_jobs_unity_produces_mult = 0.3
 }
 
 dionysian_new_capital = {
 	icon = "gfx/interface/icons/planet_modifiers/pm_arcology_project.dds"
 	icon_frame = 1
 
-	planet_resettlement_unemployed_destination_mult = 0.25
-	planet_immigration_pull_mult = 1
+	planet_resettlement_unemployed_destination_mult = 0.2
 }
 
 dionysian_absorbed_souls_1 = {
@@ -197,7 +211,7 @@ dionysian_overlord_guide_fleet_modifier = {
 
 dionysian_overlord_enhance_psi_pop_modifier = {
 	icon = GFX_mod_dionysian_overlord_edict
-	planet_psionic_jobs_produces_mult = 0.1
+	pop_bonus_workforce_mult = 0.1
 	planet_jobs_produces_mult = 0.1
 	planet_jobs_upkeep_mult = -0.1
 }
@@ -206,3 +220,133 @@ dionysian_enhance_telepath_modifier = {
 	icon = GFX_dionysian_enhance_telepath_modifier
 	planet_telepaths_unity_produces_add = 2
 }
+
+dionysian_edict_storm_in_star_system = {
+	ship_shield_mult = 0.5
+	ship_shield_reduction = 1.0
+	ship_speed_reduction = 0.5
+	ship_accuracy_mult = -0.3
+	ship_fire_rate_mult = -0.3
+}
+
+dionysian_forsee_destiny_ritual = {
+	icon = GFX_dionysian_forsee_destiny_ritual
+	country_society_research_produces_mult = 0.25
+	planetary_ascension_cost_mult = -0.25
+	planet_crime_add = 20
+}
+
+dionysian_created_dreamworld = {
+	icon = GFX_dionysian_created_dreamworld
+	tradition_cost_empire_size_mult = -0.2
+	planet_jobs_unity_produces_mult = 0.1
+	pop_happiness = 0.1
+}
+
+dionysian_focus_sigil = {
+	icon = GFX_dionysian_focus_sigil
+	planet_jobs_specialist_produces_mult = 0.1
+	planet_stability_add = 5
+}
+
+dionysian_ice_realm = {
+	icon = GFX_dionysian_ice_realm
+	planet_resettlement_unemployed_destination_mult = 0.25
+	planet_amenities_mult = 0.1
+}
+
+dionysian_living_city = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_arcology_project.dds"
+	icon_frame = 1
+	planet_building_build_speed_mult = 0.5
+	planet_structures_upkeep_mult = -0.5
+	pop_housing_usage_mult = -0.20
+	empire_size_districts_mult = 0.5
+}
+
+dionysian_view_past = {
+	icon = GFX_dionysian_view_past
+	country_society_research_produces_mult = 0.1
+	species_leader_exp_gain = 0.2
+	councilor_skill_add = 2
+}
+
+dionysian_mystic_rule = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unity_symbol.dds"
+	icon_frame = 1
+	planet_jobs_produces_mult = 0.1
+	planet_crime_add = -50
+}
+
+dionysian_watch_history_1 = {
+	icon = GFX_dionysian_watch_history
+	country_society_research_produces_mult = 0.3
+	planet_amenities_mult = 0.2
+	planet_stability_add = -5
+	intel_encryption_add = -1
+}
+
+dionysian_watch_history_2 = {
+	icon = GFX_dionysian_watch_history
+	country_society_research_produces_mult = 0.3
+}
+
+dionysian_merge_animals_1 = {
+	icon = GFX_dionysian_merge_animals
+	category_biology_research_speed_mult = 0.3
+	modify_species_cost_mult = -0.2
+	planet_crime_add = 20
+}
+
+dionysian_merge_animals_2 = {
+	icon = GFX_dionysian_merge_animals
+	category_biology_research_speed_mult = 0.2
+	modify_species_cost_mult = -0.2
+}
+
+dionysian_debug_psionic = {
+	icon = GFX_dionysian_merge_animals
+	shroud_delve_cooldown = -0.99
+}
+
+dionysian_control_end = {
+	icon = GFX_dionysian_control_end
+	attunement_mult = -10
+}
+
+dionysian_mental_revolution = {
+	icon = GFX_dionysian_mental_revolution
+	pop_citizen_happiness = 0.1
+	planet_pops_upkeep_mult = -0.2
+	pop_government_ethic_attraction = -0.5
+}
+
+dionysian_imperial_martyrs = {
+	icon = GFX_dionysian_imperial_martyrs
+	country_alloys_produces_mult = 0.25
+	country_claim_influence_cost_mult = -0.5
+}
+
+dionysian_efficient_machines = {
+	icon = GFX_dionysian_efficient_machines
+	planet_jobs_produces_mult = 0.1
+	planet_structures_energy_upkeep_mult = -0.1
+	planet_pops_energy_upkeep_mult = -0.2
+	pop_amenities_usage_add = 0.5
+}
+
+dionysian_materialized_desire = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_energy_drink.dds"
+	icon_frame = 1
+	planet_resettlement_unemployed_destination_mult = 0.5
+	planet_pops_consumer_goods_upkeep_mult = -0.5
+	pop_amenities_usage_mult = -0.2
+}
+
+dionysian_controlled_light = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_consecrated_worlds.dds"
+	icon_frame = 1
+	pop_bonus_workforce_mult = 0.1
+	pop_environment_tolerance = 0.1
+}
+

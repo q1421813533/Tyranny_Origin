@@ -1,6 +1,6 @@
-@Dionysian_New_PM_Adm_Weight = 60
-@Dionysian_New_PM_Mil_Weight = 20
-@Dionysian_New_PM_Sci_Weight = 20
+@Dionysian_New_PM_Adm_Weight = 40
+@Dionysian_New_PM_Mil_Weight = 30
+@Dionysian_New_PM_Sci_Weight = 30
 
 
 
@@ -22,7 +22,7 @@ dionysian_give_new_PM = {
 			limit = {
 				event_target:dionysian_PM_old = { has_trait = leader_trait_dionysian_prime_minister  }
 			}
-			set_variable = { which = dionysian_PM_level value = event_target:dionysian_PM_old.trigger:has_skill  }
+			set_variable = { which = dionysian_PM_level value = event_target:dionysian_PM_old.trigger:has_base_skill  }
 		}
 
 		if = { 
@@ -65,37 +65,46 @@ dionysian_give_new_PM = {
 		set_variable = { which = dionysian_PM_level value = 8  }
 	}
 
-	random_owned_pop = {
+	random_owned_pop_group = {
 		limit = { has_citizenship_rights = yes }	
 		save_event_target_as = dionysian_PM_pop
 	}
 
 	random_list = {
 		@Dionysian_New_PM_Adm_Weight = {
+			modifier = {
+				add = value:heir_class_weight_official
+			}
 			create_leader = {
 				name = random
 				species = event_target:dionysian_PM_pop.species
 				class = official
 				skill = 1
-				randomize_traits = no
+				randomize_traits = yes
 			}
 		}
 		@Dionysian_New_PM_Mil_Weight = {
+			modifier = {
+				add = value:heir_class_weight_commander
+			}
 			create_leader = {
 				name = random
 				species = event_target:dionysian_PM_pop.species
 				class = commander
 				skill = 1
-				randomize_traits = no
+				randomize_traits = yes
 			}
 		}
 		@Dionysian_New_PM_Sci_Weight = {
+			modifier = {
+				add = value:heir_class_weight_scientist
+			}
 			create_leader = {
 				name = random
 				species = event_target:dionysian_PM_pop.species
 				class = scientist
 				skill = 1
-				randomize_traits = no
+				randomize_traits = yes
 			}
 		}
 	}
@@ -108,7 +117,7 @@ dionysian_give_new_PM = {
 
 	event_target:dionysian_PM_leader = { 
 		
-		add_trait_no_notify = leader_trait_dionysian_prime_minister
+		add_trait = { trait = leader_trait_dionysian_prime_minister show_message = no }
 		dionysian_int_leader = yes
 
 		random_list = {
@@ -151,14 +160,16 @@ dionysian_give_new_PM = {
 	}
 
 	event_target:dionysian_PM_leader = { 
-		if = { limit = { has_leader_flag = dionysian_is_exarch } }
-		remove_trait = leader_trait_dionysian_exarch
-		remove_leader_flag = dionysian_is_exarch
+		if = { 
+			limit = { has_leader_flag = dionysian_is_exarch }
+			remove_trait = leader_trait_dionysian_exarch
+			remove_leader_flag = dionysian_is_exarch 
+		}
 	}
 
 	clear_variable = dionysian_PM_new_skills
 
-	set_variable = { which = dionysian_PM_level value = event_target:dionysian_PM_leader.trigger:has_skill  }
+	set_variable = { which = dionysian_PM_level value = event_target:dionysian_PM_leader.trigger:has_base_skill  }
 	set_variable = { which = dionysian_PM_term value = 1 }
 
 	set_government_cooldown = no

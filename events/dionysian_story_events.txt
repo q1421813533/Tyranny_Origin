@@ -1,5 +1,34 @@
 namespace = dionysian_story
 
+#shape shroud project
+country_event = {
+
+	id = dionysian_story.50
+	
+	title = "dionysian_story.50.name"
+	desc = "dionysian_story.50.desc"
+	picture = GFX_evt_shroudwalker_enclave
+	show_sound = event_psionic
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	option = {
+		name = "dionysian_story.50.option"
+		custom_tooltip = dionysian_explore_shroud_tooltip
+		enable_special_project = {
+			name = "SHROUD_SHAPING_PROJECT"
+			owner = ROOT
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+}
 
 #enhance psi corps
 country_event = {
@@ -15,10 +44,7 @@ country_event = {
 
 	trigger = {
 		has_origin = dionysian_origin
-	}
-
-	immediate = {
-		country_event = { id = dionysian_story.1100 days = 3600 random = 3600 }
+		count_unlocked_active_accords = 1
 	}
 
 	option = {
@@ -70,7 +96,14 @@ planet_event = {
 			NOT = { has_country_flag = dionysian_already_changed_capital }
 		}
 		exists = from
-		from = { is_same_value = root.owner.home_planet }
+		from = {
+			is_same_value = root.owner.home_planet
+			OR = {
+				has_modifier = dionysian_edict_remain_on_captial
+				has_modifier = dionysian_edict_remain_on_captial_2
+				has_modifier = dionysian_edict_remain_on_captial_3
+			}
+		}
 		from.owner = { is_same_value = root.owner }
 	}
 
@@ -204,7 +237,7 @@ country_event = {
 			ruler = {
 				subtract_variable = {
 					which = dionysian_overlord_reputation_level
-					value = 2
+					value = 10
 				}
 			}
 		}
@@ -284,7 +317,7 @@ country_event = {
 			ruler = {
 				change_variable = {
 					which = dionysian_overlord_reputation_level
-					value = 4
+					value = 15
 				}
 			}
 		}
@@ -476,7 +509,7 @@ country_event = {
 			ruler = {
 				change_variable = {
 					which = dionysian_overlord_reputation_level
-					value = 4
+					value = 20
 				}
 			}
 		}
@@ -506,7 +539,7 @@ country_event = {
 			ruler = {
 				subtract_variable = {
 					which = dionysian_overlord_reputation_level
-					value = 8
+					value = 40
 				}
 			}
 		}
@@ -545,7 +578,7 @@ country_event = {
 			ruler = {
 				subtract_variable = {
 					which = dionysian_overlord_reputation_level
-					value = 15
+					value = 120
 				}
 			}
 		}
@@ -609,7 +642,7 @@ country_event = {
 			ruler = {
 				change_variable = {
 					which = dionysian_overlord_reputation_level
-					value = 10
+					value = 40
 				}
 			}
 		}
@@ -631,11 +664,7 @@ country_event = {
 
 	trigger = {
 		has_origin = dionysian_origin
-		NOT = { has_country_flag = dionsyian_allowed_sanctum }
-	}
-
-	immediate = {
-		country_event = { id = dionysian_story.1200 days = 3600 random = 3600 }
+		count_unlocked_active_accords = 2
 	}
 
 	option = {
@@ -670,15 +699,16 @@ country_event = {
 
 	trigger = {
 		has_origin = dionysian_origin
-		NOT = { has_country_flag = dionsyian_allowed_control_shroud }
+		count_unlocked_active_accords = 3
+	}
+
+	immediate = {
+		set_country_flag = dionsyian_allowed_control_shroud
 	}
 
 	option = {
 		name = "dionysian_story.1200.option"
 		custom_tooltip = dionysian_story.1200.tooltip
-		hidden_effect = { 
-			set_country_flag = dionsyian_allowed_control_shroud
-		}
 		ai_chance = {
 		 	factor = 10
 		}
@@ -752,6 +782,51 @@ country_event = {
 
 	option = {
 		name = "dionysian_story.1210.option.c"
+		TRIGGER = {
+			has_country_flag = dionsyian_allowed_control_attunement
+			NOT = { has_covenant = end_of_the_cycle }
+		}
+		allow = {
+			has_resource = { type = menace amount >= 250 }
+		}
+		add_resource = { 
+			menace = -250
+		}
+		custom_tooltip = dionysian_story.1210.option.c.tooltip
+		hidden_effect = { 
+			country_event = { id = dionysian_story.1230 }
+		}
+		ai_chance = {
+		 	factor = 0
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1210.option.d"
+		TRIGGER = {
+			has_country_flag = dionsyian_allowed_control_end
+			NOT = { has_covenant = end_of_the_cycle }
+		}
+		allow = {
+			has_resource = { type = menace amount >= 250 }
+		}
+		add_resource = { 
+			menace = -250
+		}
+		custom_tooltip = dionysian_story.1210.option.d.tooltip
+		hidden_effect = { 
+			set_attunement = {
+				patron = dionysian_the_overlord_in_shroud
+				value = @max_attunement
+			}
+		}
+		ai_chance = {
+		 	factor = 0
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1210.option.e"
 		allow = {
 			has_resource = { type = menace amount >= 1000 }
 			NAND = {
@@ -772,7 +847,8 @@ country_event = {
 	}
 
 	option = {
-		name = "dionysian_story.1210.option.d"
+		name = "dionysian_story.1210.option.f"
+		TRIGGER = { country_uses_bio_ships = no }
 		allow = {
 			has_resource = { type = menace amount >= 5000 }
 			NAND = {
@@ -784,16 +860,44 @@ country_event = {
 		add_resource = { 
 			menace = -5000
 		}
+
 		add_research_option = tech_cosmogenesis_escort
 		add_research_option = tech_cosmogenesis_battlecruiser
 		add_research_option = tech_cosmogenesis_FE_titan
+
 		ai_chance = {
 		 	factor = 10
 		}
 	}
 
 	option = {
-		name = "dionysian_story.1210.option.e"
+		name = "dionysian_story.1210.option.g"
+		TRIGGER = { country_uses_bio_ships = yes }
+		allow = {
+			has_resource = { type = menace amount >= 5000 }
+			NAND = {
+				has_technology = tech_cosmogenesis_mauler
+				has_technology = tech_cosmogenesis_weaver
+				has_technology = tech_cosmogenesis_harbinger
+				has_technology = tech_cosmogenesis_stinger
+			}
+		}
+		add_resource = { 
+			menace = -5000
+		}
+
+		add_research_option = tech_cosmogenesis_mauler
+		add_research_option = tech_cosmogenesis_weaver
+		add_research_option = tech_cosmogenesis_harbinger
+		add_research_option = tech_cosmogenesis_stinger
+
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1210.option.h"
 		ai_chance = {
 		 	factor = 10
 		}
@@ -1058,4 +1162,192 @@ country_event = {
 		}
 	}
 	
+}
+
+country_event = {
+
+	id = dionysian_story.1230
+	
+	title = "dionysian_story.1230.name"
+	desc = "dionysian_story.1230.desc"
+
+	diplomatic_title = BLANK_STRING
+	diplomatic = yes
+	force_open = yes
+
+	picture_event_data = {
+		portrait = shroud1
+		room = shroud_room
+	}
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+	}
+
+	option = {
+		name = "dionysian_story.1230.option.1"
+		TRIGGER = {
+			has_patron_relation = { patron = the_eater_of_worlds }
+			NOT = { has_covenant = end_of_the_cycle }
+		}
+		custom_tooltip = dionysian_change_aura_tooltip
+		set_attunement = {
+			patron = the_eater_of_worlds
+			value = @max_attunement
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1230.option.2"
+		TRIGGER = {
+			has_patron_relation = { patron = the_cradle_of_souls }
+			NOT = { has_covenant = end_of_the_cycle }
+		}
+		custom_tooltip = dionysian_change_aura_tooltip
+		set_attunement = {
+			patron = the_cradle_of_souls
+			value = @max_attunement
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1230.option.3"
+		TRIGGER = {
+			has_patron_relation = { patron = the_instrument_of_desire }
+			NOT = { has_covenant = end_of_the_cycle }
+		}
+		custom_tooltip = dionysian_change_aura_tooltip
+		set_attunement = {
+			patron = the_instrument_of_desire
+			value = @max_attunement
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1230.option.4"
+		TRIGGER = {
+			has_patron_relation = { patron = the_composer_of_strands }
+			NOT = { has_covenant = end_of_the_cycle }
+		}
+		custom_tooltip = dionysian_change_aura_tooltip
+		set_attunement = {
+			patron = the_composer_of_strands
+			value = @max_attunement
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1230.option.5"
+		TRIGGER = {
+			has_patron_relation = { patron = whisperers_in_the_void }
+			NOT = { has_covenant = end_of_the_cycle }
+		}
+		custom_tooltip = dionysian_change_aura_tooltip
+		set_attunement = {
+			patron = whisperers_in_the_void
+			value = @max_attunement
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1230.option.6"
+		add_resource = { 
+			menace = 250
+		}
+		hidden_effect = { 
+			country_event = { id = dionysian_story.1210 }
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+}
+
+#Overlord Aura
+country_event = {
+
+	id = dionysian_story.1300
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	hide_window = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+		count_unlocked_active_accords = 4
+	}
+	
+	immediate = {
+		country_event = { id = dionysian_story.1310  days = 10 }
+	}
+}
+
+
+
+country_event = {
+
+	id = dionysian_story.1310
+	
+	title = "dionysian_story.1310.name"
+	desc = "dionysian_story.1310.desc"
+	picture = GFX_dionysian_overlord_city
+	show_sound = event_psionic
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_origin = dionysian_origin
+		NOT = { has_covenant = end_of_the_cycle }
+	}
+
+
+	option = {
+		name = "dionysian_story.1310.option.a"
+		custom_tooltip = dionysian_control_end_tooltip
+		hidden_effect = {
+			set_patron_first_contact_state = { patron = dionysian_the_overlord_in_shroud state = in_progress }
+			set_patron_first_contact_state = { patron = dionysian_the_overlord_in_shroud state = completed }
+			set_attunement = {
+				patron = dionysian_the_overlord_in_shroud
+				value = @max_attunement
+			}
+			set_country_flag = dionsyian_allowed_control_end			
+		}
+		add_modifier = {
+			modifier = dionysian_control_end
+			days = -1
+		}
+		ai_chance = {
+		 	factor = 10
+		}
+	}
+
+	option = {
+		name = "dionysian_story.1310.option.b"
+		custom_tooltip = dionysian_control_attunement_tooltip
+		hidden_effect = {
+			set_country_flag = dionsyian_allowed_control_attunement			
+		}
+		ai_chance = {
+		 	factor = 1
+		}
+	}
+
 }

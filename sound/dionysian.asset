@@ -93,3 +93,16 @@ sound =
 	volume = 0.85
 	always_load = yes
 }
+
+
+sound = {
+	name = "dionysian_archon_rise"
+	file = "dionysian/dionysian_archon_rise.wav"
+	volume = 1.0
+}
+
+sound = {
+	name = "message_notification_dionysian_the_overlord_in_shroud"
+	file = "shroud/ui/assets/dem_sfx_alert_end_of_the_cycle.wav"
+	volume = 1.0
+}

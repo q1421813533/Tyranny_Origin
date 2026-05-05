@@ -1,0 +1,51 @@
+@base_agenda_cost = 7000
+@base_agenda_cooldown = 1080
+
+dionysian_lift_residual_edicts = {
+	agenda_cost = @base_agenda_cost
+	agenda_cooldown = @base_agenda_cooldown
+	potential = {
+		has_origin = dionysian_origin
+		check_variable_arithmetic = { which = dionysian_remain_edicts_power  value > 0 }
+	}
+	allow = {
+		always = yes
+	}
+	modifier = {
+		planet_stability_add = -5
+		all_technology_research_speed = -0.05
+	}
+	effect = {
+		custom_tooltip = council_agenda_dionysian_lift_residual_edicts_effect
+		custom_tooltip = dionysian_overlord_down_tooltip
+		hidden_effect = {
+			home_planet = {
+				if = {
+					limit = { has_modifier = dionysian_edict_remain_on_captial }
+					remove_modifier = dionysian_edict_remain_on_captial
+					add_modifier = { modifier = dionysian_edict_remain_on_captial_2 days = -1 }
+				}
+				else_if = {
+					limit = { has_modifier = dionysian_edict_remain_on_captial_2 }
+					remove_modifier = dionysian_edict_remain_on_captial_2
+					add_modifier = { modifier = dionysian_edict_remain_on_captial_3 days = -1 }
+				}
+				else_if = {
+					limit = { has_modifier = dionysian_edict_remain_on_captial_3 }
+					remove_modifier = dionysian_edict_remain_on_captial_3
+					
+				}
+			}
+			ruler = {
+				subtract_variable = {
+					which = dionysian_overlord_reputation_level
+					value = 5
+				}
+			}
+			subtract_variable = {
+				which = dionysian_remain_edicts_power
+				value = 1
+			}
+		}
+	}
+}

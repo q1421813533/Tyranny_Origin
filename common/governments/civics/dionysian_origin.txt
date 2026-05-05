@@ -13,6 +13,8 @@ dionysian_origin = {
 		host_has_dlc = "Galactic Paragons"
 		host_has_dlc = "Astral Planes"
 		host_has_dlc = "The Machine Age"
+		host_has_dlc = "BioGenesis"
+		host_has_dlc = "Shadows of the Shroud"
 	}
 	possible = {
 		authority = { 
@@ -20,6 +22,9 @@ dionysian_origin = {
 				value = auth_dictatorial
 				value = auth_imperial
 			}
+		}
+		civics = {
+			NOT = {	value = civic_chosen }
 		}
 		species_archetype = { NOT = { value = MACHINE } }
 	}
@@ -33,6 +38,7 @@ dionysian_origin = {
 	random_weight = {
 		base = 0
 	}
+	ai_weight = { base = 0 }
 }
 
 dionysian_origin_death = {
@@ -55,4 +61,5 @@ dionysian_origin_death = {
 	random_weight = {
 		base = 0
 	}
+	ai_weight = { base = 0 }
 }

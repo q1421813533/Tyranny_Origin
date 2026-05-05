@@ -24,16 +24,9 @@ leader_trait_dionysian_overlord = {
 		potential = {
 			is_variable_set = dionysian_overlord_reputation_level
 		}
-		country_unity_produces_mult = 0.01
-        planet_stability_add = 0.5
+		country_unity_produces_mult = 0.001
+        planet_stability_add = 0.05
         mult = this.dionysian_overlord_reputation_level
-	}
-
-	triggered_councilor_modifier = {
-		potential = {
-			has_leader_flag = dionysian_overlord_reach_shroud
-		}
-		planet_psionic_jobs_produces_mult = 0.1
 	}
 
 	triggered_councilor_modifier = {
@@ -68,7 +61,7 @@ leader_trait_dionysian_overlord = {
 		potential = {
 			has_leader_flag = dionysian_overlord_own_r_plasmic_core
 		}
-		pop_growth_speed = 0.2
+		logistic_growth_mult = 0.2
 	}
 
 	triggered_councilor_modifier = {
@@ -137,7 +130,8 @@ leader_trait_dionysian_prime_minister = {
 		COUNCIL = yes
 		TIER = none
 	}
-	custom_tooltip_with_modifiers = "trait_imperial_heir_effects"
+	##custom_tooltip_with_modifiers = "trait_imperial_heir_effects"
+
 	triggered_councilor_modifier = {
 		potential = {
 			has_paragon_dlc = yes
@@ -145,6 +139,28 @@ leader_trait_dionysian_prime_minister = {
 		council_agenda_progress_speed = 0.2
 		leader_upkeep_empire_size_mult = -0.1
 	}
+
+	triggered_councilor_modifier = {
+		potential = {
+			leader_class = commander
+		}
+		country_commander_cap_add = 1
+	}
+
+	triggered_councilor_modifier = {
+		potential = {
+			leader_class = scientist
+		}
+		country_scientist_cap_add = 1
+	}
+
+	triggered_councilor_modifier = {
+		potential = {
+			leader_class = official
+		}
+		country_official_cap_add = 1
+	}
+
 	leader_class = { commander scientist official }
 	initial = no
 	randomized = no

@@ -1,0 +1,51 @@
+dionysian_forge_army = {
+	damage = 5.0
+	health = 7.0
+	has_morale = no
+	morale_damage = 2.0
+	war_exhaustion = 5.0
+	time = 500
+	icon = GFX_army_type_psionic
+	has_species = no
+
+	resources = {
+		category = armies
+		cost = {
+			alloys = 250
+		}
+		upkeep = {
+			trigger = {
+				NOR = {
+					AND = { 
+						exists = leader
+						leader = { has_leader_flag = dionysian_is_archon }
+					}
+					AND = {
+						exists = planet
+						exists = planet.leader
+						planet.leader = { has_leader_flag = dionysian_is_archon }
+					}
+					AND = {
+						exists = planet
+						exists = planet.army_leader
+						planet.army_leader = { has_leader_flag = dionysian_is_archon }
+					}
+				}
+			}
+			energy = 5
+		}
+		upkeep = {
+			energy = 5
+		}
+	}
+
+	potential_country = {
+		has_country_flag = dionysian_allow_forge_army
+	}
+
+	potential = {
+		custom_tooltip = {
+			planet = { is_capital = yes }
+		}
+	}
+}
